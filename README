@@ -33,7 +33,7 @@ Application Source Tree
 │   ├── Apache           - Setup and Conf instructions / examples for Apache
 │   ├── Diagnostic_Data  - Validation Data (DSM5 and ICD10)
 │   ├── Postgres         - Scripts to Build The SQLAdvance Database
-│   └── Virtual_Environs - Ready to use venv dirs and requirements files
+│   └── Virtual_Environments - Requirements files for supported Python versions
 ├── log                  - Flat File Logs (User Access)
 ├── photos               - Client / Patient Photos for Face Sheet
 ├── README               - Project Documentation (A Work In Progress) 
@@ -66,18 +66,27 @@ sudo python3 -m venv flask-venv
 Prebuilt Flask Virtual Environments
 For your convenience, prebuilt Flask virtual environments are provided for:
 
-Python 3.08: ./Install/Virtual_Environments/flask-venv-3.08.tar.gz
-Python 3.10: ./Install/Virtual_Environments/flask-venv-3.10.tar.gz
-Python 3.12: ./Install/Virtual_Environments/flask-venv-3.12.tar.gz
+Python 3.08: flask-venv-python-3.08.tgz
+Python 3.10: flask-venv-python-3.10.tgz
+Python 3.12: flask-venv-python-3.12.tgz
 
-To use one:
-tar -xzf ./Install/Virtual_Environments/flask-venv-3.12.tar.gz
+The prebuilt environments are distributed as GitHub Release assets and are not
+stored directly in the Git repository. Download the environment matching your
+Python version from the SQL Advance GitHub Releases page:
+
+https://github.com/Esethral/SQLAdvance/releases
+
+Place the downloaded archive in the SQL Advance project root, then extract it.
+For example:
+
+tar -xzf flask-venv-python-3.12.tgz
+
 This extracts a flask-venv directory into the project root (i.e., alongside app.py).
 
 source flask-venv/bin/activate
 
-These environments include all required packages. You do not need to run 
-pip install -r requirements*.txt 
+These environments include all required packages. You do not need to run
+pip install -r requirements*.txt
 unless you prefer to build your own venv.
 
 The venv requirements files are also found in ./Install/Virtual_Environments
