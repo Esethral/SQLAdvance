@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='clean.css') }}" />
+<meta charset="UTF-8" />
+<title>SQL Advance - Inpatient Records</title>
+</head>
+  <body>
+
+      <p align="center"><b>Update An Inpatient Record for</b> {{ client.fname }} {{ client.lname }} </p>
+
+      <form action="#" method="post">
+
+      <table>
+      <tr>
+          <td>Reporting&nbsp;Unit:</td>
+          <td>
+          <select name="unit_lname">
+              <option value="{{records.unit_id}} -- {{ records.unit_lname }}" selected>{{ records.unit_id}} -- {{ records.unit_lname }}</option>
+          {% for unit in units %}
+              <option value="{{unit.unit_id}} -- {{ unit.unit_lname }}">{{unit.unit_id}} -- {{ unit.unit_lname }}</option>
+          {% endfor %}
+          </select>
+          </td>
+      </tr>
+
+      <tr>
+          <td><label for="start_date">Inpatient Admission:</label></td>
+          <td><input type="date" name="start_date" value="{{ records.start_date }}"  required /></td>
+      </tr>
+
+      <tr>
+          <td><label for="end_date">Discharge (If Applicable):</label></td>
+          <td><input type="date" name="end_date" value="{{ records.end_date }}" /></td>
+      </tr>
+
+      <tr>
+          <td><label for="hospital">Hospital Name: </label></td>
+          <td><input type="text" name="hospital" value="{{ records.hospital }}" size="40" maxlength="255" /></td>
+      </tr>
+
+      <tr>
+          <td><label for="address">Hospital Address:</label></td>
+          <td><input type="text" name="address" value="{{ records.address }}" size="40" maxlength="255" /></td>
+      </tr>
+
+      <tr>
+          <td>State Hospital: </td> 
+          <td>
+          <label>
+              <input type="radio" name="state_hospital" value="No"
+              {% if records.state_hospital == "No" %}checked{% endif %}>No
+          </label>
+          <label>
+              <input type="radio" name="state_hospital" value="Yes"
+              {% if records.state_hospital == "Yes" %}checked{% endif %}>Yes
+          </label>
+          </td>
+      </tr> 
+
+      <tr>
+          <td>Hospital Type: </td> 
+          <td><select name="hospital_type">
+              <option value="{{ records.hospital_type }}" selected>{{ records.hospital_type }}</option>
+              <option value="Medical">Medical</option>
+              <option value="Psychiatric">Psychiatric</option>
+              <option value="Other">Other</option>
+              </select>
+          </td>
+      </tr>
+
+      <tr>
+          <td>Staff Name: </td> <td><input type="text" name="staff_member" value="{{ records.staff_member }}" size="40" maxlength="255">
+          </td>
+      </tr> 
+
+      <tr>
+          <td>Staff Shift: </td> 
+          <td><input type="text" name="staff_shift" value="{{ records.staff_shift }}" size="20" maxlength="255"></td>
+      </tr> 
+         
+      <tr> 
+          <td>Time Of Day: </td> 
+          <td><input type="text" name="staff_time" value="{{ records.staff_time }}" size="10" maxlength="8"></td>
+      </tr>
+
+      <tr><td valign="top">Specific&nbsp;Complaint:</td>
+      <td>
+      <select name="complaint" size="8">
+          {% if records.complaint %}
+              <option value="{{ records.complaint }}" selected>{{ records.complaint }}</option>
+          {% endif %}
+
+          {% set all_options = [
+              "Abdominal Pain", "Agitation", "Alcohol Intoxication", "Allergic Reaction",
+              "Anxiety", "Asthma", "Back Pain", "Bizarre Behavior", "Breathing Issue",
+              "Cellulitis", "Chronic Obstructive Pulmonary Disease (COPD)", "Chest Pain",
+              "Coronary Artery Disease (CAD)", "Congestive Heart Failure (CHF)", "Congestion ",
+              "Cough", "Depression", "Diabetic ulcer ", "Dizziness", "Ear Infection",
+              "Emphysema", "Evaluation", "Fainting", "Fall", "Fever", "Flu", "Fracture ",
+              "Gastrointestinal Illness", "Glucose Levels ", "Gout ", "Hallucination",
+              "Headache", "Homicidal Ideation", "Infection", "Irritable Bowel Syndrome (IBS)",
+              "K2", "Medication Error", "Nausea", "Pneumonia ", "Rash", "Rectal Bleeding",
+              "Respiratory Failure", "Seizure", "Sickle Cell ", "Sore Throat", "Stomach Pain",
+              "Substance Abuse Relapse", "Suicidal Ideation", "Unconscious",
+              "Upper Respiratory Infection", "Urinary Tract Infection (UTI)", "Vomiting",
+              "Weakness", "Wound", "Other"
+          ] %}
+
+          {% for complaint in all_options %}
+              {% if complaint != records.complaint %}
+                  <option value="{{ complaint }}">{{ complaint }}</option>
+              {% endif %}
+          {% endfor %}
+      </select>
+      </td></tr>
+
+      <tr>
+         <td>Reason For Visit (Detail): </td> 
+         <td><input type="text" name="visit_reason" value="{{ records.visit_reason }}" size="40" maxlength="255"></td>
+      </tr> 
+
+      <tr>
+          <td>EOB Visit:</td>
+          <td>
+          <select name="eob">
+              <option value="{{ records.eob }}" selected>{{ records.eob }}</option>
+              <option value=""></option>
+              <option value="No">No</option>
+              <option value="Yes">Yes</option>
+          </select>
+          </td>
+      </tr>
+
+      <tr>
+          <td>Admission / Visit Type:</td>
+          <td>
+          <select name="voluntary">
+              <option value="{{ records.voluntary }}" selected>{{ records.voluntary }}</option>
+              <option value=""></option>
+              <option value="Voluntary">Voluntary</option>
+              <option value="Non-Voluntary">Non-Voluntary</option>
+          </select>
+          </td>
+      </tr>
+
+      <tr>
+          <td>Escort Type:  </td> 
+          <td>
+              <select name="escort_type">
+              <option value="{{ records.escort_type }}" selected>{{ records.escort_type }}</option>
+              <option value=""></option>
+              <option value="EMT">EMT</option>
+              <option value="Police">Police</option>
+              <option value="Self">Self</option>
+              <option value="Staff">Staff</option>
+              </select>
+          </td>
+      </tr> 
+
+      <tr>
+          <td>Transportation Type:  </td> 
+          <td><select name="transport_type">
+              <option value="{{ records.transport_type }}" selected>{{ records.transport_type }}</option>
+              <option value=""></option>
+              <option value="Agency Vehicle">Agency Vehicle</option>
+              <option value="Ambulance">Ambulance</option>
+              <option value="Ambulette">Ambulette</option>
+              <option value="Police Vehicle">Police Vehicle</option>
+              <option value="Public Transportion">Public Transportion</option>
+              <option value="Staff/Agency Vehicle">Staff/Agency Vehicle</option>
+              </select>
+          </td>
+      </tr> 
+       
+      <tr>
+          <td>Client Age At Time Of Visit: </td> 
+          <td><input type="text" name="age" value="{{ records.age }}" size="10" maxlength="24"></td>
+      </tr> 
+
+      <tr>
+          <td>Client Sex: </td> 
+          <td><input type="text" name="sex" value="{{ records.sex }}" size="10" maxlength="24"></td>
+      </tr> 
+
+      <tr>
+          <td>Diagnosis: </td> 
+          <td><input type="text" name="diagnosis" value="{{ records.diagnosis }}" size="67" maxlength="255"></td>
+      </tr> 
+
+      <tr>
+          <td>Outcome (If Applicable): </td> 
+          <td><input type="text" name="outcome" value="{{ records.outcome }}" size="50" maxlength="255"></td>
+      </tr> 
+
+      <tr>
+          <td>Comments: </td> 
+          <td><textarea name="comment_text" rows="15" cols="50">{{ records.comment_text }}</textarea></td>
+      </tr>
+
+      <tr><td><input type="hidden" name="staff_name" value="{{ fullname }}" /></td></tr>
+      <tr><td><input type="hidden" name="client_id" value="{{ records.client_id }}" /></td></tr>
+      <tr><td><input type="hidden" name="rec_id" value="{{ records.rec_id }}" /></td></tr>
+      <tr><td align="center" colspan="2"><button type="submit" name="action" value="update">Submit</button></td></tr>
+
+      </table>
+      </form>
+
+      {% include '_footer.html' %}
+
+  </body>
+</html>
+

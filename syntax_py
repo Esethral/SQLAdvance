@@ -1,0 +1,22 @@
+#!/bin/bash
+clear 
+
+# py_compile: syntax errors (missing colons, bad indentation, etc.).
+python3 -m py_compile app.py
+python3 -m py_compile auth.py
+python3 -m py_compile advance_helpers.py
+python3 -m py_compile advance_models.py
+
+# pyflakes3: unused imports, undefined names, unused variables, and similar issues. 
+pyflakes3 app.py              > syntax.out  
+pyflakes3 auth.py             >> syntax.out  
+pyflakes3 advance_helpers.py  >> syntax.out  
+pyflakes3 advance_models.py   >> syntax.out  
+
+if [ -s syntax.out ]; then
+    cat syntax.out
+else
+    echo "No syntax or pyflakes warnings."
+fi
+
+read -p "Press ENTER to Continue..."

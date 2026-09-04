@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style>table {font-size: 14px; align: center; background-color: #ffffff; } 
+           th { font-size:14px; background-color: #ffffff; } 
+           td { font-size:14px; background-color: #ffffff; }
+    </style>
+    <meta charset="UTF-8" />
+    <title>SQL Advance - Add User</title>
+  </head>
+  <body>
+
+      <p align="center">
+      <img src="{{url_for('static',filename='sqlx.jpg')}}">
+      </p>
+		
+      <p align="center"><b>SQL Advance - Add User</b></p>
+      <hr align="center" width="20%">
+      <p align="center"><b>Current Users:</b></p>
+
+      <table style="border: 1px solid black; border-collapse: collapse; width:450px; margin-left: auto; margin-right: auto;">
+      <thead>
+      <tr>
+      <th>User ID</th>
+      <th>Login</th>
+      <th>Name</th>
+      <th>Email</th>
+      </tr>
+      </thead>
+         
+      <tbody>
+      {% for user in users %}
+      <tr style="border: 1px solid black; border-collapse: collapse;" >
+      <td style="border: 1px solid black; border-collapse: collapse;">{{ user.user_id}}</td>
+      <td style="border: 1px solid black; border-collapse: collapse;">{{ user.username }}</td>
+      <td style="border: 1px solid black; border-collapse: collapse;">{{ user.fullname }}</td>
+      <td style="border: 1px solid black; border-collapse: collapse;">{{ user.email}}</td>
+      </tr>
+      {% endfor %}
+      </tbody>
+      </table>
+
+      <p />
+
+      <form action="#" method="post">
+      <table align="center">
+      <thead><tr><th align="center" colspan="2">Enter New User Data:</th></tr></thead>
+      <tr><td><br /></td></tr>
+
+      <tr>
+      <td><label for="username">Username:</label></td>
+      <td><input type="text" name="username" /></td>
+      </tr>
+
+      <tr>
+      <td><label for="fullname">Full Name:</label></td>
+      <td><input type="text" name="fullname" /></td>
+      </tr>
+
+      <tr>
+      <td><label for="password">Password:</label></td>
+      <td><input type="password" name="password" /></td>
+      </tr>
+
+      <tr>
+      <td><label for="email">Email:</label></td>
+      <td><input type="email" name="email" /></td>
+      </tr>
+
+      <tr>
+      <td><label for="track">Select Track:</label></td>
+      <td><select name="track" id="track">
+      <option value="housing">Housing</option>
+      <option value="multi">Multi</option>
+      <option value="restrict">Restrict</option>
+      </select></td> 
+      </tr>
+
+      <tr>
+      <td><label for="track">Trusted User:</label></td>
+      <td><select name="trust" id="trust">
+      <option value="t">True</option>
+      <option value="f">False</option>
+      </select></td> 
+      </tr>
+
+      <tr><td><br /></td></tr>
+      <tr>
+      <td align="center" colspan="2"><button type="submit">Submit</button></td>
+      </tr>
+      </table>
+
+      {% include '_footer.html' %}
+
+      </form>
+  </body>
+</html>
+

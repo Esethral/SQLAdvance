@@ -1,0 +1,17 @@
+#!/bin/bash
+clear
+
+DB_PASSWORD=$(PYTHONPATH=/opt/flask-app python3 -c 'from config.database import DB_PASSWORD; print(DB_PASSWORD)')
+export PGPASSWORD="$DB_PASSWORD"
+
+echo "Dumping Full Python-Flask Database..."
+pg_dump -U www-data --column-inserts flask | sudo tee ./Postgres/database.df > /dev/null
+pg_dump -U www-data --schema-only    flask | sudo tee ./Postgres/database_schema.sql > /dev/null
+pg_dump -U www-data -a               flask | sudo tee ./Postgres/database_data.sql > /dev/null
+
+read -p "Press ENTER to Continue..." x
+
+echo "Creating SQLAdvance Archive..."
+sudo tar cvpfzX $HOME/SQLAdvance-1.0.1-beta.tar.gz /opt/flask-app/Install/backup_exclude /opt/flask-app >/dev/null
+
+unset PGPASSWORD

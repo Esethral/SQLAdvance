@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+    <style>table {font-size: 14px; align: center; background-color: #ffffff; } 
+           th { font-size:14px; background-color: #ffffff; } 
+           td { font-size:14px; background-color: #ffffff; }
+           a { font-size: 14px; color: #000000; text-decoration: none; }
+           a:visited { color: #000000;  }
+           a:active { color: #000000; }
+           a:hover { color: #000000; text-decoration: none; }
+    </style>
+    <meta charset="UTF-8" />
+    <title>SQL Advance</title>
+  </head>
+  <body>
+      <p align="center">
+      <img src="{{url_for('static',filename='sqlx.jpg')}}">
+      </p>
+      <table align="center" style="border: none;">
+      <tr><td align="center" style="border: none;" colspan="2">Welcome To <b>SQL Advance</b> {{ fullname }}</td></tr>
+      <tr><td align="center" style="border: none;" colspan="2">You have {{ email }} <b>New Message(s)</b> and {{ seen }} Old Message(s) in your <a href = "{{ url_for('admin.message') }}">Inbox</a></td></tr>
+      </table>
+      </p>
+
+      {% if logins %}
+
+      <center><h4>Logged In Now:</h4></center>
+
+      <table align="center">
+      <thead>
+      <tr>
+      <th>User</th>
+      <th>Login Time</th>
+      <th>Full Name</th>
+      <th>Email</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      {% for login in logins %}
+      <tr>
+      <td>{{ login.username }}</td>
+      <td>{{ login.logtime.strftime("%Y-%m-%d %H:%M") }}</td>
+      <td>{{ login.fullname }}</td>
+      <td>{{ login.email }}</td>
+      </tr>
+      {% endfor %}
+      </tbody>
+      </table>
+
+      {% endif %}
+
+      {% include '_footer.html' %}
+
+  </body>
+</html>
+

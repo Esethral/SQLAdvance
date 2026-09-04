@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang = "en">
+   <head>
+   <link rel="stylesheet" href="{{ url_for('static', filename='bare.css') }}">
+   </head>
+   <body>
+      
+      <div> 
+
+      <!-- h4>SQLAdvance</h4 -->
+      {% include '_header.html' %}
+      <h4>Progress Note Report</h4>
+		
+      <table align="center">
+
+      <thead>
+      <tr>
+      <th><u>Client Name</u></th>
+      <th><u>Note Date</u></th>
+      <th><u>Core Services</u></th>
+      </tr>
+      </thead>
+      
+      <tbody>
+
+      {% for core in cores %}
+            <tr>
+            <td align="left">{{ core.client }}</td>
+            <td align="left">{{ core.notedate }}</td>
+            <td align="left">{{ core.goal }}</td>
+            </tr>
+            <tr><td align="left" colspan="3"><hr style="height: 1px; margin: 1px;"></td></tr>
+      {% endfor %}
+
+      </tbody>
+
+      <tr><td align="left" colspan="3">&nbsp;</td></tr>
+
+      <thead>
+      <tr>
+      <th><u>Client Name</u></th>
+      <th><u>Note Date</u></th>
+      <th><u>Note Type</u></th>
+      </tr>
+      </thead>
+      
+      <tbody>
+
+      {% for row in notes %}
+            <tr>
+            <td align="left">{{ row.client }}</td>
+            <td align="left">{{ row.notedate }}</td>
+            <td align="left">{{ row.goal }}</td>
+            </tr>
+            <tr><td align="left" colspan="3"><hr style="height: 1px; margin: 1px;"></td></tr>
+      {% endfor %}
+
+      </tbody>
+
+      </table>
+
+      {% include '_footer.html' %}
+
+      </div> 
+      
+   </body>
+</html>

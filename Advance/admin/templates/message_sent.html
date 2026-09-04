@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bare.css') }}" />
+    <style>table {font-size: 14px; align: center; } 
+           th { font-size:14px; } 
+           td { font-size:14px; background-color: #ffffff; }
+           a { font-size: 14px; color: #000000; text-decoration: none; }
+           a:visited { color: #000000;  }
+           a:active { color: #000000; }
+           a:hover { color: #000000; text-decoration: none; }
+    </style>
+    <meta charset="UTF-8" />
+    <title>SQL Advance</title>
+  </head>
+  <body>
+      <p align="center">
+      <img src="{{url_for('static',filename='sqlx.jpg')}}">
+      </p>
+      <p align="center">SQL Advance - Administrative Menu</p>
+
+      <p align="center"><font color="blue"><b>Message Sent!</b></font></p>
+
+    <p align="center">
+    <div id="menu">
+    <table style="border: 0px solid black; border-collapse: collapse; width:484px; margin-left: auto; margin-right: auto;">
+    <tr><td>
+    <center>
+            <table>
+            <tr><th><b><u>Communications</b></th></tr>
+            <tr><td><b><a href="/admin/message">My Messages</a></b></td></tr>
+            <tr><td><b><a href="/admin/logview">Unit Log - Viewer</a></b></td></tr>
+            <tr><td><b><a href="/admin/unitlog">Unit Log - Enter Note</a></b></td></tr>
+            <tr><th><b><u>User Accounts</b></th></tr>
+            <tr><td><b><a href="/userlist">User List</a></b></td></tr>
+            <tr><td><b><a href="/admin/useradd">Add A User (Restricted)</a></b></td></tr>
+            <tr><td><b><a href="/admin/usermod">Update A User (Restricted)</a></b></td></tr>
+            <tr><td><b><a href="/admin/userpass">Reset User Password (Restricted)</a></b></td></tr>
+            <tr><td><b><a href = "{{ url_for('auth.index') }}">Main Menu</a></b></td></tr>
+            </table>
+    </center>
+    </td></tr>
+    </table>
+    </p>
+    </div>
+
+    <p align="center" class="no-print"><a href="{{ url_for('admin.message') }}">Return to My Messages</a><br /><br /></p>
+
+    {% include '_footer.html' %}
+
+  </body>
+</html>

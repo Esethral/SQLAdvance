@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bare.css') }}" />
+    <style>table {font-size: 14px; align: center; } 
+           th { font-size:14px; } 
+           td { font-size:14px; background-color: #ffffff; }
+           a { font-size: 14px; color: #000000; text-decoration: none; }
+           a:visited { color: #000000;  }
+           a:active { color: #000000; }
+           a:hover { color: #000000; text-decoration: none; }
+    </style>
+    <meta charset="UTF-8" />
+    <title>SQL Advance</title>
+  </head>
+  <body>
+      <p align="center">
+      <img src="{{url_for('static',filename='sqlx.jpg')}}">
+      </p>
+      <p align="center">SQL Advance - Administrative Menu</p>
+
+      {% if error %}
+          <p align="center"><font color="red"><b> {{ error }} </b></font></p>
+      {% endif %}
+
+    <p align="center">
+    <div id="menu">
+    <table style="border: 0px solid black; border-collapse: collapse; width:484px; margin-left: auto; margin-right: auto;">
+    <tr><td>
+    <center>
+            <table>
+            <tr><th><b><u>Help Menu</b></th></tr>
+            <tr><td><b><a href="/admin/support">Submit A Tech Support Request</a></b></td></tr>
+            <tr><td><b><a href="/admin/support_update">Update A Tech Support Request</a></b></td></tr>
+            <tr><td><b><a href="/admin/support_view">View Tech Support Requests (List)</a></b></td></tr>
+            <tr><td><b><a href="/admin/support_print">View A Tech Support Request</a></b></td></tr>
+            <tr><td><br /></td></tr>
+            <tr><td><b><a href="/admin/message">My Messages (Inbox)</a></b></td></tr>
+            <tr><td><br /></td></tr>
+            <tr><th><b><u>Maintenance Requests</u></b></th></tr>
+            <tr><td><b><a href="/admin/maintenance">Submit A Maintenance Request</a></b></td></tr>
+            <tr><td><b><a href="/admin/maintenance_update">Update A Maintenance Request</a></b></td></tr>
+            <tr><td><b><a href="/admin/maintenance_view">View Maintenance Requests (List)</a></b></td></tr>
+            <tr><td><b><a href="/admin/maintenance_print">View A Maintenance Request</a></b></td></tr>
+            <tr><td><br /></td></tr>
+            <tr><th><b><u>Unit Logs</u></b></th></tr>
+            <tr><td><b><a href="/admin/unitlog">Unit Log - Enter Note</a></b></td></tr>
+            <tr><td><b><a href="/admin/unitlog_update">Unit Log - Update Note</a></b></td></tr>
+            <tr><td><b><a href="/admin/unitlog_view">Unit Log - Viewer</a></b></td></tr>
+            <tr><td><br /></td></tr>
+            </table>
+    </center>
+    </td></tr>
+    </table>
+    </p>
+    </div>
+
+    {% include '_footer.html' %}
+   
+  </body>
+</html>

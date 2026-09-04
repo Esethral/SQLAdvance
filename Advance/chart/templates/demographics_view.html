@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bare.css') }}" />
+<style>table {font-size: 14px; align: center; background-color: #ffffff; } 
+th { font-size:14px; background-color: #ffffff; } 
+td { font-size:14px; background-color: #ffffff; }
+</style>
+<title>SQL Advance - Client Demographics</title>
+</head>
+
+  <body>
+
+      {% include '_header.html' %}
+
+      <table style="width:800px; margin-left: auto; margin-right: auto;">
+      <tr >
+      <td colspan="2" ><hr width="99%"/></td>
+      </tr>
+      </table>
+
+      {% for result in results %}
+
+      <table style="width:800px; margin-left: auto; margin-right: auto;">
+      <tr><td colspan="4">
+          <b>Reporting Unit:</b> {{ result.unit_lname }} &nbsp;&nbsp;&nbsp;&nbsp;
+          <b>Entered By:</b> {{ result.staff_name }} &nbsp;&nbsp;&nbsp;&nbsp;
+          <b>On:</b> {{ result.time_insert.strftime('%Y-%m-%d') }} &nbsp;&nbsp;&nbsp;&nbsp;
+          <b>Record ID:</b> {{ result.rec_id }}
+      </td></tr>
+
+      <tr><td><br /></td></tr>
+      <tr><td align="center" colspan="4" style="border: none;"><b>Identifying Data</b></td></tr>
+      <tr><td><br /></td></tr>
+      <tr>
+          <td align="left"><b>Client Name: </b> {{ client.fname }} {{ client.lname }}</td>
+          <td align="left"><b>DOB: </b> {{ client.dob }}</td>
+          <td align="left"><b>Alias(es):</b> {{ result.alias }}</td>
+          <td align="left"><b>Allergies:</b> {{ result.allergy }}</td>
+      </tr>
+      <tr><td><br /></td></tr>
+      <tr>
+          <td align="left"><b>Address:</b> {{ result.address }}</td><td align="left"><b>Apartment:</b> {{ result.apartment }}</td>
+          <td align="left"><b>City:</b> {{ result.city }}</td><td align="left"><b>State:</b> {{ result.state }}</td>
+      </tr>
+      <tr>
+          <td align="left"><b>Postal Code:</b> {{ result.post_code }}</td>
+          <td align="left"><b>Phone: </b> {{ result.phone }}</td><td align="left"><b>Mobile Phone: </b> {{ result.phone_mobile }}</td>
+          <td align="left"><b>Other Phone:</b> {{ result.phone_other }}</td>
+      </tr>
+      <tr><td><br /></td></tr>
+      <tr>
+          <td align="left"><b>Sex Assigned At Birth: </b> {{ result.sex_birth }} </td>
+          <td align="left"><b>Gender Identity: </b> {{ result.sex_gender }} </td>
+          <td align="left"><b>Sexual Orientation: </b> {{ result.sex_orientation }} </td>
+      </tr>
+      <tr><td><br /></td></tr>
+      <tr>
+          <td align="left"><b>Race: </b> {{ result.race }} </td>
+          <td align="left" colspan="2"><b>If African-American: </b> {{ result.race_detail }} </td>
+      </tr>
+          <td>&nbsp;</td><td align="left" colspan="2"><b>If Asian: </b> {{ result.asian_detail }} </td>
+      </tr>
+      <tr>
+          <td>&nbsp;</td><td align="left" colspan="2"><b>If Pacific Islander: </b> {{ result.pacific_detail }} </td>
+      </tr>
+      <tr><td><br /></td></tr>
+      <tr>
+          <td align="left"><b>Ethnicity: </b> {{ result.ethnicity }} </td>
+          <td align="left" colspan="2"><b>If Hispanic/Latino: </b> {{ result.ethnicity_detail }} </td>
+      </tr>
+      <tr>
+          <td align="left"><b>Place of Birth: </b> {{ result.place_of_birth }} </td>
+          <td align="left"><b>Preferred Language: </b> {{ result.language_spoken }} </td>
+          <td align="left"><b>Religion: </b> {{ result.religion }} </td>
+      </tr>
+      <tr>
+          <td align="left"><b>US Citizen: </b> {{ result.citizen }} </td>
+          <td align="left"><b>US Veteran: </b> {{ result.veteran }} </td>
+      </tr>
+      <tr><td><br /></td></tr>
+      <tr>
+          <td align="left"><b>Marital Status: </b> {{ result.marital_status }} </td>
+          <td align="left"><b>Parental Status: </b> {{ result.parental_status }} </td>
+          <td align="left" colspan="2"><b>Household Composition: </b> {{ result.household }} </td>
+      </tr>
+
+      <tr ><td colspan="4"><hr width="99%"/></td>
+      </tr>
+      </table>
+
+      {% endfor %}
+
+      <p align="center"><a href="{{ url_for('chart.demographics') }}"><center><h4>Enter Client Demographic Data</h4></center></a></p>
+
+      {% include '_footer.html' %}
+
+  </body>
+</html>
+

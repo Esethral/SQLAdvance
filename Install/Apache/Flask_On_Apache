@@ -1,0 +1,64 @@
+1) sudo apt install libapache2-mod-wsgi-py3
+
+2)  /opt/flask-app/flask-app.wsgi:
+    import sys
+    sys.path.insert(0, '/opt/flask-app')
+    from app import app as application
+
+
+3) /etc/apache2/sites-available/flask.conf that uses SSL:
+
+<VirtualHost _default_:443>
+    ServerName flask.hostname.org
+    DocumentRoot /opt/flask-app/
+
+    WSGIDaemonProcess app user=www-data group=www-data threads=5 python-home=/opt/flask-app/flask-venv
+    WSGIScriptAlias / /opt/flask-app/flask-app.wsgi
+    WSGIPassAuthorization On
+
+    ErrorLog ${APACHE_LOG_DIR}/flask-error.log
+    CustomLog ${APACHE_LOG_DIR}/flask-access.log combined
+
+    SSLEngine on
+    
+    # Default certs for private networks, certbot can create certs for public facing systems:
+    SSLCertificateFile /etc/ssl/certs/ssl-cert-snakeoil.pem
+    SSLCertificateKeyFile /etc/ssl/private/ssl-cert-snakeoil.key
+
+    <Directory /opt/flask-app>
+        WSGIProcessGroup app
+        WSGIApplicationGroup %{GLOBAL}
+        Order deny,allow
+        Require all granted
+    </Directory>
+
+    <Location />
+        AuthType Basic
+        AuthName "SQL Advance"
+        AuthUserFile /opt/flask-app/.htpasswd
+        Require valid-user
+    </Location>
+
+</VirtualHost>
+
+4) Fire it up:
+
+ sudo a2ensite flask.conf
+ sudo a2enmod ssl
+ sudo a2enmod wsgi
+ sudo a2dissite default-ssl.conf
+ sudo a2enmod alias
+ sudo a2enmod rewrite
+ sudo systemctl restart apache2
+
+5) unpack Python-Flask.tgz into /opt/flask, use venv from Setup/Packages.
+
+6) edit /etc/postgresql/14 - or - 16/main/pg_hba.conf:
+
+local   all             postgres                                peer
+local   all             all                                     trust
+host    all             all             127.0.0.1/32            scram-sha-256
+host    all             all             ::1/128                 scram-sha-256
+local   replication     all                                     trust
+host    replication     all             127.0.0.1/32            scram-sha-256
+host    replication     all             ::1/128                 scram-sha-256

@@ -1,0 +1,324 @@
+SQL Advance - README
+--------------------
+
+The SQL Advance Flask app requires the following items:
+
+1) A Python virtual environment (venv) with the requisite packages installed.
+2) Apache2 running the WSGI web server, configured for Flask and htaccess.
+3) A PostgreSQL database - the default is called flask. If it is changed the
+/opt/flask-app/app.py must be modified.
+4) The SQL Advance files (this package).
+
+::::::::::::::
+Application Source Tree
+::::::::::::::
+
+├── Advance              - SQLAdvance Application Components 
+│   ├── admin            - Administrative Routes, Models, Helpers and Templates
+│   ├── chart            - Clinical Chart Routes, Models, Helpers and Templates
+│   ├── extensions.py    - Python Module that Imports the Database and Login Manager
+│   ├── reports          - Reporting Routes, Models, Helpers and Templates
+│   ├── services.py      - Helper File for Internal / External Email Alerts
+│   ├── setup            - DBA Utilities: Routes, Models, Helpers and Templates
+│   └── templates        - Top Level Application Templates 
+├── advance_helpers.py   - Top Level Helper Files (subroutines)
+├── advance_models.py    - Top Level Class Definitions ("models")
+├── app.py               - Application Factory and Blueprint Registry
+├── auth.py              - User Authentication
+├── config               - Flask Application Configuration
+│   ├── database.py      - Database Password (Consider Moving Outside of the Application)
+├── flask-app.wsgi       - Production Entry Point (connects Apache to the App)
+├── flask-venv           - Python Virtual Environment
+├── Install              - Start Here 
+│   ├── Apache           - Setup and Conf instructions / examples for Apache
+│   ├── Diagnostic_Data  - Validation Data (DSM5 and ICD10)
+│   ├── Postgres         - Scripts to Build The SQLAdvance Database
+│   └── Virtual_Environs - Ready to use venv dirs and requirements files
+├── log                  - Flat File Logs (User Access)
+├── photos               - Client / Patient Photos for Face Sheet
+├── README               - Project Documentation (A Work In Progress) 
+├── restart-flask        - Shell Script to Restart Apache/WSGI (Flask)
+├── static               - Top Level CSS and Image Files
+├── templates            - Top Level Templates and Includes
+├── utils                - Psycopg2 Database Utilities
+├── ver                  - Shell Script: OS, Postgres and Python Version Strings
+└── www-data             - Shell Script to Set Permissions
+
+::::::::::::::
+Python3 Setup
+::::::::::::::
+
+To use Flask with Apache, install the WSGI module:
+sudo apt install libapache2-mod-wsgi-py3
+
+To set up the Python virtual environment, install pip and the venv module:
+sudo apt install python3-pip
+sudo apt install python3.*-venv
+The wildcard (*) allows flexibility across different Python 3 versions and avoids version mismatch issues.
+
+Next, create a repository for your Flask project:
+sudo mkdir /opt/flask-app
+cd /opt/flask-app
+
+Initialize a new virtual environment:
+sudo python3 -m venv flask-venv
+
+Prebuilt Flask Virtual Environments
+For your convenience, prebuilt Flask virtual environments are provided for:
+
+Python 3.08: ./Install/Virtual_Environments/flask-venv-3.08.tar.gz
+Python 3.10: ./Install/Virtual_Environments/flask-venv-3.10.tar.gz
+Python 3.12: ./Install/Virtual_Environments/flask-venv-3.12.tar.gz
+
+To use one:
+tar -xzf ./Install/Virtual_Environments/flask-venv-3.12.tar.gz
+This extracts a flask-venv directory into the project root (i.e., alongside app.py).
+
+source flask-venv/bin/activate
+
+These environments include all required packages. You do not need to run 
+pip install -r requirements*.txt 
+unless you prefer to build your own venv.
+
+The venv requirements files are also found in ./Install/Virtual_Environments
+Python 3.08: ./Install/Virtual_Environments/requirements-3.08.txt
+Python 3.10: ./Install/Virtual_Environments/requirements-3.10.txt
+Python 3.12: ./Install/Virtual_Environments/requirements-3.12.txt
+
+Note: The version strings ("pins") in the requirements*.txt for SQL Advance have 
+been intentionally trimmed to avoid version mismatch errors across Python versions.
+
+Required Python Packages
+
+The dependencies for SQL Advance include:
+
+     blinker
+     cachetools
+     chardet
+     click
+     colorama
+     distlib
+     filelock
+     Flask
+     Flask-Login
+     Flask-SQLAlchemy
+     greenlet
+     itsdangerous
+     Jinja2
+     MarkupSafe
+     packaging
+     passlib
+     platformdirs
+     pluggy
+     psycopg2-binary
+     PyJWT
+     pyproject-api
+     SQLAlchemy
+     tomli
+     tox
+     typing_extensions
+     virtualenv
+     Werkzeug
+
+If you've activated your virtual environment (with source flask-venv/bin/activate):
+(flask-venv) root@legend:/opt/flask-app# pip install -r /path/to/requirements*.txt
+
+To capture your exact working set of installed packages:
+(flask-venv) root@legend:/opt/flask-app# pip freeze > /path/to/requirements-backup.txt
+
+Use Ctrl+D or type deactivate to exit the virtual environment.
+
+You may wish to back up the working venv:
+
+sudo chown -R www-data:www-data /opt/flask-app
+cd /opt/flask-app
+sudo tar czf flask-venv-backup.tgz flask-venv
+
+This will create a compressed archive flask-venv-backup.tgz containing your working environment.
+
+An optional package is python3-flake8 (sudo apt install python3-flake8) which can be run against
+a python file for basic syntax checking.
+
+::::::::::::::
+Apache2 Setup
+::::::::::::::
+
+Essential Modifications for Flask:
+
+*** For Flask to run on Apache it is necessary to create a site and then enable it. ***
+
+Here is a functional /etc/apache2/sites-available/flask.conf that uses SSL. 
+NOTE: the final stanza enables Apache htaccess. Comment it out or delete it if you
+don't need a site password.
+
+<VirtualHost _default_:443>
+
+    ServerName flask.hostname.org
+    DocumentRoot /opt/flask-app/
+
+    WSGIDaemonProcess app user=www-data group=www-data threads=5 python-home=/opt/flask-app/flask-venv
+    WSGIScriptAlias / /opt/flask-app/flask-app.wsgi
+    WSGIPassAuthorization On
+
+    ErrorLog ${APACHE_LOG_DIR}/flask-error.log
+    CustomLog ${APACHE_LOG_DIR}/flask-access.log combined
+
+    SSLEngine on
+    
+    # Default certs for private networks, certbot can create certs for public facing systems:
+    SSLCertificateFile /etc/ssl/certs/ssl-cert-snakeoil.pem
+    SSLCertificateKeyFile /etc/ssl/private/ssl-cert-snakeoil.key
+
+    <Directory /opt/flask-app>
+        WSGIProcessGroup app
+        WSGIApplicationGroup %{GLOBAL}
+        Order deny,allow
+        Require all granted
+    </Directory>
+
+    <Location />
+        AuthType Basic
+        AuthName "SQL Advance"
+        AuthUserFile /opt/flask-app/.htpasswd
+        Require valid-user
+    </Location>
+
+</VirtualHost>
+
+*** End of /etc/apache2/sites-available/flask.conf ***
+
+To activate the flask.conf run:
+
+    $ sudo a2ensite flask.conf
+
+This creates a symlink in /etc/apache2/sites-enabled pointing to the file you created.
+
+Enable the necessary modules:
+
+    $ sudo a2enmod ssl
+    $ sudo a2enmod wsgi
+
+Note: enabling mod_ssl will auto-link the default-ssl.conf file, which may conflict with other configurations (e.g. legacy Perl CGI). You may disable it via:
+
+    $ sudo a2dissite default-ssl.conf
+
+Optional but sometimes helpful:
+
+    $ sudo a2enmod alias
+    $ sudo a2enmod rewrite
+
+Now create or edit the /opt/flask-app/flask-app.wsgi file if the stock file has incorrect paths:
+
+    import sys
+    sys.path.insert(0, '/opt/flask-app')
+
+    from app import app as application
+
+Restart Apache after making changes:
+
+    $ sudo systemctl restart apache2
+
+::::::::::::::
+PostgreSQL Setup
+::::::::::::::
+
+1) setup the Pg Host Based Authentication file.
+Sample /etc/postgresql/16/main/pg_hba.conf:
+# Note: 16 is the Pg version, it changes with different (X)ubuntu releases.
+# Ubuntu and Debian based systems use even numbered versions of Pg.
+
+-------------------------------------------------------------------------------
+
+local   all             some_superuser_login_for_testing        trust
+
+local   all             postgres                                peer
+local   flask           www-data                                scram-sha-256
+host    flask           www-data        127.0.0.1/32            scram-sha-256
+host    template1       www-data        127.0.0.1/32            scram-sha-256
+
+# Uncomment the next line for IPv6:
+# host    all             all             ::1/128                 scram-sha-256
+
+-------------------------------------------------------------------------------
+
+To enable the changes restart Pg: $ sudo systemcrl restart postgresql
+Change the default password in ./config/database.py
+
+2) Setup the default Pg user - as the postgres user run these commands:
+
+DB_PASSWORD=$(PYTHONPATH=/opt/flask-app python3 -c 'from config.database import DB_PASSWORD; print(DB_PASSWORD)')
+psql -d flask -c "CREATE USER \"www-data\" WITH SUPERUSER PASSWORD '$DB_PASSWORD';"
+
+CREATE DATABASE flask OWNER "www-data";
+
+3) As the www-data default user or postgres superuser:
+
+psql -U www-data -h localhost -W -d flask < database.df >pg_load.log 2>pg_error.log &
+
+The -W will tell Pg to prompt for the password set in the CREATE ROLE command.
+pg_load.log will list all objects successfully created.
+pg_error.log will list any errors generated by the Pg parser.
+
+4) Log in to the database to ensure all is well. You can use a shell script to do this:
+
+#!/bin/bash
+DB_PASSWORD=$(PYTHONPATH=/opt/flask-app python3 -c 'from config.database import DB_PASSWORD; print(DB_PASSWORD)')
+psql -U www-data flask
+unset PGPASSWORD
+
+From the command line:
+psql -U www-data flask -W
+
+In psql you can run \dt to list the tables and verify ownership.
+
+::::::::::::::
+.htaccess and .htpasswd (Apache User Authentication)
+::::::::::::::
+
+If you have enabled htaccess in /etc/apache2/sites-available/flask.conf: 
+
+It is simple to set up. There is an .htaccess file in the SQL Advance project root. Remove it if it won't be used.
+
+AuthName "SQL Advance"
+AuthType Basic
+AuthUserFile /opt/flask-app/.htpasswd
+Require valid-user
+
+This file tells Flask to look for the /opt/flask-app/.htpasswd file. Here is a sample file's contents:
+advance:$apr1$b7fSDb3T$zFCLiN7RS2VooCIlh7vRH/
+The user name is followed by a colon and an encrypted password.
+
+The default SQLAdvance user name is advance and the password is the same as the www-data default database login 
+AND the default htaccess password.
+
+Change the htaccess password:
+
+sudo htpasswd -c .htpasswd advance
+New password:
+Re-type new password:
+Adding password for user flask
+
+You can add additional site passwords:
+
+sudo  htpasswd .htpasswd other
+New password:
+Re-type new password:
+Adding password for user other
+ 
+This file (.htpasswd) will get the users access to the site ONLY. The individual user accounts are
+created in the web interface of the Flask app. 
+
+The default postgres user name is advance and the password is stored in /opt/flask-app/config/database.py
+If you plan to use the psycopg2 utilities (./utils/..) and / or the shell scripts in Setup or Install the 
+password for www-data and advance should match (i.e. originate in config/database.py) 
+
+The app.py file in the project root contains the information needed to start Flask.
+There are two lines in this file that connect the application to the underlying database and
+a "secret key". This line should be edited:
+
+app.config['SECRET_KEY'] = 'Secret Treaties'
+
+Change the key from Secret Treaties to whatever you prefer.
+
+With these steps complete, the Apache + Flask + PostgreSQL stack is secured at the entry point and internally.
+

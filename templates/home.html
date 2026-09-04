@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+    <style>table {font-size: 14px; align: center; background-color: #ffffff; } 
+           th { font-size:14px; background-color: #ffffff; } 
+           td { font-size:14px; background-color: #ffffff; }
+           a { font-size: 14px; color: #000000; text-decoration: none; }
+           a:visited { color: #000000;  }
+           a:active { color: #000000; }
+           a:hover { color: #000000; text-decoration: none; }
+    </style>
+    <meta charset="UTF-8" />
+    <title>SQL Advance</title>
+  </head>
+  <body>
+      <p align="center">
+      <img src="{{url_for('static',filename='sqlx.jpg')}}">
+      </p>
+      <table align="center" style="border: none;">
+      <thead><tr><th align="center" colspan="2">Welcome To SQL Advance</th></tr></thead>
+      </table>
+      </p>
+
+      {% include '_footer.html' %}
+
+  </body>
+</html>
+

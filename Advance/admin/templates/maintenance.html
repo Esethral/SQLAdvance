@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bare.css') }}" />
+<style>table {font-size: 14px; align: center; background-color: #ffffff; } 
+th { font-size:14px; background-color: #ffffff; } 
+td { font-size:14px; background-color: #ffffff; }
+</style>
+<meta charset="UTF-8" />
+<title>SQL Advance</title>
+</head>
+
+  <body>
+
+      <p align="center"><b>Maintenance Request</b></p>
+      <table align=center>
+      <tr>
+      <td>
+
+      <form action="#" method="post">
+      <table align="center">
+      <tr><td><br /></td></tr>
+
+      <tr>
+      <td>Select Unit:</td>
+      <td>
+      <select name="unit_lname">
+          {% for unit in units %}
+              <option value="{{ unit.unit_lname }}">{{ unit.unit_lname }}</option>
+          {% endfor %}
+      </select>
+      </td>
+      <td width="72%">&nbsp;</td>
+      </tr>
+
+      <tr>
+      <td><label for="request_type">Request Type: </label></td>
+      <td><select name="request_type" id="request_type">
+      <option value="Appliance Replacement">Appliance Replacement</option>
+      <option value="Carpet Cleaning">Carpet Cleaning</option>
+      <option value="Cleaning">Cleaning</option>
+      <option value="Delivery">Delivery</option>
+      <option value="Loaner Equipment">Loaner Equipment</option>
+      <option value="Maintenance">Maintenance</option>
+      <option value="Move">Move</option>
+      <option value="Other">Other</option>
+      <option value="Painting">Painting</option>
+      <option value="Recycling">Recycling</option>
+      <option value="Shredding">Shredding</option>
+      <option value="Stripping/Waxing Floors">Stripping/Waxing Floors</option>
+      <option value="Vacant Apartment Turnover">Vacant Apartment Turnover</option>
+      <option value="Other">Other</option>
+      </select></td>
+      </tr>
+
+      <tr>
+      <td><label for="address">Address:</label></td>
+      <td><input type="text" name="address" /></td>
+      </tr>
+
+      <tr>
+      <td><label for="staff_name">Submitted By:</label></td>
+      <td><input type="text" name="staff_name" value="{{ fullname }}" /></td>
+      </tr>
+
+      <tr>
+      <td><label for="staff_email">Contact Email Addresss:</label></td>
+      <td><input type="text" name="staff_email" /></td>
+      </tr>
+
+      <tr>
+      <td><label for="staff_phone">Contact Phone Number:</label></td>
+      <td><input type="text" name="staff_phone" /></td>
+      </tr>
+
+      <tr>
+      <td><label for="client_name">Client Name (If Appl):</label></td>
+      <td><input type="text" name="client_name" /></td>
+      </tr>
+
+      <tr>
+      <td><label for="client_phone">Client Phone:</label></td>
+      <td><input type="text" name="client_phone" /></td>
+      </tr>
+
+      <tr>
+      <td><label for="client_available">Client Available:</label></td>
+      <td><select name="client_available" id="cllient_available">
+      <option value=""></option>
+      <option value="No">No</option>
+      <option value="Yes">Yes</option>
+      </select></td>
+      </tr>
+
+      <tr>
+      <td><label for="client_permission">Okay to Enter:</label></td>
+      <td><select name="client_permission" id="cllient_permission">
+      <option value=""></option>
+      <option value="No">No</option>
+      <option value="Yes">Yes</option>
+      </select></td>
+      </tr>
+
+      <tr>
+      <td><label for="">Emergency: </label></td>
+      <td><select name="high_risk" id="high_risk">
+      <option value="high_risk"></option>
+      <option value="No">No</option>
+      <option value="Yes">Yes</option>
+      </select></td>
+      </tr>
+
+      <tr>
+      <td><label for="">Safety Issue: </label></td>
+      <td><select name="safety_issue" id="safety_issue">
+      <option value=""></option>
+      <option value="No">No</option>
+      <option value="Yes">Yes</option>
+      </select></td>
+      </tr>
+
+      <tr>
+      <td><label for="director_approved">Director Approved: </label></td>
+      <td><select name="director_approved" id="director_approved">
+      <option value=""></option>
+      <option value="No">No</option>
+      <option value="Yes">Yes</option>
+      </select></td>
+      </tr>
+
+      <tr><td colspan="2"><label for="request_text">Request:</label></td></tr>
+      <tr><td colspan="2"><textarea name="request_text" rows="15" cols="60" /></textarea></td>
+      </tr>
+
+      <tr><td><br /></td></tr>
+      <tr>
+      <td align="center" colspan="2"><button type="submit" name="action" value="insert">Submit</button></td>
+      </tr>
+      </table>
+      </form>
+
+      </td></tr>
+      </table>
+
+      {% include '_footer.html' %}
+
+  </body>
+</html>

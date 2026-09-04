@@ -1,0 +1,11 @@
+#!/bin/bash
+# sudo groupadd flaskdev
+# sudo usermod -aG flaskdev tag
+# ...
+sudo chown -R www-data:flaskdev /opt/flask-app
+sudo chmod -R o+rX /opt/flask-app
+sudo find /opt/flask-app -type d -exec chmod 775 {} \;
+sudo chmod g+s /opt/flask-app
+sudo chown -R www-data:www-data /opt/flask-app/log/*
+sudo chown -R www-data:www-data /opt/flask-app/photos/*
+sudo chmod 2777 /opt/flask-app/log

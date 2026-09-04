@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}" />
+<style>table {font-size: 14px; align: center; background-color: #ffffff; } 
+th { font-size:14px; background-color: #ffffff; } 
+td { font-size:14px; background-color: #ffffff; }
+</style>
+<title>SQL Advance - Support Plans</title>
+</head>
+
+  <body>
+
+      {% include '_header.html' %}
+
+      <p align="center"><b>SQL Advance - Support Plan</b></p>
+
+      {% if plans %}
+          {% set client = resident.fname ~ " " ~ resident.lname %}
+      {% else %} 
+          <p style="text-align: center; color: red"><b>No Support Plans found for this client in this date range.</b></p>
+      {% endif %}
+
+      {% for plan in plans %}
+      <br />
+      <table style="width:666px; margin-left: auto; margin-right: auto;">
+      <tr style="border: 0px solid black; border-collapse: collapse;" >
+      <td style="border: 0px solid black; border-collapse: collapse;"><b>Client Name:</b></td>
+      <td style="border: none;"> {{ client }}</td>
+      </tr>
+      <tr style="border: 0px solid black; border-collapse: collapse;" >
+      <td style="border: 0px solid black; border-collapse: collapse;"><b>Unit Name:</b></td>
+      <td style="border: none;"> {{ plan.unit_lname }}</td>
+      </tr>
+      <tr style="border: 0px solid black; border-collapse: collapse;" >
+      <td style="border: 0px solid black; border-collapse: collapse;"><b>Entered By:</b></td>
+      <td style="border: none;"> {{ plan.staff_name }}</td>
+      </tr>
+      <tr style="border: 0px solid black; border-collapse: collapse;" >
+      <td style="border: 0px solid black; border-collapse: collapse;"><b>Effective Dates:</b></td>
+      <td style="border: none;"> {{ plan.start_date }} - {{ plan.end_date }}</td>
+      </tr>
+
+      <tr><td style="border: none;" colspan="3"><br /><center><b>Treatment Team</b></center><br /></b></td></tr>
+      <tr><td style="border: none;"><b>Case Manager: </b></td><td style="border: none;">{{ plan.caseworker }} </td></tr>
+      <tr><td style="border: none;"><b>Backup:       </b></td><td style="border: none;">{{ plan.backup }} </td></tr>
+      <tr><td style="border: none;"><b>Supervisor:   </b></td><td style="border: none;">{{ plan.supervisor }} </td></tr>
+      <tr><td style="border: none;"><b>Chart ID:     </b></td><td style="border: none;">{{ plan.chart_id   }} </td></tr>
+
+      <tr style="border: 0px solid black; border-collapse: collapse;" ><td style="border: none;">&nbsp;</td>
+      </table>
+
+      <br />
+
+      <table style="width:666px; margin-left: auto; margin-right: auto;">
+      <tr><td style="border: none;" colspan="3"><br /><center><b>Admission Criteria</b></center><br /></b></td></tr>
+      <tr><td style="border: none;"><b>Client is 18 years or older, has DSM5 diagnosis:                    </b></td><td style="border: none;">{{ plan.diagnosis  }} </td>
+                                                                                                                    <td style="border: none;" width="30%">&nbsp;</td></tr>
+      <tr><td style="border: none;"><b>Client demonstrates marked difficulties in self care:               </b></td><td style="border: none;">{{ plan.needs_selfcare   }} </td></tr>
+      <tr><td style="border: none;"><b>Client shows marked difficulties in maintaining social functioning: </b></td><td style="border: none;">{{ plan.needs_skills     }} </td></tr>
+      <tr><td style="border: none;"><b>Client exhibits reliance on psychiatric treatment and support:      </b></td><td style="border: none;">{{ plan.needs_support    }} </td></tr>
+      <tr><td style="border: none;"><b>Client exhibits marked restriction of ADL:                          </b></td><td style="border: none;">{{ plan.needs_adl        }} </td></tr>
+      <tr><td style="border: none;"><b>Client exibits deficiencies of concentration and task completion:   </b></td><td style="border: none;">{{ plan.needs_focus      }} </td></tr>
+
+      <tr><td style="border: none;" colspan="3"><br /><center><b>Additional Information</b></center><br /></b></td></tr>
+
+      <tr><td style="border: none;"><b>Rights and Grievance Procedures Reviewed With Client: </b></td><td style="border: none;">{{ plan.rights_grievances }}</td></tr>
+      <tr><td style="border: none;"><b>Date: </b>{{ plan.rights_date }} </td></tr>
+
+      <tr style="border: 0px solid black; border-collapse: collapse;" ><td style="border: none;">&nbsp;</td>
+      </table>
+
+      <br />
+
+      <table style="width:666px; margin-left: auto; margin-right: auto;">
+      <tr><td colspan="2" style="border: none;"><br /><center><b>Functional Assessment</center><br /></b></td></tr>
+      {% if funct %}
+      {% for funct in funct %}
+      <tr><td colspan="2" style="border: none;"><b>Skill Area:</b> {{funct.skill_area}}<br /><b>Assessment:</b> {{ funct.skill_level }}</td></tr>
+      <tr><td colspan="2" style="border: none;"><br /></td></tr>
+      {% endfor %}
+      {% else %}
+      <tr><td align="center" colspan="2" style="border: none;"><i>No Functional Assessment Found.</i><br /><br /></td></tr>
+      {% endif %}
+      </table>
+
+      <br />
+
+      <table style="width:666px; margin-left: auto; margin-right: auto;">
+      <tr><td style="border: none;" colspan="3"><br /><center><b>Goal 1</b></center><br /></b></td></tr>
+      <tr><td style="text-align: left; border: 0px solid black; border-collapse: collapse;"><b>Assessment: </b></td></tr>
+      <tr><td style="text-align: left; border: 0px solid black; border-collapse: collapse;"><blockquote>{{ plan.goal_one_header}}</blockquote></td></tr>
+      <tr><td style="text-align: left; border: 0px solid black; border-collapse: collapse;"><b>Client Will: </b></td></tr>
+      <tr><td style="text-align: left; border: 0px solid black; border-collapse: collapse;"><blockquote>{{ plan.goal_one_object}}</blockquote></td></tr>
+      <tr><td style="text-align: left; border: 0px solid black; border-collapse: collapse;"><b>Staff Will: </b></td></tr>
+      <tr><td style="text-align: left; border: 0px solid black; border-collapse: collapse;"><blockquote>{{ plan.goal_one_service}}</blockquote></td></tr>
+      <tr><td style="text-align: left; border: 0px solid black; border-collapse: collapse;"><b>Evaluation: </b></td></tr>
+      <tr><td style="text-align: left; border: 0px solid black; border-collapse: collapse;"><blockquote>{{ plan.goal_one_eval}}</blockquote></td></tr>
+      </table>
+ 
+      {% if plan.goal_two_header %}
+      <br />
+           <table style="width:666px; margin-left: auto; margin-right: auto;">
+           <tr><td style="border: none;" colspan="3"><br /><center><b>Goal 2</b></center><br /></b></td></tr>
+           <tr><td style="text-align: left; border: 0px solid black; border-collapse: collapse;"><b>Assessment: </b></td></tr>
+           <tr><td style="text-align: left; border: 0px solid black; border-collapse: collapse;"><blockquote>{{ plan.goal_two_header}}</blockquote></td></tr>
+           <tr><td style="text-align: left; border: 0px solid black; border-collapse: collapse;"><b>Client Will: </b></td></tr>
+           <tr><td style="text-align: left; border: 0px solid black; border-collapse: collapse;"><blockquote>{{ plan.goal_two_object}}</blockquote></td></tr>
+           <tr><td style="text-align: left; border: 0px solid black; border-collapse: collapse;"><b>Staff Will: </b></td></tr>
+           <tr><td style="text-align: left; border: 0px solid black; border-collapse: collapse;"><blockquote>{{ plan.goal_two_service}}</blockquote></td></tr>
+           <tr><td style="text-align: left; border: 0px solid black; border-collapse: collapse;"><b>Evaluation: </b></td></tr>
+           <tr><td style="text-align: left; border: 0px solid black; border-collapse: collapse;"><blockquote>{{ plan.goal_two_eval}}</blockquote></td></tr>
+           </table>
+      {% endif %}
+
+      {% if plan.goal_three_header %}
+      <br />
+           <table style="width:666px; margin-left: auto; margin-right: auto;">
+           <tr><td style="border: none;" colspan="3"><br /><center><b>Goal 3</b></center><br /></b></td></tr>
+           <tr><td style="text-align: left; border: 0px solid black; border-collapse: collapse;"><b>Assessment: </b></td></tr>
+           <tr><td style="text-align: left; border: 0px solid black; border-collapse: collapse;"><blockquote>{{ plan.goal_three_header}}</blockquote></td></tr>
+           <tr><td style="text-align: left; border: 0px solid black; border-collapse: collapse;"><b>Client Will: </b></td></tr>
+           <tr><td style="text-align: left; border: 0px solid black; border-collapse: collapse;"><blockquote>{{ plan.goal_three_object}}</blockquote></td></tr>
+           <tr><td style="text-align: left; border: 0px solid black; border-collapse: collapse;"><b>Staff Will: </b></td></tr>
+           <tr><td style="text-align: left; border: 0px solid black; border-collapse: collapse;"><blockquote>{{ plan.goal_three_service}}</blockquote></td></tr>
+           <tr><td style="text-align: left; border: 0px solid black; border-collapse: collapse;"><b>Evaluation: </b></td></tr>
+           <tr><td style="text-align: left; border: 0px solid black; border-collapse: collapse;"><blockquote>{{ plan.goal_three_eval}}</blockquote></td></tr>
+           </table>
+      {% endif %}
+
+      {% if plan.goal_four_header %}
+      <br />
+           <table style="width:666px; margin-left: auto; margin-right: auto;">
+           <tr><td style="border: none;" colspan="3"><br /><center><b>Goal 4</b></center><br /></b></td></tr>
+           <tr><td style="text-align: left; border: 0px solid black; border-collapse: collapse;"><b>Assessment: </b></td></tr>
+           <tr><td style="text-align: left; border: 0px solid black; border-collapse: collapse;"><blockquote>{{ plan.goal_four_header}}</blockquote></td></tr>
+           <tr><td style="text-align: left; border: 0px solid black; border-collapse: collapse;"><b>Client Will: </b></td></tr>
+           <tr><td style="text-align: left; border: 0px solid black; border-collapse: collapse;"><blockquote>{{ plan.goal_four_object}}</blockquote></td></tr>
+           <tr><td style="text-align: left; border: 0px solid black; border-collapse: collapse;"><b>Staff Will: </b></td></tr>
+           <tr><td style="text-align: left; border: 0px solid black; border-collapse: collapse;"><blockquote>{{ plan.goal_four_service}}</blockquote></td></tr>
+           <tr><td style="text-align: left; border: 0px solid black; border-collapse: collapse;"><b>Evaluation: </b></td></tr>
+           <tr><td style="text-align: left; border: 0px solid black; border-collapse: collapse;"><blockquote>{{ plan.goal_four_eval}}</blockquote></td></tr>
+           </table>
+      {% endif %}
+
+      {% endfor %}
+
+      <p align="center"><a href="{{ url_for('chart.support_plan') }}"><center><h4>Enter A Support Plan</h4></center></a></p>
+
+      {% include '_footer.html' %}
+
+  </body>
+</html>
+

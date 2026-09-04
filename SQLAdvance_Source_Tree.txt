@@ -1,0 +1,30 @@
+├── Advance              - SQLAdvance Application Components 
+│   ├── admin            - Administrative Routes, Models, Helpers and Templates
+│   ├── chart            - Clinical Chart Routes, Models, Helpers and Templates
+│   ├── extensions.py    - Python Module that Imports the Database and Login Manager
+│   ├── reports          - Reporting Routes, Models, Helpers and Templates
+│   ├── services.py      - Helper File for Internal / External Email Alerts
+│   ├── setup            - DBA Utilities: Routes, Models, Helpers and Templates
+│   └── templates        - Top Level Application Templates 
+├── advance_helpers.py   - Top Level Helper Files (subroutines)
+├── advance_models.py    - Top Level Class Definitions ("models")
+├── app.py               - Application Factory and Blueprint Registry
+├── auth.py              - User Authentication
+├── config               - Flask Application Configuration
+│   ├── database.py      - Database Password (Consider Moving Outside of the Application)
+├── flask-app.wsgi       - Production Entry Point (connects Apache to the App)
+├── flask-venv           - Python Virtual Environment
+├── Install              - Start Here 
+│   ├── Apache           - Setup and Conf instructions / examples for Apache
+│   ├── Diagnostic_Data  - Validation Data (DSM5 and ICD10)
+│   ├── Postgres         - Scripts to Build The SQLAdvance Database
+│   └── Virtual_Environs - Ready to use venv dirs and requirements files
+├── log                  - Flat File Logs (User Access)
+├── photos               - Client / Patient Photos for Face Sheet
+├── README               - Project Documentation (A Work In Progress) 
+├── restart-flask        - Shell Script to Restart Apache/WSGI (Flask)
+├── static               - Top Level CSS and Image Files
+├── templates            - Top Level Templates and Includes
+├── utils                - Psycopg2 Database Utilities
+├── ver                  - Shell Script: OS, Postgres and Python Version Strings
+└── www-data             - Shell Script to Set Permissions

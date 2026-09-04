@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bare.css') }}" />
+<style>table {font-size: 14px; align: center; background-color: #ffffff; }
+th { font-size:14px; background-color: #ffffff; }
+td { font-size:14px; background-color: #ffffff; }
+</style>
+<meta charset="UTF-8" />
+<title>SQL Advance - Diagnostic history</title>
+</head>
+  <body>
+<p align="center"><b>SQL Advance</b></p>
+<hr style="border-top: 1px solid grey; text-align: center; width: 80px;">
+
+<form action="#" method="post">
+  <table align="center" width=600px">
+    <tr><td colspan="2" align="center"><b>Client Name: </b> {{ client.fname }} {{ client.lname }}</td></tr>
+    <tr><td colspan="2"><br /></td></tr>
+
+    <tr>
+    <td>Select&nbsp;Unit:</td>
+    <td>
+    <select name="unit_lname">
+    <option value="{{ place_str }}" {% if place_str == (place_str) %}selected{% endif %}>{{ place_str }}</option>
+    {% for unit in units %}
+        <option value="{{unit.unit_id}} -- {{ unit.unit_lname }}">{{unit.unit_id}} -- {{ unit.unit_lname }}</option>
+    {% endfor %}
+    </select>
+    </td>
+    </tr>
+    <tr><td colspan="2"><br /></td></tr>
+ 
+    <tr><td colspan="2"><center><b>Demographic Data</b></center></td></tr>
+    <tr><td colspan="2"><br /></td></tr>
+
+    <tr><td><label for="alias"><b>Alias(es):</b> </label></td><td><input type="text" name="alias" /></td></tr>
+    <tr><td><label for="allergy"><b>Allergy:</b> </label></td><td><input type="text" name="allergy" /></td></tr>
+    <tr><td><label for="address"><b>Address:</b> </label></td><td><input type="text" name="address" /></td></tr>
+    <tr><td><label for="apartment"><b>Apartment:</b> </label></td><td><input type="text" name="apartment" /></td></tr>
+    <tr><td><label for="city"><b>City:</b> </label></td><td><input type="text" name="city" /></td></tr>
+    <tr><td><label for="state"><b>State:</b> </label></td><td><input type="text" name="state" /></td></tr>
+    <tr><td><label for="post_code"><b>Postal Code:</b> </label></td><td><input type="text" name="post_code" /></td></tr>
+    <tr><td><label for="phone"><b>Phone:</b> </label></td><td><input type="text" name="phone" /></td></tr>
+    <tr><td><label for="phone_mobile"><b>Mobile Phone:</b> </label></td><td><input type="text" name="phone_mobile" /></td></tr>
+    <tr><td><label for="phone_other"><b>Other Phone:</b> </label></td><td><input type="text" name="phone_other" /></td></tr>
+
+    <tr>
+      <td><b>Sex Assigned at Birth: </b></td>
+      <td>
+      <select name="sex_birth">
+        {% for sex in sex_list %}
+          <option value="{{ sex }}" title="{{ sex }}">
+            {{ sex[:60] }}{% if sex|length > 60 %}...{% endif %}
+          </option>
+        {% endfor %}
+      </select>
+      </td>
+    </tr>
+
+    <tr>
+      <td><b>Gender Identity: </b></td>
+      <td>
+      <select name="sex_gender">
+        {% for value in gender_list %}
+          <option value="{{ value }}" title="{{ value }}">
+            {{ value[:60] }}{% if value|length > 60 %}...{% endif %}
+          </option>
+        {% endfor %}
+      </select>
+      </td>
+    </tr>
+
+    <tr>
+      <td><b>Sexual Orientation: </b></td>
+      <td>
+      <select name="sex_orientation">
+        {% for orient in orient_list %}
+          <option value="{{ orient }}" title="{{ orient }}">
+            {{ orient[:60] }}{% if orient|length > 60 %}...{% endif %}
+          </option>
+        {% endfor %}
+      </select>
+      </td>
+    </tr>
+
+    <tr>
+      <td><b>Race (Identity): </b></td>
+      <td>
+      <select name="race">
+        {% for race in race_list %}
+          <option value="{{ race }}">{{ race }}</option>
+        {% endfor %}
+      </select>
+      </td>
+    </tr>
+
+    <tr>
+      <td><b>Black (Detail): </b></td>
+      <td>
+        <select name="race_detail">
+          {% for race in race_detail %}
+            <option value="{{ race }}"
+              {% if race == "Not Applicable" %}selected{% endif %}>
+              {{ race }}
+            </option>
+          {% endfor %}
+        </select>
+      </td>
+    </tr>
+
+    <tr>
+      <td><b>Asian (Detail): </b></td>
+      <td>
+        <select name="asian_detail">
+          {% for asian in asian_list %}
+            <option value="{{ asian }}"
+              {% if asian == "Not Applicable" %}selected{% endif %}>
+              {{ asian }}
+            </option>
+          {% endfor %}
+        </select>
+      </td>
+    </tr>
+
+    <tr>
+      <td><b>Pacific Islander (Detail): </b></td>
+      <td>
+        <select name="pacific_detail">
+          {% for pacific in pacific_list %}
+            <option value="{{ pacific }}"
+              {% if pacific == "Not Applicable" %}selected{% endif %}>
+              {{ pacific }}
+            </option>
+          {% endfor %}
+        </select>
+      </td>
+    </tr>
+
+    <tr>
+      <td><b>Ethnicity (Identity): </b></td>
+      <td>
+      <select name="ethnicity">
+        {% for ethnic in ethnic_list %}
+          <option value="{{ ethnic }}">{{ ethnic }}</option>
+        {% endfor %}
+      </select>
+      </td>
+    </tr>
+
+    <tr>
+      <td><b>Hispanic/Latino (Detail): </b></td>
+      <td>
+        <select name="ethnicity_detail">
+          {% for latin in ethnic_detail %}
+            <option value="{{ latin }}"
+              {% if latin == "Not Applicable" %}selected{% endif %}>
+              {{ latin }}
+            </option>
+          {% endfor %}
+        </select>
+      </td>
+    </tr>
+
+    <tr><td><label for="place_of_birth"><b>Place of Birth: </b></label></td><td><input type="text" name="place_of_birth" /></td></tr>
+
+    <tr>
+      <td><b>US Citizen: </b></td>
+      <td>
+        <select name="citizen">
+          {% for value in bool_list %}
+            <option value="{{ value }}"
+              {% if value == "Not Applicable" %}selected{% endif %}>
+              {{ value }}
+            </option>
+          {% endfor %}
+        </select>
+      </td>
+    </tr>
+
+    <tr>
+      <td><b>Veteran: </b></td>
+      <td>
+        <select name="veteran">
+          {% for value in bool_list %}
+            <option value="{{ value }}"
+              {% if value == "Not Applicable" %}selected{% endif %}>
+              {{ value }}
+            </option>
+          {% endfor %}
+        </select>
+      </td>
+    </tr>
+
+    <tr>
+      <td><b>Preferred Language: </b></td>
+      <td>
+        <select name="language_spoken">
+          {% for value in lang_list %}
+            <option value="{{ value }}"
+              {% if value == "Not Applicable" %}selected{% endif %}>
+              {{ value }}
+            </option>
+          {% endfor %}
+        </select>
+      </td>
+    </tr>
+
+    <tr>
+      <td><b>Religion: </b></td>
+      <td>
+        <select name="religion">
+          {% for value in religion_list %}
+            <option value="{{ value }}"
+              {% if value == "Not Applicable" %}selected{% endif %}>
+              {{ value }}
+            </option>
+          {% endfor %}
+        </select>
+      </td>
+    </tr>
+
+    <tr>
+      <td><b>Marital Status: </b></td>
+      <td>
+        <select name="marital_status">
+          {% for value in marital_list %}
+            <option value="{{ value }}"
+              {% if value == "Not Applicable" %}selected{% endif %}>
+              {{ value }}
+            </option>
+          {% endfor %}
+        </select>
+      </td>
+    </tr>
+
+    <tr>
+      <td><b>Parental Status: </b></td>
+      <td>
+        <select name="parental_status">
+          {% for value in parent_list %}
+            <option value="{{ value }}"
+              {% if value == "Not Applicable" %}selected{% endif %}>
+              {{ value }}
+            </option>
+          {% endfor %}
+        </select>
+      </td>
+    </tr>
+
+    <tr>
+      <td><b>Household Composition: </b></td>
+      <td>
+        <select name="household">
+          {% for value in house_list %}
+            <option value="{{ value }}"
+              {% if value == "Not Applicable" %}selected{% endif %}>
+              {{ value }}
+            </option>
+          {% endfor %}
+        </select>
+      </td>
+    </tr>
+
+    <!-- Hidden fields -->
+    <tr><td colspan="2">
+      <input type="hidden" name="client_id" value="{{ client.client_id }}" />
+      <input type="hidden" name="client_name" value="{{ client.fname }} {{ client.lname }}" />
+      <input type="hidden" name="staff_name" value="{{ fullname }}" />
+    </td></tr>
+
+    <tr>
+      <td align="center" colspan="2"><button type="submit" name="action" value="insert">Submit</button></td></tr>
+    </tr>
+  </table>
+</form>
+
+  {% include '_footer.html' %}
+
+</body>
+</html>
+

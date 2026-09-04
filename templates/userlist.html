@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang = "en">
+   <head>
+   <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+   </head>
+   <body>
+      
+      <div> 
+      <h4>SQLAdvance</h4>
+      <h4>User Accounts:</h4>
+		
+      <table align="center">
+      <thead>
+      <tr>
+      <th>User ID</th>
+      <th>Login</th>
+      <th>Name</th>
+      <th>Email</th>
+      </tr>
+      </thead>
+      
+      <tbody>
+      {% for user in users %}
+      <tr>
+      <td>{{ user.user_id}}</td>
+      <td>{{ user.username }}</td>
+      <td>{{ user.fullname }}</td>
+      <td>{{ user.email}}</td>
+      </tr>
+      {% endfor %}
+      </tbody>
+      </table>
+
+      <h4>Users Logged In Now:</a></h4>
+		
+      <table align="center">
+      <thead>
+      <tr>
+      <th>User Name</th>
+      <th>Login Time</th>
+      <th>Full Name</th>
+      <th>Email</th>
+      </tr>
+      </thead>
+         
+      <tbody>
+      {% for login in logins %}
+      <tr>
+      <td>{{ login.username }}</td>
+      <td>{{ login.logtime}}</td>
+      <td>{{ login.fullname }}</td>
+      <td>{{ login.email }}</td>
+      </tr>
+      {% endfor %}
+      </tbody>
+      </table>
+
+      </div> 
+
+      {% include '_footer.html' %}
+
+   </body>
+</html>

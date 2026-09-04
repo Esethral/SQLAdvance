@@ -1,0 +1,3 @@
+#!/bin/bash
+DB_PASSWORD=$(PYTHONPATH=/opt/flask-app python3 -c 'from config.database import DB_PASSWORD; print(DB_PASSWORD)')
+psql -d flask -c "CREATE USER \"www-data\" WITH SUPERUSER PASSWORD '$DB_PASSWORD';"

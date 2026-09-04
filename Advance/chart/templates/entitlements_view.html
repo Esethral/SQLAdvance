@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bare.css') }}" />
+<style>table {font-size: 14px; align: center; background-color: #ffffff; } 
+th { font-size:14px; background-color: #ffffff; } 
+td { font-size:14px; background-color: #ffffff; }
+</style>
+<title>SQL Advance - Client Demographics</title>
+</head>
+
+  <body>
+
+      {% include '_header.html' %}
+
+      <table style="width:800px; margin-left: auto; margin-right: auto;">
+      <tr >
+      <td colspan="2" ><hr width="99%"/></td>
+      </tr>
+      </table>
+
+      {% for result in results %}
+
+      <table style="width:800px; margin-left: auto; margin-right: auto;">
+      <tr><td colspan="4">
+          <b>Reporting Unit:</b> {{ result.unit_lname }} &nbsp;&nbsp;&nbsp;&nbsp;
+          <b>Entered By:</b> {{ result.staff_name }} &nbsp;&nbsp;&nbsp;&nbsp;
+          <b>On:</b> {{ result.time_insert.strftime('%Y-%m-%d') }} &nbsp;&nbsp;&nbsp;&nbsp;
+          <b>Record ID:</b> {{ result.rec_id }}
+      </td></tr>
+
+      <tr><td><br /></td></tr>
+      <tr><td align="center" colspan="4" style="border: none;"><b>Identifying Data</b></td></tr>
+      <tr><td><br /></td></tr>
+      <tr>
+          <td align="left"><b>Client Name: </b> {{ client.fname }} {{ client.lname }}</td>
+          <td align="left"><b>DOB: </b> {{ client.dob }}</td>
+          <td align="left"><b>SSN: </b> {{ client.ssn }}</td>
+          <td align="left"><b>Medicaid: </b> {{ client.medicaid }}</td>
+      </tr>
+      <tr><td><br /></td></tr>
+      <tr><td align="center" colspan="4" style="border: none;"><b>Entitlements Data</b></td></tr>
+      <tr><td><br /></td></tr>
+      <tr>
+          <td align="left"><b>Social Security Recipient:</b> {{ result.social_security }}</td>
+          <td align="left"><b>SSI Amount:</b> {{ result.ssi }}</td>
+          <td align="left"><b>SSD Amount:</b> {{ result.ssd }}</td>
+      </tr>
+      <tr>
+          <td align="left"><b>Active Medicaid:</b> {{ result.medicaid }}</td>
+          <td align="left"><b>Medicaid Managed Care:</b> {{ result.managed_care }}</td>
+      </tr>
+      <tr>
+          <td align="left"><b>Medicare Recipient:</b> {{ result.medicare }}</td>
+          <td align="left"><b>Medicare ID:</b> {{ result.medicare_id }}</td>
+      </tr>
+      <tr><td><br /></td></tr>
+      <tr>
+          <td align="left"><b>Public Assistance:</b> {{ result.public_assistance }}</td>
+          <td align="left"><b>Public Assistance Amount: </b> {{ result.public_amount }} </td>
+      </tr>
+      <tr>
+          <td align="left"><b>Section 8: </b> {{ result.section_8 }} </td>
+      </tr>
+      <tr><td><br /></td></tr>
+      <tr>
+          <td align="left"><b>Private Insurance: </b> {{ result.insurance }} </td>
+          <td align="left"><b>Insurance Carrier: </b> {{ result.insurance_carrier }} </td>
+          <td align="left"><b>Insurance ID Number: </b> {{ result.insurance_id }} </td>
+      </tr>
+      <tr><td><br /></td></tr>
+      <tr>
+          <td align="left"><b>Alimony: </b> {{ result.alimony }} </td>
+          <td align="left"><b>Child Support: </b> {{ result.child_support }} </td>
+      </tr>
+      <tr><td><br /></td></tr>
+      <tr>
+          <td align="left"><b>SNAP Recipient:</b> {{ result.snap }}</td>
+          <td align="left"><b>SNAP ID: </b> {{ result.snap_id }}</td>
+          <td align="left"><b>SNAP Amount: </b> {{ result.snap_amt }}</td>
+      </tr>
+      <tr>
+          <td align="left"><b>WIC: </b> {{ result.wic }} </td>
+          <td align="left"><b>TANF: </b> {{ result.tanf }} </td>
+      </tr>
+      <tr><td align="left"><b>Other Non-Cash Benefits: </b> {{ result.other_non_cash }} </td></tr>
+      <tr><td><br /></td></tr>
+      <tr>
+          <td align="left"><b>Wages: </b> {{ result.wages }} </td>
+          <td align="left"><b>Pension: </b> {{ result.pension }} </td>
+          <td align="left"><b>Retirement Income: </b> {{ result.retirement_income }} </td>
+      </tr>
+      <tr><td align="left"><b>Other Income: </b> {{ result.other_income }} </td></tr>
+      <tr><td><br /></td></tr>
+      <tr>
+          <td align="left"><b>Unemployment: </b> {{ result.unemployment }} </td>
+          <td align="left"><b>Workers Compensation: </b> {{ result.workers_comp }} </td>
+      </tr>
+      <tr><td><br /></td></tr>
+      <tr>
+          <td align="left"><b>VA Disability: </b> {{ result.va_disability }} </td>
+          <td align="left" colspan="2"><b>VA Medical: </b> {{ result.va_medical }} </td>
+      </tr>
+
+      <tr ><td colspan="4"><hr width="99%"/></td>
+      </tr>
+      </table>
+
+      {% endfor %}
+
+      <p align="center"><a href="{{ url_for('chart.entitlements') }}"><center><h4>Enter Client Entitlements Data</h4></center></a></p>
+
+      {% include '_footer.html' %}
+
+  </body>
+</html>
+

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang = "en">
+   <head>
+   <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+   </head>
+   <body>
+      
+      <div> 
+      
+      {% include '_header.html' %}
+
+      <h4>Clinical Records</h4>
+		
+      <table align="center">
+      <tbody>
+
+      <tr><td colspan="5" style="border: none;"><b><u>Placement History</u></b></td></tr>
+      <tr>
+      <th>Name</th>
+      <th>Unit Name</th>
+      <th>Admission</th>
+      <th>Discharge</th>
+      </tr>
+      {% for place in places %}
+            <tr>
+            <td align="left"><a href="{{ url_for('chart.placement_view', client_id=place.client_id, rec_id=place.rec_id) }}" title="Click here to access record." target="_blank">{{ client.fname }} {{ client.lname }}</td>
+            <td>{{ place.unit_lname }}</td>
+            <td>{{ place.start_date }}</td>
+            <td>{{ place.end_date if place.end_date else 'Current Placement' }}</td>
+            </tr>
+      {% endfor %}
+            <tr><td align="left" colspan="4"><a href="/chart/placement?client_id={{ client.client_id }}">Enter A Placement Record</a></b></td></tr>
+
+      <tr><td colspan="5" style="border: none;"><b><u>Diagnostic History</u></b></td></tr>
+      <tr>
+      <th>Name</th>
+      <th>Start Date</th>
+      <th>End Date</th>
+      <th>Unit Name</th>
+      </tr>
+      {% for diag in diags %}
+            <tr>
+            <td align="left">
+            <form action="{{ url_for('chart.diagnosis_view') }}" method="POST" style="display:inline;">
+            <input type="hidden" name="client_id" value="{{ client.client_id }}">
+            <button type="submit" style="all: unset; color: black; text-decoration: none; cursor: pointer;">
+            {{ client.fname }} {{ client.lname }}
+            </button>
+            </form>
+            </td>
+            <td>{{ diag.start_date }}</td>
+            <td>{{ diag.end_date if diag.end_date else 'Current' }}</td>
+            <td>{{ diag.dsm5 }}</td>
+            </tr>
+      {% endfor %}
+            <tr><td align="left" colspan="4">
+            <form action="{{ url_for('chart.diagnosis') }}" method="POST" style="display:inline;">
+            <input type="hidden" name="client_id" value="{{ client.client_id }}">
+            <button type="submit" style="all: unset; color: black; text-decoration: none; cursor: pointer;">
+            Enter A DSM5 / ICD10 Diagnosis
+            </button>
+            </form>
+            </td></tr>
+
+      <tr><td colspan="5" style="border: none;"><b><u>Functional Assessments</u></b></td></tr>
+      <tr>
+      <th>Name</th>
+      <th>Start Date</th>
+      <th>End Date</th>
+      <th>Unit Name</th>
+      </tr>
+      {% for funct in functs %}
+            <tr>
+            <td align="left"><a href="{{ url_for('chart.functional_get', client_id=funct.client_id, rec_id=funct.rec_id) }}" title="Click here to access record." target="_blank">{{ client.fname }} {{ client.lname }}</td>
+            <td>{{ funct.start_date }}</td>
+            <td>{{ funct.end_date if funct.end_date else 'N/A' }}</td>
+            <td>{{ funct.unit_lname }}</td>
+            </tr>
+      {% endfor %}
+            <tr><td align="left" colspan="4">
+            <form action="{{ url_for('chart.functional') }}" method="POST" style="display:inline;">
+            <input type="hidden" name="client_id" value="{{ client.client_id }}">
+            <button type="submit" style="all: unset; color: black; text-decoration: none; cursor: pointer;">
+            Enter A Functional Assessment
+            </button>
+            </form>
+            </td></tr>
+
+      <tr><td colspan="5" style="border: none;"><b><u>Support Plans</u></b></td></tr>
+      <tr>
+      <th>Name</th>
+      <th>Start Date</th>
+      <th>End Date</th>
+      <th>Unit Name</th>
+      </tr>
+      {% for plan in plans %}
+            <tr>
+            <td align="left"><a href="{{ url_for('chart.support_get', client_id=plan.client_id, rec_id=plan.rec_id) }}" title="Click here to access record." target="_blank">{{ client.fname }} {{ client.lname }}</td>
+            <td>{{ plan.start_date }}</td>
+            <td>{{ plan.end_date if plan.end_date else 'N/A' }}</td>
+            <td>{{ plan.unit_lname }}</td>
+            </tr>
+      {% endfor %}
+            <tr><td align="left" colspan="4">
+            <form action="{{ url_for('chart.support_plan') }}" method="POST" style="display:inline;">
+            <input type="hidden" name="client_id" value="{{ client.client_id }}">
+            <button type="submit" style="all: unset; color: black; text-decoration: none; cursor: pointer;">
+            Enter A Support Plan
+            </button>
+            </form>
+            </td></tr>
+
+      <tr><td colspan="5" style="border: none;"><b><u>Progress Notes</u></b></td></tr>
+      <tr>
+      <th>Name</th>
+      <th>Chart ID</th>
+      <th>Note Date</th>
+      <th>Author</th>
+      </tr>
+      {% for note in notes %}
+            <tr>
+            <td align="left"><a href="{{ url_for('chart.progress_get', client_id=note.client_id, rec_id=note.rec_id) }}" title="Click here to access record." target="_blank">{{ client.fname }} {{ client.lname }}</td>
+            <td>{{ note.chart }}</td>
+            <td>{{ note.notedate if note.notedate else 'N/A' }}</td>
+            <td>{{ note.staff_name }}</td>
+            </tr>
+      {% endfor %}
+            <tr><td align="left" colspan="4">
+            <form action="{{ url_for('chart.progress_note') }}" method="POST" style="display:inline;">
+            <input type="hidden" name="client_id" value="{{ client.client_id }}">
+            <button type="submit" style="all: unset; color: black; text-decoration: none; cursor: pointer;">
+            Enter A Progress Note
+            </button>
+            </form>
+            </td></tr>
+
+      <tr><td colspan="5" style="border: none;"><b><u>Inpatient Stays</u></b></td></tr>
+      <tr>
+      <th>Name</th>
+      <th>Hospital</th>
+      <th>Admission</th>
+      <th>Discharge</th>
+      </tr>
+      {% for stay in stays %}
+            <tr>
+            <td align="left"><a href="{{ url_for('chart.inpatient_view', client_id=stay.client_id, rec_id=stay.rec_id) }}" title="Click here to access record." target="_blank">{{ client.fname }} {{ client.lname }}</td>
+            <td>{{ stay.hospital }}</td>
+            <td>{{ stay.start_date }}</td>
+            <td>{{ stay.end_date if stay.end_date else 'Active Admission' }}</td>
+            </tr>
+      {% endfor %}
+            <tr><td align="left" colspan="4">
+            <form action="{{ url_for('chart.inpatient') }}" method="POST" style="display:inline;">
+            <input type="hidden" name="client_id" value="{{ client.client_id }}">
+            <button type="submit" style="all: unset; color: black; text-decoration: none; cursor: pointer;">
+            Enter An Inpatient Record
+            </button>
+            </form>
+            </td></tr>
+
+      </tbody>
+      </table>
+
+      {% include '_footer.html' %}
+
+      </div> 
+      
+   </body>
+</html>

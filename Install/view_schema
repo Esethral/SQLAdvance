@@ -1,0 +1,21 @@
+#!/bin/sh
+DB_PASSWORD=$(PYTHONPATH=/opt/flask-app python3 -c 'from config.database import DB_PASSWORD; print(DB_PASSWORD)')
+export PGPASSWORD="$DB_PASSWORD"
+
+read -p "Dumping List of Tables to schema (file)"
+psql -U www-data -t -c "\d" flask | cut -f4 -d" " > .schema
+> schema
+
+read -p "Dumping Table Definitions to schema (file)"
+for tab in `cat .schema`
+do
+psql -U www-data -c "\d+ $tab" flask >> schema
+done
+
+read -p "Dumping Table Definition Details to schema (file)"
+psql -U www-data -c "\d+" flask > .schema
+cat .schema schema > tables.flask
+rm .schema schema
+less tables.flask
+
+unset PGPASSWORD

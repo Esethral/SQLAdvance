@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}" />
+<style>table {font-size: 14px; align: center; background-color: #ffffff; } 
+th { font-size:14px; background-color: #ffffff; } 
+td { font-size:14px; background-color: #ffffff; }
+</style>
+<title>SQL Advance - Progress Notes</title>
+</head>
+
+  <body>
+		
+      {% include '_header.html' %}
+
+      {% if notes %}
+          {% set client = resident.fname ~ " " ~ resident.lname %}
+      {% else %}
+          <p style="text-align: center; color: red"><b>No Progress Notes found for this client in this date range.</b></p>
+      {% endif %}
+
+      <br />
+
+      {% for note in notes %}
+
+      <table style="border: none; width:800px; margin-left: auto; margin-right: auto;">
+             <tr>
+                 <td style="border: none; colspan: 2;">RESIDENTIAL SERVICES</td>
+                 <td style="border: none; colspan: 1;">Note Type: {{ note.note_type }}</td>
+             </tr> 
+             <tr>
+                 <td style="border: none; colspan: 2;">&nbsp;</td> 
+                 <td style="border: none; colspan: 1;">Client: {{ client }} </td>
+             </tr> 
+             <tr>
+                 <td style="border: none; colspan: 2;">PROGRESS RECORD</td> 
+                 <td style="border: none; colspan: 1;">Chart: {{ note.chart }}</td>
+             </tr> 
+      </table>
+
+      <table style="border: none; width:800px; margin-left: auto; margin-right: auto;">
+      <tr style="border: none;" >
+      <tr><td colspan="4" style="text-align: left; border: none;"><hr /></td></tr>
+      <tr><td colspan="4" style="text-align: left; border: none;">Restorative Services: </td></tr>
+      <tr>
+          <td style="border: none; width: 40px;">AT</td>
+          <td style="border: none; width: 360px; ">Assertiveness</td>
+          <td style="border: none; width: 40px;">CN</td>
+          <td style="border: none; width: 360px;">Case Note</td>
+      </tr>
+      <tr><td style="border: none;">CI  </td>
+          <td style="border: none;">Community Integration  </td>
+          <td style="border: none;">P  </td>
+          <td style="border: none;">Parenting         </td></tr>
+      <tr>
+          <td style="border: none;">RC  </td>
+          <td style="border: none;">Restorative Counseling </td>
+          <td style="border: none;">SD </td>
+          <td style="border: none;">Skill Development </td></tr>
+      <tr>
+          <td style="border: none;">DLS </td>
+          <td style="border: none;">Daily Living Skills    </td>
+          <td style="border: none;">S  </td>
+          <td style="border: none;">Socialization     </td></tr>
+      <tr>
+          <td style="border: none;">HS  </td>
+          <td style="border: none;">Health Services        </td>
+          <td style="border: none;">SA </td>
+          <td style="border: none;">Substance Abuse   </td></tr>
+      <tr>
+          <td style="border: none;">MMT </td>
+          <td style="border: none;">Medication Management  </td>
+          <td style="border: none;">SM </td>
+          <td style="border: none;">Symptom Management</td></tr>
+      <tr><td colspan="4" style="text-align: left; border: none;"><hr /></td></tr>
+      </table>
+
+      <table style="border: none; width:800px; margin-left: auto; margin-right: auto;">
+      <tr >
+          <td style="border: none;"><u>Date</u></td> 
+          <td style="border: none;"><u>Restorative Service</u></td> 
+          <td style="border: none;"><u>Note Entered By</u></td>
+      </tr> 
+      <tr>
+          <td style="border: none;"> {{ note.notedate }}</td>
+          <td style="border: none;"> {{ note.acronym }}</td>
+          <td style="border: none;"> {{ note.staff_name }}</td>
+      </tr>
+      </table>
+
+      <table style="border: none; width:800px; margin-left: auto; margin-right: auto;">
+      <tr><td style="border: none;"><hr /></td></tr>
+      <tr><td style="border: none;">Duration of Contact: {{ note.duration }}</td></tr>
+      <tr><td style="border: none;">NOTE: All services were provided on premises of Community Residence unless otherwise specified.</td></tr>
+      <tr><td style="border: none;"><hr /></td></tr>
+      </table>
+
+      {% if note.medicaid > 0 %}
+
+      <table style="border: none; width:800px; margin-left: auto; margin-right: auto;">
+          <tr><td style="border: none;">GOAL: {{ note.goal}}</td></tr>
+          <tr><td style="border: none;">{{ note.level }}</td></tr>
+          <tr><td style="border: none;"><hr /></td></tr>
+          <tr><td style="border: none;">OBJECTIVE: {{ note.objective }}</td></tr>
+          <tr><td style="border: none;"><hr /></td></tr>
+          <tr><td style="border: none;">OBSERVATIONS</td></tr>
+      </table>
+
+      <table style="border: none; width:800px; margin-left: auto; margin-right: auto;">
+          <tr><td style="border: none;">Mood/Affect:                       </td><td style="border:none;">{{ note.mood_affect}}</td></tr>
+          <tr><td style="border: none;">Thought Process/Orientation:       </td><td style="border:none;">{{ note.thought_process}}</td></tr>
+          <tr><td style="border: none;">Motor Activity and Speech:         </td><td style="border:none;">{{ note.motor_activity}}</td></tr>
+          <tr><td style="border: none;">Behavior/Functioning:              </td><td style="border:none;">{{ note.behavior}}</td></tr>
+          <tr><td style="border: none;">Medical Condition:                 </td><td style="border:none;">{{ note.medical_condition}}</td></tr>
+          <tr><td style="border: none;">Substance Use/Addictive Behavior:  </td><td style="border:none;">{{ note.substance_use}}</td></tr>
+      </table>
+
+      <table style="border: none; width:800px; margin-left: auto; margin-right: auto;">
+          <tr><td colspan="3" style="text-align: left; border: none;"><hr /></td></tr>
+      </table>
+
+      {% endif %}
+
+      <table style="border: none; width:800px; margin-left: auto; margin-right: auto;">
+      <tr style="border: none;" ><td colspan="3" style="text-align: left; border: none;"><blockquote>{{ note.notebody}}</blockquote></td>
+      <tr style="border: none;" ><td colspan="3" style="text-align: left; border: none;"><hr /></td></tr>
+      </table>
+
+      <br />
+
+      {% if mode == 'view' and note.esof_name %}
+
+      <table style="border: none; width:800px; margin-left: auto; margin-right: auto;">
+          <tr><td style="border: none;">Electronically Signed By: {{ note.esof_name }}</td></tr>
+      </table>
+
+      {% endif %}
+
+      {% if mode == 'print' %}
+
+      <table style="border: none; width:800px; margin-left: auto; margin-right: auto;">
+          <tr>
+              <td style="border: none;">SIGNATURE____________________________________</td>
+              <td style="border: none;">DATE___________________</td>
+          </tr>
+      </table>
+
+      {% endif %}
+
+      <br />
+      <table style="border: none; width:800px; margin-left: auto; margin-right: auto;">
+          <tr><td colspan="3" style="text-align: left; border: none;"><hr /></td></tr>
+      </table>
+
+      {% endfor %}
+
+<style>
+   @media print {
+      .no-print {
+         display: none !important;
+      }
+   }
+</style>
+
+<div align="center" class="no-print">
+  <form>
+    <center><input type="button" value="Print Page" name="PrintBtn" onClick="window.print()"></center>
+  </form>
+  <br />
+  {% include '_footer.html' %}
+</div>
+
+  </body>
+</html>
+

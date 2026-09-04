@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bare.css') }}" />
+<style>table {font-size: 14px; align: center; background-color: #ffffff; } 
+th { font-size:14px; background-color: #ffffff; } 
+td { font-size:14px; background-color: #ffffff; }
+</style>
+<meta charset="UTF-8" />
+<title>SQL Advance - My Messages</title>
+</head>
+
+  <body>
+		
+      <p align="center"><b>SQL Advance - My Messages</b></p>
+
+      <div id="mail">
+      <form method="POST" action="{{ url_for('admin.message_actions') }}">
+      <table style="border: 0px solid black; border-collapse: collapse; width:900px; margin-left: auto; margin-right: auto; overflow-y: scroll; max-height: 400px;">
+      <thead>
+      <tr>
+      <!-- th>Select</th -->
+      <th><input type="checkbox" id="select-all"></th>
+      <th>Sender</th>
+      <th>Subject</th>
+      <th>Timestamp</th>
+      <th>Status</th>
+      <th>Preview</th>
+      <th>Options</th>
+      </tr>
+      </thead>
+      <tbody>
+      {% for note in notes %}
+      <tr class="{% if not note.read %}unread{% endif %}" style="border: 1px solid black; border-collapse: collapse;">
+      <td>
+      <input type="checkbox" name="selected_notes" value="{{ note.rec_id }}">
+      </td>
+      <td>{% if not note.read %}{{ note.sender }}{% else %}<span>{{ note.sender }}</span>{% endif %}</td>
+      <td>{% if not note.read %}{{ note.subject[:20] }}{% else %}<span>{{ note.subject[:20] }}</span>{% endif %}</td>
+      <td>{% if not note.read %}{{ note.timestamp.strftime("%Y-%m-%d %H:%M") }}{% else %}<span>{{ note.timestamp.strftime("%Y-%m-%d %H:%M") }}</span>{% endif %}</td>
+      <td>{% if not note.read %}Unseen{% else %}<span>Seen</span>{% endif %}</td>
+      <td>{{ note.body[:45] }}{% if note.body|length > 45 %}...{% endif %}</td>
+      <td>
+      <a href="{{ url_for('admin.message_view', message_id=note.rec_id) }}">View</a> &bull;
+      <a href="{{ url_for('admin.message_reply', message_id=note.rec_id) }}">Reply</a> &bull;
+      <a href="{{ url_for('admin.message_remove', message_id=note.rec_id) }}">Remove</a>
+      </td>
+      </tr>
+      {% endfor %}
+      </tbody>
+      </table>
+
+      <div>
+      <br />
+      <button type="submit" name="action" value="mark_read">Mark As Read</button>
+      <button type="submit" name="action" value="delete">Delete Selected Messages</button>
+      <button type="submit" name="action" value="mark_new">Mark As New</button>
+      </div>
+      </form>
+      </div>
+      </div>
+
+      <p align="center"><b>Sent Mail</b></p>
+
+      <div id="mail">
+      <table style="border: 0px solid black; border-collapse: collapse; width:900px; margin-left: auto; margin-right: auto;">
+      <tr>
+      <th>Sender</th>
+      <th>Subject</th>
+      <th>Timestamp</th>
+      <th>Status</th>
+      <th>Preview</th>
+      <th>Options</th>
+      </tr>
+      </thead>
+      <tbody>
+      {% for sent in sent %}
+      <tr class="{% if not sent.read %}unread{% endif %}" style="border: 1px solid black; border-collapse: collapse;" >
+      <td>{% if not sent.read %}{{ sent.sender }}{% else %}<span>{{ sent.sender }}</span>{% endif %}</td>
+      <td>{% if not sent.read %}{{ sent.subject[:20] }}{% else %}<span>{{ sent.subject[:20] }}</span>{% endif %}</td>
+      <td>{% if not sent.read %}{{ sent.timestamp.strftime("%Y-%m-%d %H:%M") }}{% else %}<span>{{ sent.timestamp.strftime("%Y-%m-%d %H:%M") }}</span>{% endif %}</td>
+      <td>{% if not sent.read %}Unseen{% else %}<span>Seen</span>{% endif %}</td>
+      <td>{{ sent.body[:45] }}{% if sent.body|length > 45 %}...{% endif %}</td>
+      <td>
+      <a href="{{ url_for('admin.message_view',   message_id=sent.rec_id) }}">View</a> &bull;
+      <a href="{{ url_for('admin.message_reply',  message_id=sent.rec_id) }}">Reply</a> &bull;
+      <a href="{{ url_for('admin.message_remove', message_id=sent.rec_id) }}">Remove</a>
+      </center>
+      </td>
+      </tr>
+      {% endfor %}
+      </tbody>
+      </table>
+      </div>
+
+      <p align="center"><b>Send A Message</b></p>
+
+      <form action="#" method="post">
+      <table style="border: 0px solid black; border-collapse: collapse; width:900px; margin-left: auto; margin-right: auto;">
+      <tr><td><br /></td></tr>
+
+      <tr><td>Recipient:
+      <select name="receiver" style="font-size: 14px;">
+          {% for user in users %}
+	  <option value="{{ user.user_id }} -- {{ user.fullname  }}">{{ user.fullname }}</option>
+          {% endfor %}
+      </select>
+      </td></tr>
+
+      <tr>
+      <td><label for="subject">Subject:&nbsp;&nbsp;&nbsp;&nbsp;</label>
+      <input type="text" name="subject" style="font-size: 14px;" /></td>
+      </tr>
+
+      <tr><td colspan="2"><label for="body">Message:</label></td></tr>
+      <tr><td colspan="2"><textarea name="body" rows="15" cols="120" /></textarea></td>
+      </tr>
+
+      <tr><td><br /></td></tr>
+      <tr>
+      <td align="center" colspan="2"><button style="font-size: 14px;" type="submit">Submit</button></td>
+      </tr>
+      </table>
+      </form>
+
+      {% include '_footer.html' %}
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const selectAllCheckbox = document.getElementById('select-all');
+        const noteCheckboxes = document.querySelectorAll('input[name="selected_notes"]');
+
+        selectAllCheckbox.addEventListener('change', function() {
+            noteCheckboxes.forEach(function(checkbox) {
+                checkbox.checked = selectAllCheckbox.checked;
+            });
+        });
+    });
+</script>
+
+
+  </body>
+</html>
+

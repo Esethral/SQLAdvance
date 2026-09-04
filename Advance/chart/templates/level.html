@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang = "en">
+   <head>
+   <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+   </head>
+   <body>
+      
+      <div> 
+      <h4>SQLAdvance</h4>
+      <h4>Clearance Level</h4>
+		
+      <table align="center">
+      <thead>
+      <tr>
+      <th>User Name</th>
+      <th>Track</th>
+      <th>Update Privilege</th>
+      <th>Remove Privilege</th>
+      <th>Trusted User</th>
+      </tr>
+      </thead>
+      
+      <tbody>
+      {% for level in levels %}
+      <tr>
+      <td>{{ level.username }}</td>
+      <td>{{ level.track }}</td>
+      <td>{{ level.update}}</td>
+      <td>{{ level.remove}}</td>
+      <td>{{ trusted }}</td>
+      </tr>
+      {% endfor %}
+      </tbody>
+      </table>
+
+      {% include '_footer.html' %}
+
+      </div> 
+      
+   </body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bare.css') }}" />
+<style>table {font-size: 14px; align: center; background-color: #ffffff; } 
+th { font-size:14px; background-color: #ffffff; } 
+td { font-size:14px; background-color: #ffffff; }
+</style>
+<title>SQL Advance - Client Demographics</title>
+</head>
+
+  <body>
+
+      <p align="center"><img src="{{url_for('static',filename='sqlx.jpg')}}"></p>
+
+      {% if records %}
+      <form action="#" method="post">
+      <table style="width:486px; margin-left: auto; margin-right: auto;">
+
+      <tr>
+        <td>Select Demographics Records for [{{ client_id }}] {{ client.fname }} {{ client.lname }}:</td>
+      </tr>
+      <tr>
+        <td>
+          <select name="rec_id" style="width: 400px;">
+            {% for record in records %}
+              <option value="{{ record.rec_id }}"
+                      title="{{ record.rec_id }}">
+                [{{ record.rec_id }} {{record.unit_lname }} {{ record.staff_name }}]
+              </option>
+            {% endfor %}
+          </select>
+        </td>
+      </tr>
+
+      </table>
+      <br />
+      <table align="center">
+      <tr><td><input type="hidden" name="client_id" value="{{ client_id }}" /></td></tr>
+      <tr><td align="center" colspan="2"><button type="submit" name="action" value="modify">Submit</button></td></tr>
+      </table>
+      </form>
+      {% else %}
+          <p style="text-align: center; color: red"><b>No Demographics Record found for this client in this date range.</b></p>
+      {% endif %}
+
+      <p align="center"><a href="{{ url_for('chart.demographics') }}"><center><h4>Enter Demographics Data</h4></center></a></p>
+
+      {% include '_footer.html' %}
+
+  </body>
+</html>
+

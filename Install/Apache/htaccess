@@ -1,0 +1,8 @@
+
+<Location />
+    AuthType Basic
+    AuthName "SQL Advance"
+    AuthUserFile /opt/flask-app/.htpasswd
+    Require valid-user
+</Location>
+

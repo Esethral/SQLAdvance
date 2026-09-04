@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='clean.css') }}" />
+<meta charset="UTF-8" />
+<title>SQL Advance - Diagnostic History</title>
+</head>
+  <body>
+
+<p align="center"><b>Update A Diganostic Record for</b> [ {{ client_id }}] {{ client.fname }} {{ client.lname }}</p>
+
+<form action="#" method="post">
+  <table align="center" width=600px">
+    <tr><td colspan="2" align="center"><b>Client: </b>{{ client.fname }} {{ client.lname }}</td></tr>
+    <tr><td colspan="2"><br /></td></tr>
+
+    <tr><td colspan="2"><center><b>Diagnostic History</b></center></td></tr>
+    <tr><td colspan="2"><br /></td></tr>
+    <tr><td colspan="2">
+    <table align="center" width=600px">
+    <tr>
+      <td style="border: none;"><b>DSM5 Diagnosis</b></td>
+      <td style="border: none;"><b>ICD10 Diagnosis</b></td>
+      <td style="border: none;"><b>Date&nbsp;Entered</b></td>
+    </tr>
+    {% for history in history %}
+    <tr>
+      <td style="border: none;">&bull; {{ history.dsm5 }}</td>
+      <td style="border: none;"> {{ history.icd10 }}</td>
+      <td style="border: none;"> {{ history.start_date }}</td>
+    </tr>
+    {% endfor %}
+    </table>
+    </td></tr>
+
+    <tr><td colspan="2"><br /></td></tr>
+    <tr><td colspan="2"><center><b>Update Diagnosis</b></center></td></tr>
+    <tr><td colspan="2"><br /></td></tr>
+
+    <tr>
+      <td><b>Select Unit: </b></td>
+      <td>
+      <select name="unit_lname">
+      <option value="{{ place_str }}" {% if place_str == (place_str) %}selected{% endif %}>{{ place_str }}</option>
+      {% for unit in units %}
+      <option value="{{unit.unit_id}} -- {{ unit.unit_lname }}">{{ record.unit_lname }}</option>
+      {% endfor %}
+      </select>
+      </td>
+    </tr>
+
+    <tr>
+      <td><label for="start_date"><b>Effective Date:</b></label></td>
+      <td><input type="date" name="start_date" value="{{ record.start_date }}"  required /></td>
+    </tr>
+
+    <tr>
+      <td><b>DSM5 Diagnosis: </b></td>
+      <td>
+      <select name="dsm5">
+        {% for code in dsm5 %}
+          <option value="{{ code }}" title="{{ code }}"
+            {% if code == record.dsm5 %}selected{% endif %}>
+            {{ code[:60] }}{% if code|length > 60 %}...{% endif %}
+          </option>
+        {% endfor %}
+      </select>
+      </td>
+    </tr>
+
+    <tr>
+      <td><b>ICD10  Diagnosis: </b></td>
+      <td>
+      <select name="icd10">
+        {% for code in icd10 %}
+          <option value="{{ code }}" title="{{ code }}"
+            {% if code == record.icd10 %}selected{% endif %}>
+            {{ code[:60] }}{% if code|length > 60 %}...{% endif %}
+          </option>
+        {% endfor %}
+      </select>
+      </td>
+    </tr>
+
+    <tr>
+        <td colspan="1"><label for="notebody"><b>Comments:</b></label></td>
+    </tr>
+    <tr>
+      <td colspan="2"><textarea name="notebody" rows="15" cols="85" />{{ record.notebody }}</textarea></td>
+    </tr>
+
+    <!-- tr><td colspan="2"><hr style="border-top: 1px solid grey;"></td></tr -->
+
+    <!-- Hidden fields -->
+    <tr><td colspan="2">
+      <input type="hidden" name="rec_id" value="{{ rec_id }}" />
+      <input type="hidden" name="client_id" value="{{ client.client_id }}" />
+      <input type="hidden" name="staff_name" value="{{ fullname }}" />
+    </td></tr>
+
+    <tr>
+      <td align="center" colspan="2"><button type="submit" name="action" value="update">Submit</button></td>
+    </tr>
+  </table>
+</form>
+
+<form action="#" method="post">
+<table align="center">
+<tr><td><input type="hidden" name="staff_name" value="{{ fullname }}" /></td></tr>
+<tr><td><input type="hidden" name="rec_id" value="{{ rec_id }}" /></td></tr>
+<tr><td><input type="hidden" name="hat_trick" value="1" /></td></tr>
+<tr><td align="center" colspan="2"><br /><br /><font color=red>To DELETE this record click here: </font><input type="hidden" name="delete" value="true"><button type="submit">Delete</button></td></tr>
+</table>
+</form>
+
+{% include '_footer.html' %}
+
+</body>
+</html>
+

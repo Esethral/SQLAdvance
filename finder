@@ -1,0 +1,27 @@
+#!/bin/bash
+read -p "Enter string: " string
+
+> finder.txt
+echo "--" >> finder.txt
+
+for file in `find . -type f ! -name "finder*"`
+
+do
+
+x=`grep -i -e "$string" $file`
+
+case $x in
+"" )
+     echo "Skipping $file";
+;;
+*)
+     echo "$file: " >> finder.txt
+     echo "$x" >> finder.txt
+     echo "--" >> finder.txt
+;;
+esac
+
+done
+
+more finder.txt
+

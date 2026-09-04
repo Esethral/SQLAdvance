@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bare.css') }}" />
+    <meta charset="UTF-8" />
+    <title>SQL Advance - User Accounts</title>
+  </head>
+  <body>
+
+      <p align="center">
+      <img src="{{url_for('static',filename='sqlx.jpg')}}">
+      </p>
+		
+      <p align="center"><b>SQL Advance - User Account</b></p>
+      <hr align="center" width="20%">
+         
+      <form action="#" method="post">
+      <table align="center">
+      <thead><tr><th align="center" colspan="2">Delete User:</th></tr></thead>
+      <tr><td><br /></td></tr>
+
+      <tr><td>Username: </td><td>{{ user.username }}</td></tr>
+      <tr><td>Full Name: </td><td>{{ user.fullname }}</td></tr>
+
+      <tr><td><br /></td></tr>
+      <tr><td align="center" colspan="2"><button type="submit" name="action" value="delete">Submit</button></td></tr>
+      <tr><td><input type="hidden" name="user_id" value="{{ user.user_id }}" /></td></tr>
+      </table>
+
+      </form>
+
+      {% include '_footer.html' %}
+
+  </body>
+</html>
+

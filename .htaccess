@@ -1,0 +1,4 @@
+AuthName "SQL Advance"
+AuthType Basic
+AuthUserFile /opt/flask-app/.htpasswd
+Require valid-user

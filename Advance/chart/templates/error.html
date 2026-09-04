@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bare.css') }}" />
+    <style>table {font-size: 14px; align: center; } 
+           th { font-size:14px; } 
+           td { font-size:14px; background-color: #ffffff; }
+           a { font-size: 14px; color: #000000; text-decoration: none; }
+           a:visited { color: #000000;  }
+           a:active { color: #000000; }
+           a:hover { color: #000000; text-decoration: none; }
+    </style>
+    <meta charset="UTF-8" />
+    <title>SQL Advance</title>
+  </head>
+  <body>
+      <p align="center">
+      <img src="{{url_for('static',filename='sqlx.jpg')}}">
+      </p>
+      <p align="center">SQL Advance - Clinical Charting Menu</p>
+
+      {% if error %}
+          <p align="center"><font color="red"><b> {{ error }} </b></font></p>
+      {% endif %}
+
+    <p align="center">
+    {% include '_footer.html' %}
+    </p>
+
+  </body>
+</html>

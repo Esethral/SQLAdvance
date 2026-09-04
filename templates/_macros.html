@@ -1,0 +1,8 @@
+{% macro highlight_none(value) %}
+  {% if value is none %}
+    <span style="color: red;">No Data</span>
+  {% else %}
+    {{ value }}
+  {% endif %}
+{% endmacro %}
+

@@ -1,0 +1,9 @@
+# Python generated files
+__pycache__/
+*.py[cod]
+
+# macOS generated files
+.DS_Store
+
+# Prebuilt virtual environments
+Install/Virtual_Environments/*.tgz

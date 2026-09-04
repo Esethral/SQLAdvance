@@ -1,0 +1,23 @@
+<form method="post">
+
+    <input type="date"
+           name="start_date"
+           value="{{ start_date }}">
+
+    <input type="date"
+           name="end_date"
+           value="{{ end_date }}">
+
+    <select name="unit_id">
+          {% for unit in units %}
+              <option value="{{ unit.unit_id }}">{{ unit.unit_lname }}</option>
+          {% endfor %}
+    </select>
+
+    <button type="submit"
+            name="action"
+            value="set_date">
+        Search
+    </button>
+
+</form>

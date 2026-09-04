@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang = "en">
+   <head>
+   <link rel="stylesheet" href="{{ url_for('static', filename='bare.css') }}">
+   </head>
+   <body>
+      
+      <div> 
+      
+      {% include '_header.html' %}
+
+      <h4>Client Face Sheet</h4>
+		
+      <table align="center" width="800px">
+      <tbody>
+
+      <tr><td colspan="4" style="border: none;"><b>Identifying Data</b></td></tr>
+
+
+      <tr><td colspan="4">
+      <img src="{{ url_for('chart.client_photo', filename=client.client_id ~ '.jpg') }}"
+          width="300"
+           onerror="this.style.display='none'">
+      </td></tr>
+
+      <tr>
+          <td align="left"><b>Name: </b> {{ client.fname }} {{ client.lname }}</td>
+          <td align="left"><b>DOB: </b> {{ client.dob }}</td>
+          <td align="left"><b>Alias(es):</b> {{ demos.alias }}</td>
+          <td align="left"><b>Allergies:</b> {{ demos.allergy }}</td>
+      </tr>
+      <tr><td><br /></td></tr>
+      <tr>
+          <td align="left"><b>Address:</b> {{ demos.address }}</td><td align="left"><b>Apartment:</b> {{ demos.apartment }}</td>
+          <td align="left"><b>City:</b> {{ demos.city }}</td><td align="left"><b>State:</b> {{ demos.state }}</td>
+      </tr>
+      <tr>
+          <td align="left"><b>Postal Code:</b> {{ demos.post_code }}</td>
+          <td align="left"><b>Phone: </b> {{ demos.phone }}</td><td align="left"><b>Mobile Phone: </b> {{ demos.phone_mobile }}</td>
+          <td align="left"><b>Other Phone:</b> {{ demos.phone_other }}</td>
+      </tr>
+      <tr><td><br /></td></tr>
+      <tr>
+          <td align="left"><b>Sex Assigned At Birth: </b> {{ demos.sex_birth }} </td>
+          <td align="left"><b>Gender Identity: </b> {{ demos.sex_gender }} </td>
+          <td align="left"><b>Sexual Orientation: </b> {{ demos.sex_orientation }} </td>
+      </tr>
+      <tr><td><br /></td></tr>
+      <tr>
+          <td align="left"><b>Race: </b> {{ demos.race }} </td>
+          <td align="left" colspan="2"><b>If African-American: </b> {{ demos.race_detail }} </td>
+      </tr>
+          <td>&nbsp;</td><td align="left" colspan="2"><b>If Asian: </b> {{ demos.asian_detail }} </td>
+      </tr>
+      <tr>
+          <td>&nbsp;</td><td align="left" colspan="2"><b>If Pacific Islander: </b> {{ demos.pacific_detail }} </td>
+      </tr>
+      <tr><td><br /></td></tr>
+      <tr>
+          <td align="left"><b>Ethnicity: </b> {{ demos.ethnicity }} </td>
+          <td align="left" colspan="2"><b>If Hispanic/Latino: </b> {{ demos.ethnicity_detail }} </td>
+      </tr>
+      <tr>
+          <td align="left"><b>Place of Birth: </b> {{ demos.place_of_birth }} </td>
+          <td align="left"><b>Preferred Language: </b> {{ demos.language_spoken }} </td>
+          <td align="left"><b>Religion: </b> {{ demos.religion }} </td>
+      </tr>
+      <tr>
+          <td align="left"><b>US Citizen: </b> {{ demos.citizen }} </td>
+          <td align="left"><b>US Veteran: </b> {{ demos.veteran }} </td>
+      </tr>
+      <tr><td><br /></td></tr>
+      <tr>
+          <td align="left"><b>Marital Status: </b> {{ demos.marital_status }} </td>
+          <td align="left"><b>Parental Status: </b> {{ demos.parental_status }} </td>
+          <td align="left" colspan="2"><b>Household Composition: </b> {{ demos.household }} </td>
+      </tr>
+
+      <tr>
+            <td align="center" colspan="4">
+            <form action="{{ url_for('chart.demographics_update') }}" method="POST" style="display:inline;">
+            <input type="hidden" name="action" value="modify">
+            <input type="hidden" name="client_id" value="{{ client.client_id }}">
+            <input type="hidden" name="rec_id" value="{{ demos.rec_id }}">
+            <button type="submit" style="all: unset; color: black; text-decoration: none; cursor: pointer;">
+            <b><font color="blue">Update Demographics</font></b>
+            </button>
+            </form>
+            </td>
+      </tr>
+
+      <tr>
+            <td align="center" colspan="4">
+            <form action="{{ url_for('chart.demographics') }}" method="POST" style="display:inline;">
+            <input type="hidden" name="action" value="select">
+            <input type="hidden" name="client_id" value="{{ client.client_id }}">
+            <button type="submit" style="all: unset; color: black; text-decoration: none; cursor: pointer;">
+            <b><font color="blue">Enter Demographics</font></b>
+            </button>
+            </form>
+            </td>
+      </tr>
+
+      <tr><td><br /></td></tr>
+
+      <tr><td colspan="4" style="border: none;"><b>Entitlements</b></td></tr>
+      <tr>
+          <td align="left"><b>SSN: </b> {{ client.ssn }}</td>
+          <td align="left"><b>Medicaid: </b> {{ client.medicaid }}</td>
+      </tr>
+
+      <tr><td><br /></td></tr>
+
+      <tr>
+          <td align="left"><b>Social Security Recipient:</b> {{ ents.social_security }}</td>
+          <td align="left"><b>SSI Amount:</b> {{ ents.ssi }}</td>
+          <td align="left"><b>SSD Amount:</b> {{ ents.ssd }}</td>
+      </tr>
+      <tr>
+          <td align="left"><b>Active Medicaid:</b> {{ ents.medicaid }}</td>
+          <td align="left"><b>Medicaid Managed Care:</b> {{ ents.managed_care }}</td>
+      </tr>
+      <tr>
+          <td align="left"><b>Medicare Recipient:</b> {{ ents.medicare }}</td>
+          <td align="left"><b>Medicare ID:</b> {{ ents.medicare_id }}</td>
+      </tr>
+      <tr><td><br /></td></tr>
+      <tr>
+          <td align="left"><b>Public Assistance:</b> {{ ents.public_assistance }}</td>
+          <td align="left"><b>Public Assistance Amount: </b> {{ ents.public_amount }} </td>
+      </tr>
+      <tr>
+          <td align="left"><b>Section 8: </b> {{ ents.section_8 }} </td>
+      </tr>
+      <tr><td><br /></td></tr>
+      <tr>
+          <td align="left"><b>Private Insurance: </b> {{ ents.insurance }} </td>
+          <td align="left"><b>Insurance Carrier: </b> {{ ents.insurance_carrier }} </td>
+          <td align="left"><b>Insurance ID Number: </b> {{ ents.insurance_id }} </td>
+      </tr>
+      <tr><td><br /></td></tr>
+      <tr>
+          <td align="left"><b>Alimony: </b> {{ ents.alimony }} </td>
+          <td align="left"><b>Child Support: </b> {{ ents.child_support }} </td>
+      </tr>
+      <tr><td><br /></td></tr>
+      <tr>
+          <td align="left"><b>SNAP Recipient:</b> {{ ents.snap }}</td>
+          <td align="left"><b>SNAP ID: </b> {{ ents.snap_id }}</td>
+          <td align="left"><b>SNAP Amount: </b> {{ ents.snap_amt }}</td>
+      </tr>
+      <tr>
+          <td align="left"><b>WIC: </b> {{ ents.wic }} </td>
+          <td align="left"><b>TANF: </b> {{ ents.tanf }} </td>
+      </tr>
+      <tr><td align="left"><b>Other Non-Cash Benefits: </b> {{ ents.other_non_cash }} </td></tr>
+      <tr><td><br /></td></tr>
+      <tr>
+          <td align="left"><b>Wages: </b> {{ ents.wages }} </td>
+          <td align="left"><b>Pension: </b> {{ ents.pension }} </td>
+          <td align="left"><b>Retirement Income: </b> {{ ents.retirement_income }} </td>
+      </tr>
+      <tr><td align="left"><b>Other Income: </b> {{ ents.other_income }} </td></tr>
+      <tr><td><br /></td></tr>
+      <tr>
+          <td align="left"><b>Unemployment: </b> {{ ents.unemployment }} </td>
+          <td align="left"><b>Workers Compensation: </b> {{ ents.workers_comp }} </td>
+      </tr>
+      <tr><td><br /></td></tr>
+      <tr>
+          <td align="left"><b>VA Disability: </b> {{ ents.va_disability }} </td>
+          <td align="left" colspan="2"><b>VA Medical: </b> {{ ents.va_medical }} </td>
+      </tr>
+
+      <tr>
+            <td align="center" colspan="4">
+            <form action="{{ url_for('chart.entitlements_update') }}" method="POST" style="display:inline;">
+            <input type="hidden" name="action" value="modify">
+            <input type="hidden" name="client_id" value="{{ client.client_id }}">
+            <input type="hidden" name="rec_id" value="{{ demos.rec_id }}">
+            <button type="submit" style="all: unset; color: black; text-decoration: none; cursor: pointer;">
+            <b><font color="blue">Update Entitlements</font></b>
+            </button>
+            </form>
+            </td>
+      </tr>
+
+      </table>
+
+      <table align="center" width="800px">
+      <tr><td><br />&nbsp;<br /></td></tr>
+
+      <tr><td colspan="4" style="border: none;"><b>Placement History</b></td></tr>
+      <tr>
+      <th><u>Unit Name</th>
+      <th><u>Admission</th>
+      <th><u>Discharge</th>
+      <th><u>Entered By</th>
+      </tr>
+      {% for place in places %}
+            <tr>
+            <td align="left"><a href="{{ url_for('chart.placement_view', client_id=place.client_id, rec_id=place.rec_id) }}" title="Click here to access record." target="_blank">{{ place.unit_lname }}</td>
+            <td>{{ place.start_date }}</td>
+            <td>{{ place.end_date if place.end_date else 'Current Placement' }}</td>
+            <td>{{ place.staff_name }}</td>
+            </tr>
+      <tr>
+            <td align="center" colspan="4">
+            <form action="{{ url_for('chart.placement_update') }}" method="POST" style="display:inline;">
+            <input type="hidden" name="action" value="modify">
+            <input type="hidden" name="client_id" value="{{ client.client_id }}">
+            <input type="hidden" name="rec_id" value="{{ place.rec_id }}">
+            <button type="submit" style="all: unset; color: black; text-decoration: none; cursor: pointer;">
+            <b><font color="blue">Update Placement Record</font></b>
+            </button>
+            </form>
+            </td>
+      </tr>
+
+      {% endfor %}
+
+      <tr><td><br />&nbsp;<br /></td></tr>
+
+      <tr><td colspan="4" style="border: none;"><b>Diagnostic History</b></td></tr>
+      <tr>
+      <th><u>Effective Date</u></th>
+      <th><u>Expiration Date</u></th>
+      <th><u>DSM 5 / ICD 10 Diagnoses</u></th>
+      </tr>
+      {% for diag in diags %}
+            <tr>
+            <td align="left"><a href="{{ url_for('chart.diagnosis_view', client_id=diag.client_id, rec_id=diag.rec_id) }}" title="Click here to access record." target="_blank">{{ diag.start_date }}</td>
+            <!-- form replaced with url -->
+            <td>{{ diag.end_date if diag.end_date else 'Current' }}</td>
+            <td align="left" colspan="2"><b>DSM 5:</b> {{ diag.dsm5 }}<br /><b>ICD 10:</b> {{ diag.icd10 }}</td>
+            </tr>
+      {% endfor %}
+            <tr><td align="center" colspan="4">
+            <form action="{{ url_for('chart.diagnosis') }}" method="POST" style="display:inline;">
+            <input type="hidden" name="action" value="select">
+            <input type="hidden" name="client_id" value="{{ client.client_id }}">
+            <button type="submit" style="all: unset; color: black; text-decoration: none; cursor: pointer;">
+            <b><font color="blue">Enter A DSM5 / ICD10 Diagnosis</font></b>
+            </button>
+            </form>
+            </td></tr>
+
+      <tr><td><br />&nbsp;<br /></td></tr>
+
+      <tr><td colspan="4" style="border: none;"><b>Functional Assessments</b></td></tr>
+      <tr>
+      <th><u>Effective Date</u></th>
+      <th><u>Expiration Date</u></th>
+      <th><u>Skill Area</u></th>
+      </tr>
+      {% for funct in functs %}
+            <tr>
+            <td align="left"><a href="{{ url_for('chart.functional_get', client_id=funct.client_id, rec_id=funct.rec_id) }}" title="Click here to access record." target="_blank">{{ funct.start_date }}</td>
+            <td>{{ funct.end_date if funct.end_date else 'N/A' }}</td>
+            <td align="left" colspan="2"><li>{{ funct.skill_area|truncate(60, True, '...') }}</li></td>
+            </tr>
+      {% endfor %}
+            <tr><td align="center" colspan="4">
+            <form action="{{ url_for('chart.functional') }}" method="POST" style="display:inline;">
+            <input type="hidden" name="action" value="select">
+            <input type="hidden" name="client_id" value="{{ client.client_id }}">
+            <b><button type="submit" style="all: unset; color: black; text-decoration: none; cursor: pointer;">
+            <b><font color="blue">Enter A Functional Assessment</font></b>
+            </button>
+            </form>
+            </td></tr>
+
+      <tr><td><br />&nbsp;<br /></td></tr>
+
+      <tr><td colspan="4" style="border: none;"><b>Support Plans</b></td></tr>
+      <tr>
+      <th><u>Effective Date</u></th>
+      <th><u>Expiration Date</u></th>
+      <th><u>Support Plan Goal</u></th>
+      </tr>
+      {% for plan in plans %}
+            <tr>
+            <td align="left"><a href="{{ url_for('chart.support_get', client_id=plan.client_id, rec_id=plan.rec_id) }}" title="Click here to access record." target="_blank">{{ plan.start_date }}</td>
+            <td>{{ plan.end_date if plan.end_date else 'N/A' }}</td>
+            <td align="left">
+                <ul style="margin:0; padding-left:18px;">
+                    {% for goal in plan.goals %}
+                        <li>{{ goal|truncate(60, True, '...') }}</li>
+                    {% endfor %}
+                </ul>
+            </td>
+            </tr>
+      {% endfor %}
+            <tr><td align="center" colspan="4">
+            <form action="{{ url_for('chart.support_plan') }}" method="POST" style="display:inline;">
+            <input type="hidden" name="action" value="select">
+            <input type="hidden" name="client_id" value="{{ client.client_id }}">
+            <button type="submit" style="all: unset; color: black; text-decoration: none; cursor: pointer;">
+            <b><font color="blue">Enter A Support Plan</font></b>
+            </button>
+            </form>
+            </td></tr>
+
+      <tr><td><br />&nbsp;<br /></td></tr>
+
+      <tr><td colspan="4" style="border: none;"><b>Progress Notes</b></td></tr>
+      <tr>
+      <th><u>Note Date</u></th>
+      <th><u>Note Type</u></th>
+      <th><u>Service</u></th>
+      <th><u>Reporting Unit</u></th>
+      </tr>
+      {% for note in notes %}
+            <tr>
+            <td align="left"><a href="{{ url_for('chart.progress_get', client_id=note.client_id, rec_id=note.rec_id) }}" title="Click here to access record." target="_blank">{{ note.notedate }}</td>
+            <td align="left">{{ 'Case Note' if note.acronym == 'CN' else 'Core Service' }}</td>
+            <td align="left">{{ note.goal|truncate(60, True, '...') }}</td>
+            <td>{{ note.unit_lname }}</td>
+            </tr>
+      {% endfor %}
+            <tr><td align="center" colspan="4">
+            <form action="{{ url_for('chart.progress_note') }}" method="POST" style="display:inline;">
+            <input type="hidden" name="action" value="select">
+            <input type="hidden" name="client_id" value="{{ client.client_id }}">
+            <button type="submit" style="all: unset; color: black; text-decoration: none; cursor: pointer;">
+            <b><font color="blue">Enter A Progress Note</font></b>
+            </button>
+            </form>
+            </td></tr>
+
+      <tr><td><br />&nbsp;<br /></td></tr>
+
+      <tr><td colspan="4" style="border: none;"><b>Inpatient Stays</b></td></tr>
+      <tr>
+      <th><u>Hospital</u></th>
+      <th><u>Hospital Type</u></th>
+      <th><u>Admission / Discharge</u></th>
+      <th><u>Reporting Unit</u></th>
+      </tr>
+      {% for stay in stays %}
+            <tr>
+            <td align="left"><a href="{{ url_for('chart.inpatient_view', client_id=stay.client_id, rec_id=stay.rec_id) }}" title="Click here to access record." target="_blank">{{ stay.hospital }}</td>
+            <td>{{ stay.hospital_type }}</td>
+            <td>{{ stay.start_date }} -  {{ stay.end_date if stay.end_date else 'Active Admission' }}</td>
+            <td>{{ stay.unit_lname }}</td>
+            </tr>
+      {% endfor %}
+            <tr><td align="center" colspan="4">
+            <form action="{{ url_for('chart.inpatient') }}" method="POST" style="display:inline;">
+            <input type="hidden" name="action" value="select">
+            <input type="hidden" name="client_id" value="{{ client.client_id }}">
+            <button type="submit" style="all: unset; color: black; text-decoration: none; cursor: pointer;">
+            <b><font color="blue">Enter An Inpatient Record</font></b>
+            </button>
+            </form>
+            </td></tr>
+
+      </tbody>
+      </table>
+
+      {% include '_footer.html' %}
+
+      </div> 
+      
+   </body>
+</html>

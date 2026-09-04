@@ -1,0 +1,11 @@
+#!/bin/bash
+clear
+lsb_release -a
+echo "--"
+psql --version
+pg_lsclusters
+echo "--"
+python3 --version
+echo "--"
+echo "SQLAdvance-1.0.1-beta"
+echo "--"

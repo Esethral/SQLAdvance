@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}" />
+<style>table {font-size: 14px; align: center; background-color: #ffffff; } 
+th { font-size:14px; background-color: #ffffff; } 
+td { font-size:14px; background-color: #ffffff; }
+</style>
+<title>SQL Advance - Client Placement</title>
+</head>
+
+  <body>
+
+      {% include '_header.html' %}
+
+      {% if places %}
+          {% set client = client.fname ~ " " ~ client.lname %}
+          <p style="text-align: center;"><b>Placement History for: </b> {{ client}} </p>
+      {% else %}
+          <p align="center"><b>SQL Advance - Client Placement</b></p>
+          <p style="text-align: center; color: red"><b>No Placement Records found for this client in this date range.</b></p>
+      {% endif %}
+
+      <br />
+
+      {% for place in places %}
+
+      <table style="width:666px; margin-left: auto; margin-right: auto;">
+      <tr>
+      <td style="border: 0px solid black; border-collapse: collapse;"><b><u>Unit Name </u></b></td>
+      <td style="border: 0px solid black; border-collapse: collapse;"><b><u>Entered By</u></b></td>
+      <td style="border: 0px solid black; border-collapse: collapse;"><b><u>Admission </u></b></td>
+      <td style="border: 0px solid black; border-collapse: collapse;"><b><u>Discharge </u></b></td>
+      </tr>
+      <tr>
+      <td style="border: 0px solid black; border-collapse: collapse;"> {{ place.unit_lname }}</td>
+      <td style="border: 0px solid black; border-collapse: collapse;"> {{ place.staff_name }}</td>
+      <td style="border: 0px solid black; border-collapse: collapse;"> {{ place.start_date }}</td>
+      <td style="border: 0px solid black; border-collapse: collapse;"> {{ place.end_date or 'Current Placement' }}</td>
+      </tr>
+      </table>
+      <br />
+
+      {% endfor %}
+
+      <p align="center"><a href="{{ url_for('chart.placement') }}"><center><h4>Enter A Placement Record</h4></center></a></p>
+
+      {% include '_footer.html' %}
+
+  </body>
+</html>
+

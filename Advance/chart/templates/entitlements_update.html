@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bare.css') }}" />
+<style>table {font-size: 14px; align: center; background-color: #ffffff; }
+th { font-size:14px; background-color: #ffffff; }
+td { font-size:14px; background-color: #ffffff; }
+</style>
+<meta charset="UTF-8" />
+<title>SQL Advance - Diagnostic history</title>
+</head>
+  <body>
+<p align="center"><b>SQL Advance</b></p>
+<hr style="border-top: 1px solid grey; text-align: center; width: 80px;">
+
+<form action="#" method="post">
+  <table align="center" width=600px">
+    <tr><td colspan="2" align="center"><b>Client Name: </b> {{ client.fname }} {{ client.lname }}</td></tr>
+    <tr><td colspan="2"><br /></td></tr>
+
+    <tr>
+    <td>Select&nbsp;Unit:</td>
+    <td>
+    <select name="unit_lname">
+    <option value="{{ place_str }}" {% if place_str == (place_str) %}selected{% endif %}>{{ place_str }}</option>
+    {% for unit in units %}
+        <option value="{{unit.unit_id}} -- {{ unit.unit_lname }}">{{unit.unit_id}} -- {{ unit.unit_lname }}</option>
+    {% endfor %}
+    </select>
+    </td>
+    </tr>
+    <tr><td colspan="2"><br /></td></tr>
+ 
+    <tr><td colspan="2"><center><b>Entitlements Data</b></center></td></tr>
+    <tr><td colspan="2"><br /></td></tr>
+
+    <tr><td><b>Social Security Amount:</b></td><td><input type="text" name="social_security" value={{ record.social_security }} /></td></tr>
+    <tr><td><b>SSI Amount:</b></td><td><input type="text" name="ssi" value={{ record.ssi }} /></td></tr>
+    <tr><td><b>SSD Amount:</b></td><td><input type="text" name="ssd" value={{ record.ssd }} /></td></tr>
+    <tr>
+      <td><b>Medicaid: </b></td>
+      <td>
+      <select name="medicaid">
+        {% for value  in bool_list %}
+          <option value="{{ value }}" title="{{ value }}"
+              {% if value == record.medicaid %}selected{% endif %}>
+            {{ value[:60] }}{% if value|length > 60 %}...{% endif %}
+          </option>
+        {% endfor %}
+      </select>
+      </td>
+    </tr>
+    <tr>
+      <td><b>Medicaid Managed Care: </b></td>
+      <td>
+      <select name="managed_care">
+        {% for value in bool_list %}
+          <option value="{{ value }}" title="{{ value }}"
+              {% if value == record.managed_care %}selected{% endif %}>
+            {{ value[:60] }}{% if value|length > 60 %}...{% endif %}
+          </option>
+        {% endfor %}
+      </select>
+      </td>
+    </tr>
+    <tr>
+      <td><b>Medicare: </b></td>
+      <td>
+      <select name="medicare">
+        {% for value  in bool_list %}
+          <option value="{{ value }}" title="{{ value }}"
+              {% if value == record.medicare %}selected{% endif %}>
+            {{ value[:60] }}{% if value|length > 60 %}...{% endif %}
+          </option>
+        {% endfor %}
+      </select>
+      </td>
+    </tr>
+    <tr><td><b>Medicare ID:</b></td><td><input type="text" name="medicare_id" value={{ record.medicare_id }} /></td></tr>
+    <tr>
+      <td><b>SNAP: </b></td>
+      <td>
+      <select name="snap">
+        {% for value  in bool_list %}
+          <option value="{{ value }}" title="{{ value }}"
+              {% if value == record.snap %}selected{% endif %}>
+            {{ value[:60] }}{% if value|length > 60 %}...{% endif %}
+          </option>
+        {% endfor %}
+      </select>
+      </td>
+    </tr>
+    <tr><td><b>SNAP ID:</b></td><td><input type="text" name="snap_id" value={{ record.snap_id }} /></td></tr>
+    <tr><td><b>SNAP Amount:</b></td><td><input type="text" name="snap_amt" value={{ record.snap_amt }} /></td></tr>
+    <tr>
+      <td><b>Public Assistance: </b></td>
+      <td>
+      <select name="public_assistance">
+        {% for value in bool_list %}
+          <option value="{{ value }}" title="{{ value }}"
+              {% if value == record.public_assistance %}selected{% endif %}>
+            {{ value[:60] }}{% if value|length > 60 %}...{% endif %}
+          </option>
+        {% endfor %}
+      </select>
+      </td>
+    </tr>
+
+    <tr><td><b>Public Assistance Amount: </b></td><td><input type="text" name="public_amount" value={{ record.public_amount }} /></td></tr>
+    <tr><td><b>Wages (Amount): </b></td><td><input type="text" name="wages" value={{ record.wages }} /></td></tr>
+
+    <tr>
+      <td><b>Private Insurance: </b></td>
+      <td>
+      <select name="insurance">
+        {% for value in bool_list %}
+          <option value="{{ value }}" title="{{ value }}"
+              {% if value == record.insurance %}selected{% endif %}>
+            {{ value[:60] }}{% if value|length > 60 %}...{% endif %}
+          </option>
+        {% endfor %}
+      </select>
+      </td>
+    </tr>
+
+    <tr><td><b>Insurance Carrier: </b></td><td><input type="text" name="insurance_carrier" value={{ record.insurance_carrier }} /></td></tr>
+    <tr><td><b>Insurance ID: </b></td>     <td><input type="text" name="insurance_id"      value={{ record.insurance_id }} /></td></tr>
+    <tr><td><b>Alimony: </b></td>          <td><input type="text" name="alimony"           value={{ record.alimony }} /></td></tr>
+    <tr><td><b>Pension: </b></td>          <td><input type="text" name="pension"           value={{ record.pension }} /></td></tr>
+    <tr><td><b>Unemployment: </b></td>     <td><input type="text" name="unemployment"      value={{ record.unemployment }} /></td></tr>
+    <tr><td><b>Workers Comp: </b></td>     <td><input type="text" name="workers_comp"      value={{ record.workers_comp }} /></td></tr>
+    <tr><td><b>Retirement Income: </b></td><td><input type="text" name="retirement_income" value={{ record.retirement_income }} /></td></tr>
+    <tr><td><b>Child Support: </b></td>    <td><input type="text" name="child_support"     value={{ record.child_support }} /></td></tr>
+    <tr><td><b>Other Income: </b></td>     <td><input type="text" name="other_income"      value={{ record.other_income }} /></td></tr>
+    <tr><td><b>WIC: </b></td>              <td><input type="text" name="wic"               value={{ record.wic }} /></td></tr>
+    <tr><td><b>TANF: </b></td>             <td><input type="text" name="tanf"              value={{ record.tanf }} /></td></tr>
+    <tr><td><b>Section 8: </b></td>        <td><input type="text" name="section_8"         value={{ record.section_8 }} /></td></tr>
+    <tr><td><b>VA Disability: </b></td>    <td><input type="text" name="va_disability"     value={{ record.va_disability }} /></td></tr>
+    <tr><td><b>VA Medical: </b></td>       <td><input type="text" name="va_medical"        value={{ record.va_medical }} /></td></tr>
+
+    <tr><td><b>Other Non-Cash Benefits: </b></td><td><input type="text" name="other_non_cash" value={{ record.retirement_income }} /></td></tr>
+
+    <tr><td colspan="2">
+      <input type="hidden" name="client_id" value="{{ record.client_id }}" />
+      <input type="hidden" name="rec_id" value="{{ record.rec_id }}" />
+    </td></tr>
+
+    <tr>
+      <td align="center" colspan="2"><button type="submit" name="action" value="update">Submit</button></td></tr>
+    </tr>
+  </table>
+</form>
+
+  {% include '_footer.html' %}
+
+</body>
+</html>
+

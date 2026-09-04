@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bare.css') }}" />
+<style>table {font-size: 14px; align: center; background-color: #ffffff; } 
+th { font-size:14px; background-color: #ffffff; } 
+td { font-size:14px; background-color: #ffffff; }
+</style>
+<title>SQL Advance</title>
+</head>
+
+  <body>
+
+      <p align="center"><img src="{{url_for('static',filename='sqlx.jpg')}}"></p>
+
+      {% if records %}
+      <form action="#" method="post">
+      <table style="width:486px; margin-left: auto; margin-right: auto;">
+
+      <tr>
+        <td>Select Technical Support Request:</td>
+      </tr>
+      <tr>
+        <td>
+          <select name="rec_id" style="width: 500px;">
+            {% for record in records %}
+              <option value="{{ record.rec_id }}"> [{{ record.rec_id }}] {{ record.request_date }} - {{ record.unit_lname }} - {{ record.request_type }} ({{ record.staff_name }})
+              </option>
+            {% endfor %}
+          </select>
+        </td>
+      </tr>
+
+      <tr><td>{% include 'set_date.html' %}</td> </tr>
+
+      </table>
+      <br />
+      <table align="center">
+      <tr><td><input type="hidden" name="rec_id" value="{{ rec_id }}" /></td></tr>
+      <tr><td align="center" colspan="2"><button type="submit" name="action" value="select">Submit</button></td></tr>
+      </table>
+      </form>
+      {% else %}
+          <p style="text-align: center; color: red"><b>No Technical Support Requests Found.</b></p>
+      {% endif %}
+
+      <p align="center"><a href="{{ url_for('admin.support') }}"><center><h4>Enter A Technical Support Request</h4></center></a></p>
+
+      {% include '_footer.html' %}
+
+  </body>
+</html>
+

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bare.css') }}" />
+<style>table {font-size: 14px; align: center; background-color: #ffffff; } 
+th { font-size:14px; background-color: #ffffff; } 
+td { font-size:14px; background-color: #ffffff; }
+</style>
+<title>SQL Advance</title>
+</head>
+
+  <body>
+		
+      <p align="center"><b>Technical Support Requests</b></p>
+
+      {% if requests %}
+
+      <div id="view">
+      <table style="border: 0px solid black; border-collapse: collapse; width:650px; margin-left: auto; margin-right: auto;">
+      <tbody>
+      {% for request in requests %}
+      <tr><td align="left">&nbsp;<b>Unit&nbsp;Name:</b>      </td><td align="left">{{ request.unit_lname }}</td></tr>
+      <tr><td align="left">&nbsp;<b>Entered&nbsp;By:</b>     </td><td align="left">{{ request.staff_name }}</td></tr>
+      <tr><td align="left">&nbsp;<b>Entered&nbsp;On:</b>     </td><td align="left">{{ request.request_date }}</td></tr>
+      <tr><td align="left">&nbsp;<b>Request&nbsp;Type:</b>   </td><td align="left">{{ request.request_type }}</td></tr>
+      <tr><td align="left">&nbsp;<b>Contact&nbsp;Email:</b>  </td><td align="left">{{ request.staff_email }}</td></tr>
+      <tr><td align="left">&nbsp;<b>Contact&nbsp;Phone:</b>  </td><td align="left">{{ request.staff_phone }}</td></tr>
+      <tr><td align="left">&nbsp;<b>Client&nbsp;Name:</b>    </td><td align="left">{{ request.client_name }}</td></tr>
+      <tr><td align="left">&nbsp;<b>Request:</b></td></tr>
+      <tr><td align="left" colspan="2">&nbsp;&nbsp;{{ request.request_text}}</td></tr>
+      <tr><td align="left" colspan="2">&nbsp;<b>Response from IT: </b></td></tr>
+      <tr><td align="left">&nbsp;<b>Request&nbsp;Status:</b> </td><td align="left">{{ request.request_status or 'Processing'}}</td></tr>
+      <tr><td align="left">&nbsp;<b>Response:</b>            </td></tr>
+      <tr><td align="left" colspan="2">&nbsp;&nbsp;{{ request.request_comment or ''}}</td></tr>
+      <tr><td align="center" colspan="2"><hr style="width: 650px;" /></td></tr>
+      {% endfor %}
+      </tbody>
+      </table>
+      </div>
+
+      {% else %}
+
+      <p align="center"><i>No tech support request found.</i></p>
+
+      {% endif %}
+
+      <p align="center"><a href="{{ url_for('admin.support') }}"><center><h4>Enter A Support Request</h4></center></a></p>
+
+      {% include '_footer.html' %}
+
+  </body>
+</html>
+

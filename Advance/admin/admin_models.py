@@ -1,0 +1,66 @@
+from Advance.extensions import db
+from flask_login import UserMixin
+from sqlalchemy import func
+
+class MaintenanceRequest(UserMixin, db.Model):
+    rec_id = db.Column(db.Integer, primary_key=True)
+    unit_id = db.Column(db.Integer)
+    unit_lname = db.Column(db.String(255)) 
+    staff_name = db.Column(db.String(80)) 
+    staff_email = db.Column(db.String(80)) 
+    staff_phone = db.Column(db.String(80)) 
+    request_date = db.Column(db.DateTime)
+    requested_by = db.Column(db.String(80))
+    request_type = db.Column(db.String(80))
+    address = db.Column(db.String(255))
+    client_name = db.Column(db.String(80))
+    client_phone = db.Column(db.String(80))
+    client_permission = db.Column(db.String(80))
+    client_available = db.Column(db.String(80))
+    request_text = db.Column(db.String)
+    high_risk = db.Column(db.String(80))
+    safety_issue = db.Column(db.String(80))
+    director_approved = db.Column(db.String(255))
+    cost_center = db.Column(db.String(255))
+    assigned_to = db.Column(db.String(80))
+    request_status = db.Column(db.String)
+    request_comment = db.Column(db.String)
+
+class Message(UserMixin, db.Model):
+    rec_id = db.Column(db.Integer, primary_key=True)
+    sender = db.Column(db.String(255))
+    sender_id = db.Column(db.Integer, nullable=False)
+    receiver = db.Column(db.String(255))
+    receiver_id = db.Column(db.Integer, nullable=False)
+    subject = db.Column(db.String(255))
+    body = db.Column(db.Text, nullable=False)
+    # timestamp = db.Column(db.DateTime, default=datetime.utcnow)
+    timestamp = db.Column(db.DateTime, default=func.now())
+    read = db.Column(db.Boolean, default=False)
+
+class TechSupport(UserMixin, db.Model):
+    rec_id = db.Column(db.Integer, primary_key=True)
+    unit_id = db.Column(db.Integer)
+    unit_lname = db.Column(db.String(255)) 
+    staff_name = db.Column(db.String(80)) 
+    staff_email = db.Column(db.String(80)) 
+    staff_phone = db.Column(db.String(80)) 
+    request_date = db.Column(db.DateTime)
+    request_type = db.Column(db.String(80))
+    request_text = db.Column(db.String)
+    client_name = db.Column(db.String(80))
+    assigned_to = db.Column(db.String(80))
+    request_status = db.Column(db.String(24))
+    request_comment = db.Column(db.String)
+
+class Unitlog(UserMixin, db.Model):
+    rec_id = db.Column(db.Integer, primary_key=True)
+    unit_id = db.Column(db.Integer)
+    unit_lname = db.Column(db.String(255))
+    track_id = db.Column(db.Integer)
+    staff_name = db.Column(db.String(255))
+    logdate = db.Column(db.DateTime)
+    subject = db.Column(db.String(255))
+    lognote = db.Column(db.String)
+    alert = db.Column(db.String(24))
+

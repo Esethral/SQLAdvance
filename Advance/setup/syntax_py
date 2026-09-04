@@ -1,0 +1,16 @@
+#!/bin/bash
+clear 
+
+# py_compile: syntax errors (missing colons, bad indentation, etc.).
+python3 -m py_compile routes.py
+
+# pyflakes3: unused imports, undefined names, unused variables, and similar issues. 
+pyflakes3 routes.py > syntax.out  
+
+if [ -s syntax.out ]; then
+    cat syntax.out
+else
+    echo "No syntax or pyflakes warnings."
+fi
+
+read -p "Press ENTER to Continue..."

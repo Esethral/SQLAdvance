@@ -1,0 +1,17 @@
+#!/bin/bash
+clear
+
+# echo -ne "Remove Old Flask Logs [y/n]: "
+# read x
+# case $x in
+#   y)
+#     sudo rm /var/log/apache2/*.gz
+#     sudo rm /var/log/apache2/*.1
+#     ;;
+# esac
+
+sudo rm /var/log/apache2/flask-*.log*
+sudo systemctl restart apache2
+# x=`date`
+# echo -ne "\n *** Restarting Flask ($x) *** \n" | sudo tee -a /var/log/apache2/flask-error.log > /dev/null
+

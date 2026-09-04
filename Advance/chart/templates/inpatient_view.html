@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='clean.css') }}" />
+<style>table {font-size: 14px; align: center; background-color: #eeeeee; } 
+th { font-size:14px; background-color: #ffffff; } 
+td { font-size:14px; background-color: #ffffff; }
+</style>
+<title>SQL Advance - Inpatient Records</title>
+</head>
+
+  <body>
+		
+      {% include '_header.html' %}
+     
+      <p><center><b>Client Inpatient Records</b></center></p>
+
+      {% for record in records %}
+
+      <table align="center">
+      <tr>
+          <td>Client&nbsp;Name: </td>
+          <td>{{ client.fname }} {{ client.lname }}</td>
+      </tr>
+
+      <tr>
+          <td>Reporting&nbsp;Unit: </td>
+          <td>{{ record.unit_lname }}</td>
+      </tr>
+
+      <tr>
+          <td>Inpatient Admission: </label></td>
+          <td>{{ record.start_date }}</td>
+      </tr>
+
+      <tr>
+          <td>Discharge Date: </td>
+          <td>{{ record.end_date or 'Active Inpatient' }}</td>
+      </tr>
+
+      <tr>
+          <td>Hospital Name: </td>
+          <td>{{ record.hospital }}</td>
+      </tr>
+
+      <tr>
+          <td>Hospital Address: </td>
+          <td>{{ record.address }}</td>
+      </tr>
+
+      <tr>
+          <td>State Hospital: </td> 
+          <td>{{ record.state_hospital }}</td>
+      </tr> 
+
+      <tr>
+          <td>Hospital Type: </td> 
+          <td>{{ record.hospital_type }}</td>
+      </tr>
+
+      <tr>
+          <td>Staff Name: </td> 
+          <td>{{ record.staff_member }}</td>
+      </tr> 
+
+      <tr>
+          <td>Staff Shift: </td> 
+          <td>{{ record.staff_shift }}</td>
+      </tr> 
+         
+      <tr> 
+          <td>Time Of Day: </td> 
+          <td>{{ record.staff_time }}</td>
+      </tr>
+
+      <tr><td>Complaint: </td>
+          <td>{{ record.complaint }}</td>
+      </tr>
+
+      <tr>
+         <td>Reason For Visit (Detail): </td> 
+         <td>{{ record.visit_reason }}</td>
+      </tr> 
+
+      <tr>
+          <td>EOB Visit: </td>
+          <td>{{ record.eob }}</td>
+      </tr>
+
+      <tr>
+          <td>Admission / Visit Type:</td>
+          <td>{{ record.voluntary }}</td>
+      </tr>
+
+      <tr>
+          <td>Escort Type: </td> 
+          <td>{{ record.escort_type }}</td>
+      </tr> 
+
+      <tr>
+          <td>Transportation Type:  </td> 
+          <td>{{ record.transport_type }}</td>
+      </tr> 
+       
+      <tr>
+          <td>Client Age: </td> 
+          <td>{{ record.age }}</td>
+      </tr> 
+
+      <tr>
+          <td>Client Sex: </td> 
+          <td>{{ record.sex }}</td>
+      </tr> 
+
+      <tr>
+          <td>Diagnosis: </td> 
+          <td>{{ record.diagnosis }}</td>
+      </tr> 
+
+      <tr>
+          <td>Outcome: </td> 
+          <td>{{ record.outcome }}</td>
+      </tr> 
+
+      <tr>
+          <td>Comments: </td> 
+          <td>{{ record.comment_text }}</td>
+      </tr>
+      </table>
+
+      </table>
+      
+      {% endfor %}
+
+      {% include '_footer.html' %}
+
+  </body>
+</html>
+

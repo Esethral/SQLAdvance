@@ -1,0 +1,870 @@
+Pager usage is off.
+                                                                       List of relations
+ Schema |              Name              |   Type   |  Owner   | Persistence | Access method |    Size    |                    Description                     
+--------+--------------------------------+----------+----------+-------------+---------------+------------+----------------------------------------------------
+ public | accounts                       | table    | www-data | permanent   | heap          | 8192 bytes | Client Diagnostic History
+ public | accounts_rec_id_seq            | sequence | www-data | permanent   |               | 8192 bytes | 
+ public | demographics                   | table    | www-data | permanent   | heap          | 24 kB      | Client Demographic Data
+ public | demographics_rec_id_seq        | sequence | www-data | permanent   |               | 8192 bytes | 
+ public | diagnosis                      | table    | www-data | permanent   | heap          | 24 kB      | 
+ public | diagnosis_dsm5                 | table    | www-data | permanent   | heap          | 88 kB      | DSM5 Diagnostic Codes
+ public | diagnosis_dsm5_rec_id_seq      | sequence | www-data | permanent   |               | 8192 bytes | 
+ public | diagnosis_icd10                | table    | www-data | permanent   | heap          | 1072 kB    | ICD 10 Diagnostic Codes
+ public | diagnosis_icd10_rec_id_seq     | sequence | www-data | permanent   |               | 8192 bytes | 
+ public | diagnosis_rec_id_seq           | sequence | www-data | permanent   |               | 8192 bytes | 
+ public | email_internal                 | table    | www-data | permanent   | heap          | 24 kB      | Email List for Internal Messaging
+ public | email_internal_rec_id_seq      | sequence | www-data | permanent   |               | 8192 bytes | 
+ public | email_notification             | table    | www-data | permanent   | heap          | 24 kB      | Email List for External Messaging
+ public | email_notification_rec_id_seq  | sequence | www-data | permanent   |               | 8192 bytes | 
+ public | entitlements                   | table    | www-data | permanent   | heap          | 24 kB      | Client Entitlements
+ public | entitlements_rec_id_seq        | sequence | www-data | permanent   |               | 8192 bytes | 
+ public | functional                     | table    | www-data | permanent   | heap          | 24 kB      | Client Functional Assessments
+ public | functional_rec_id_seq          | sequence | www-data | permanent   |               | 8192 bytes | 
+ public | functional_skills              | table    | www-data | permanent   | heap          | 72 kB      | Validation Data: Functional Assessment Skill Areas
+ public | inpatient                      | table    | www-data | permanent   | heap          | 24 kB      | Client Inpatient Records
+ public | inpatient_rec_id_seq           | sequence | www-data | permanent   |               | 8192 bytes | 
+ public | keyword                        | table    | www-data | permanent   | heap          | 40 kB      | 
+ public | keyword_rec_id_seq             | sequence | www-data | permanent   |               | 8192 bytes | 
+ public | login                          | table    | www-data | permanent   | heap          | 24 kB      | List of Current Logins
+ public | login_user_id_seq              | sequence | www-data | permanent   |               | 8192 bytes | 
+ public | maintenance_request            | table    | www-data | permanent   | heap          | 24 kB      | Maintenance Request
+ public | maintenance_request_rec_id_seq | sequence | www-data | permanent   |               | 8192 bytes | 
+ public | message                        | table    | www-data | permanent   | heap          | 56 kB      | My Messages Records
+ public | message_rec_id_seq             | sequence | www-data | permanent   |               | 8192 bytes | 
+ public | mpi                            | table    | www-data | permanent   | heap          | 16 kB      | Client - Master Patient Index
+ public | mpi_client_id_seq              | sequence | www-data | permanent   |               | 8192 bytes | 
+ public | placement                      | table    | www-data | permanent   | heap          | 24 kB      | Client Program Enrollment / Placement Records
+ public | placement_rec_id_seq           | sequence | www-data | permanent   |               | 8192 bytes | 
+ public | progress_note                  | table    | www-data | permanent   | heap          | 24 kB      | Client Progress Notes
+ public | progress_note_rec_id_seq       | sequence | www-data | permanent   |               | 8192 bytes | 
+ public | progress_note_view             | view     | www-data | permanent   |               | 0 bytes    | 
+ public | support_plan                   | table    | www-data | permanent   | heap          | 24 kB      | Client Treatment Plans
+ public | support_plan_rec_id_seq        | sequence | www-data | permanent   |               | 8192 bytes | 
+ public | tech_support                   | table    | www-data | permanent   | heap          | 24 kB      | Tech Support Request
+ public | tech_support_rec_id_seq        | sequence | www-data | permanent   |               | 8192 bytes | 
+ public | track                          | table    | www-data | permanent   | heap          | 40 kB      | 
+ public | track_track_id_seq             | sequence | www-data | permanent   |               | 8192 bytes | 
+ public | unit                           | table    | www-data | permanent   | heap          | 48 kB      | Clinical and Administrative Units
+ public | unit_unit_id_seq               | sequence | www-data | permanent   |               | 8192 bytes | 
+ public | unitlog                        | table    | www-data | permanent   | heap          | 24 kB      | Unit Shift Log Records
+ public | unitlog_rec_id_seq             | sequence | www-data | permanent   |               | 8192 bytes | 
+ public | users                          | table    | www-data | permanent   | heap          | 48 kB      | User Accounts
+ public | users_user_id_seq              | sequence | www-data | permanent   |               | 8192 bytes | 
+ public | volatile_view                  | view     | www-data | permanent   |               | 0 bytes    | 
+(49 rows)
+
+Pager usage is off.
+Pager usage is off.
+                                                                       Table "public.accounts"
+      Column       |           Type           | Collation | Nullable |                 Default                  | Storage  | Compression | Stats target | Description 
+-------------------+--------------------------+-----------+----------+------------------------------------------+----------+-------------+--------------+-------------
+ rec_id            | integer                  |           | not null | nextval('accounts_rec_id_seq'::regclass) | plain    |             |              | 
+ client_id         | integer                  |           | not null |                                          | plain    |             |              | 
+ unit_id           | integer                  |           |          |                                          | plain    |             |              | 
+ unit_lname        | character varying(255)   |           |          |                                          | extended |             |              | 
+ track_id          | integer                  |           |          |                                          | plain    |             |              | 
+ staff_id          | integer                  |           |          |                                          | plain    |             |              | 
+ staff_name        | character varying(255)   |           |          |                                          | extended |             |              | 
+ start_date        | date                     |           |          |                                          | plain    |             |              | 
+ end_date          | date                     |           |          |                                          | plain    |             |              | 
+ account_id        | character varying(64)    |           |          |                                          | extended |             |              | 
+ icd_10            | character varying(255)   |           |          |                                          | extended |             |              | 
+ physician_name    | character varying(255)   |           |          |                                          | extended |             |              | 
+ physician_licence | character varying(80)    |           |          |                                          | extended |             |              | 
+ physician_npi     | character varying(80)    |           |          |                                          | extended |             |              | 
+ time_insert       | timestamp with time zone |           |          | now()                                    | plain    |             |              | 
+ time_update       | timestamp with time zone |           |          |                                          | plain    |             |              | 
+ update_by         | character varying(255)   |           |          |                                          | extended |             |              | 
+Foreign-key constraints:
+    "accounts_fkey" FOREIGN KEY (client_id) REFERENCES mpi(client_id) ON UPDATE CASCADE ON DELETE CASCADE
+Access method: heap
+
+Pager usage is off.
+                Sequence "public.accounts_rec_id_seq"
+  Type   | Start | Minimum |  Maximum   | Increment | Cycles? | Cache 
+---------+-------+---------+------------+-----------+---------+-------
+ integer |     1 |       1 | 2147483647 |         1 | no      |     1
+Owned by: public.accounts.rec_id
+
+Pager usage is off.
+                                                                       Table "public.demographics"
+      Column      |           Type           | Collation | Nullable |                   Default                    | Storage  | Compression | Stats target | Description 
+------------------+--------------------------+-----------+----------+----------------------------------------------+----------+-------------+--------------+-------------
+ rec_id           | integer                  |           | not null | nextval('demographics_rec_id_seq'::regclass) | plain    |             |              | 
+ client_id        | integer                  |           | not null |                                              | plain    |             |              | 
+ unit_id          | integer                  |           |          |                                              | plain    |             |              | 
+ unit_lname       | character varying(255)   |           |          |                                              | extended |             |              | 
+ track_id         | integer                  |           |          |                                              | plain    |             |              | 
+ alias            | text                     |           |          |                                              | extended |             |              | 
+ allergy          | text                     |           |          |                                              | extended |             |              | 
+ address          | character varying(255)   |           |          |                                              | extended |             |              | 
+ apartment        | character varying(255)   |           |          |                                              | extended |             |              | 
+ city             | character varying(255)   |           |          |                                              | extended |             |              | 
+ state            | character varying(80)    |           |          |                                              | extended |             |              | 
+ post_code        | character varying(80)    |           |          |                                              | extended |             |              | 
+ phone            | character varying(80)    |           |          |                                              | extended |             |              | 
+ phone_mobile     | character varying(80)    |           |          |                                              | extended |             |              | 
+ phone_other      | character varying(80)    |           |          |                                              | extended |             |              | 
+ sex_birth        | character varying(80)    |           |          |                                              | extended |             |              | 
+ sex_gender       | character varying(80)    |           |          |                                              | extended |             |              | 
+ sex_orientation  | character varying(80)    |           |          |                                              | extended |             |              | 
+ race             | character varying(80)    |           |          |                                              | extended |             |              | 
+ race_detail      | character varying(80)    |           |          |                                              | extended |             |              | 
+ asian_detail     | character varying(80)    |           |          |                                              | extended |             |              | 
+ pacific_detail   | character varying(80)    |           |          |                                              | extended |             |              | 
+ ethnicity        | character varying(80)    |           |          |                                              | extended |             |              | 
+ ethnicity_detail | character varying(80)    |           |          |                                              | extended |             |              | 
+ place_of_birth   | character varying(80)    |           |          |                                              | extended |             |              | 
+ citizen          | character varying(80)    |           |          |                                              | extended |             |              | 
+ veteran          | character varying(80)    |           |          |                                              | extended |             |              | 
+ language_spoken  | character varying(80)    |           |          |                                              | extended |             |              | 
+ religion         | character varying(80)    |           |          |                                              | extended |             |              | 
+ marital_status   | character varying(80)    |           |          |                                              | extended |             |              | 
+ parental_status  | character varying(80)    |           |          |                                              | extended |             |              | 
+ household        | character varying(80)    |           |          |                                              | extended |             |              | 
+ staff_id         | integer                  |           |          |                                              | plain    |             |              | 
+ staff_name       | character varying(255)   |           |          |                                              | extended |             |              | 
+ time_insert      | timestamp with time zone |           |          | now()                                        | plain    |             |              | 
+ time_update      | timestamp with time zone |           |          |                                              | plain    |             |              | 
+ update_by        | character varying(255)   |           |          |                                              | extended |             |              | 
+Foreign-key constraints:
+    "demographics_client_id_fkey" FOREIGN KEY (client_id) REFERENCES mpi(client_id) ON UPDATE CASCADE ON DELETE CASCADE
+Access method: heap
+
+Pager usage is off.
+              Sequence "public.demographics_rec_id_seq"
+  Type   | Start | Minimum |  Maximum   | Increment | Cycles? | Cache 
+---------+-------+---------+------------+-----------+---------+-------
+ integer |     1 |       1 | 2147483647 |         1 | no      |     1
+Owned by: public.demographics.rec_id
+
+Pager usage is off.
+                                                                    Table "public.diagnosis"
+   Column    |           Type           | Collation | Nullable |                  Default                  | Storage  | Compression | Stats target | Description 
+-------------+--------------------------+-----------+----------+-------------------------------------------+----------+-------------+--------------+-------------
+ rec_id      | integer                  |           | not null | nextval('diagnosis_rec_id_seq'::regclass) | plain    |             |              | 
+ client_id   | integer                  |           | not null |                                           | plain    |             |              | 
+ unit_id     | integer                  |           |          |                                           | plain    |             |              | 
+ unit_lname  | character varying(255)   |           |          |                                           | extended |             |              | 
+ track_id    | integer                  |           |          |                                           | plain    |             |              | 
+ staff_id    | integer                  |           |          |                                           | plain    |             |              | 
+ staff_name  | character varying(255)   |           |          |                                           | extended |             |              | 
+ start_date  | date                     |           |          |                                           | plain    |             |              | 
+ end_date    | date                     |           |          |                                           | plain    |             |              | 
+ dsm5        | character varying(255)   |           |          |                                           | extended |             |              | 
+ icd10       | character varying(255)   |           |          |                                           | extended |             |              | 
+ notebody    | text                     |           |          |                                           | extended |             |              | 
+ time_insert | timestamp with time zone |           |          | now()                                     | plain    |             |              | 
+ time_update | timestamp with time zone |           |          |                                           | plain    |             |              | 
+ update_by   | character varying(255)   |           |          |                                           | extended |             |              | 
+Indexes:
+    "diagnosis_pkey" PRIMARY KEY, btree (rec_id)
+Foreign-key constraints:
+    "diagnosis_client_id_fkey" FOREIGN KEY (client_id) REFERENCES mpi(client_id) ON UPDATE CASCADE ON DELETE CASCADE
+Access method: heap
+
+Pager usage is off.
+                                                                 Table "public.diagnosis_dsm5"
+ Column |          Type          | Collation | Nullable |                    Default                     | Storage  | Compression | Stats target | Description 
+--------+------------------------+-----------+----------+------------------------------------------------+----------+-------------+--------------+-------------
+ rec_id | integer                |           | not null | nextval('diagnosis_dsm5_rec_id_seq'::regclass) | plain    |             |              | 
+ dsm5   | character varying(255) |           |          |                                                | extended |             |              | 
+Access method: heap
+
+Pager usage is off.
+             Sequence "public.diagnosis_dsm5_rec_id_seq"
+  Type   | Start | Minimum |  Maximum   | Increment | Cycles? | Cache 
+---------+-------+---------+------------+-----------+---------+-------
+ integer |     1 |       1 | 2147483647 |         1 | no      |     1
+Owned by: public.diagnosis_dsm5.rec_id
+
+Pager usage is off.
+                                                                 Table "public.diagnosis_icd10"
+ Column |          Type          | Collation | Nullable |                     Default                     | Storage  | Compression | Stats target | Description 
+--------+------------------------+-----------+----------+-------------------------------------------------+----------+-------------+--------------+-------------
+ rec_id | integer                |           | not null | nextval('diagnosis_icd10_rec_id_seq'::regclass) | plain    |             |              | 
+ icd10  | character varying(255) |           |          |                                                 | extended |             |              | 
+Access method: heap
+
+Pager usage is off.
+             Sequence "public.diagnosis_icd10_rec_id_seq"
+  Type   | Start | Minimum |  Maximum   | Increment | Cycles? | Cache 
+---------+-------+---------+------------+-----------+---------+-------
+ integer |     1 |       1 | 2147483647 |         1 | no      |     1
+Owned by: public.diagnosis_icd10.rec_id
+
+Pager usage is off.
+                Sequence "public.diagnosis_rec_id_seq"
+  Type   | Start | Minimum |  Maximum   | Increment | Cycles? | Cache 
+---------+-------+---------+------------+-----------+---------+-------
+ integer |     1 |       1 | 2147483647 |         1 | no      |     1
+Owned by: public.diagnosis.rec_id
+
+Pager usage is off.
+                                                                  Table "public.email_internal"
+  Column   |          Type          | Collation | Nullable |                    Default                     | Storage  | Compression | Stats target | Description 
+-----------+------------------------+-----------+----------+------------------------------------------------+----------+-------------+--------------+-------------
+ rec_id    | integer                |           | not null | nextval('email_internal_rec_id_seq'::regclass) | plain    |             |              | 
+ user_id   | integer                |           |          |                                                | plain    |             |              | 
+ user_name | character varying(255) |           |          |                                                | extended |             |              | 
+ fullname  | character varying(255) |           |          |                                                | extended |             |              | 
+ alert     | character varying(8)   |           |          |                                                | extended |             |              | 
+ incident  | character varying(8)   |           |          |                                                | extended |             |              | 
+ property  | character varying(8)   |           |          |                                                | extended |             |              | 
+ support   | character varying(8)   |           |          |                                                | extended |             |              | 
+Access method: heap
+
+Pager usage is off.
+             Sequence "public.email_internal_rec_id_seq"
+  Type   | Start | Minimum |  Maximum   | Increment | Cycles? | Cache 
+---------+-------+---------+------------+-----------+---------+-------
+ integer |     1 |       1 | 2147483647 |         1 | no      |     1
+Owned by: public.email_internal.rec_id
+
+Pager usage is off.
+                                                                   Table "public.email_notification"
+   Column   |          Type          | Collation | Nullable |                      Default                       | Storage  | Compression | Stats target | Description 
+------------+------------------------+-----------+----------+----------------------------------------------------+----------+-------------+--------------+-------------
+ rec_id     | integer                |           | not null | nextval('email_notification_rec_id_seq'::regclass) | plain    |             |              | 
+ user_id    | integer                |           |          |                                                    | plain    |             |              | 
+ user_name  | character varying(255) |           |          |                                                    | extended |             |              | 
+ user_email | character varying(255) |           |          |                                                    | extended |             |              | 
+ alert      | character varying(8)   |           |          |                                                    | extended |             |              | 
+ incident   | character varying(8)   |           |          |                                                    | extended |             |              | 
+ property   | character varying(8)   |           |          |                                                    | extended |             |              | 
+ support    | character varying(8)   |           |          |                                                    | extended |             |              | 
+Access method: heap
+
+Pager usage is off.
+           Sequence "public.email_notification_rec_id_seq"
+  Type   | Start | Minimum |  Maximum   | Increment | Cycles? | Cache 
+---------+-------+---------+------------+-----------+---------+-------
+ integer |     1 |       1 | 2147483647 |         1 | no      |     1
+Owned by: public.email_notification.rec_id
+
+Pager usage is off.
+                                                                       Table "public.entitlements"
+      Column       |           Type           | Collation | Nullable |                   Default                    | Storage  | Compression | Stats target | Description 
+-------------------+--------------------------+-----------+----------+----------------------------------------------+----------+-------------+--------------+-------------
+ rec_id            | integer                  |           | not null | nextval('entitlements_rec_id_seq'::regclass) | plain    |             |              | 
+ client_id         | integer                  |           | not null |                                              | plain    |             |              | 
+ unit_id           | integer                  |           |          |                                              | plain    |             |              | 
+ unit_lname        | character varying(255)   |           |          |                                              | extended |             |              | 
+ track_id          | integer                  |           |          |                                              | plain    |             |              | 
+ social_security   | character varying(255)   |           |          |                                              | extended |             |              | 
+ ssi               | character varying(80)    |           |          |                                              | extended |             |              | 
+ ssd               | character varying(80)    |           |          |                                              | extended |             |              | 
+ medicaid          | character varying(80)    |           |          |                                              | extended |             |              | 
+ managed_care      | character varying(80)    |           |          |                                              | extended |             |              | 
+ medicare          | character varying(80)    |           |          |                                              | extended |             |              | 
+ medicare_id       | character varying(80)    |           |          |                                              | extended |             |              | 
+ snap              | character varying(80)    |           |          |                                              | extended |             |              | 
+ snap_id           | character varying(80)    |           |          |                                              | extended |             |              | 
+ snap_amt          | character varying(80)    |           |          |                                              | extended |             |              | 
+ public_assistance | character varying(255)   |           |          |                                              | extended |             |              | 
+ public_amount     | character varying(255)   |           |          |                                              | extended |             |              | 
+ wages             | character varying(80)    |           |          |                                              | extended |             |              | 
+ insurance         | character varying(80)    |           |          |                                              | extended |             |              | 
+ insurance_carrier | character varying(255)   |           |          |                                              | extended |             |              | 
+ insurance_id      | character varying(80)    |           |          |                                              | extended |             |              | 
+ alimony           | character varying(80)    |           |          |                                              | extended |             |              | 
+ pension           | character varying(80)    |           |          |                                              | extended |             |              | 
+ unemployment      | character varying(80)    |           |          |                                              | extended |             |              | 
+ workers_comp      | character varying(80)    |           |          |                                              | extended |             |              | 
+ retirement_income | character varying(255)   |           |          |                                              | extended |             |              | 
+ child_support     | character varying(80)    |           |          |                                              | extended |             |              | 
+ other_income      | character varying(80)    |           |          |                                              | extended |             |              | 
+ wic               | character varying(80)    |           |          |                                              | extended |             |              | 
+ tanf              | character varying(80)    |           |          |                                              | extended |             |              | 
+ section_8         | character varying(80)    |           |          |                                              | extended |             |              | 
+ other_non_cash    | character varying(80)    |           |          |                                              | extended |             |              | 
+ va_disability     | character varying(80)    |           |          |                                              | extended |             |              | 
+ va_medical        | character varying(80)    |           |          |                                              | extended |             |              | 
+ staff_id          | integer                  |           |          |                                              | plain    |             |              | 
+ staff_name        | character varying(255)   |           |          |                                              | extended |             |              | 
+ time_insert       | timestamp with time zone |           |          | now()                                        | plain    |             |              | 
+ time_update       | timestamp with time zone |           |          |                                              | plain    |             |              | 
+ update_by         | character varying(255)   |           |          |                                              | extended |             |              | 
+Foreign-key constraints:
+    "entitlements_client_id_fkey" FOREIGN KEY (client_id) REFERENCES mpi(client_id) ON UPDATE CASCADE ON DELETE CASCADE
+Access method: heap
+
+Pager usage is off.
+              Sequence "public.entitlements_rec_id_seq"
+  Type   | Start | Minimum |  Maximum   | Increment | Cycles? | Cache 
+---------+-------+---------+------------+-----------+---------+-------
+ integer |     1 |       1 | 2147483647 |         1 | no      |     1
+Owned by: public.entitlements.rec_id
+
+Pager usage is off.
+                                                                      Table "public.functional"
+   Column    |            Type             | Collation | Nullable |                  Default                   | Storage  | Compression | Stats target | Description 
+-------------+-----------------------------+-----------+----------+--------------------------------------------+----------+-------------+--------------+-------------
+ rec_id      | integer                     |           | not null | nextval('functional_rec_id_seq'::regclass) | plain    |             |              | 
+ client_id   | integer                     |           | not null |                                            | plain    |             |              | 
+ unit_id     | integer                     |           |          |                                            | plain    |             |              | 
+ unit_lname  | character varying(255)      |           |          |                                            | extended |             |              | 
+ track_id    | integer                     |           |          |                                            | plain    |             |              | 
+ staff_id    | integer                     |           |          |                                            | plain    |             |              | 
+ staff_name  | character varying(255)      |           |          |                                            | extended |             |              | 
+ start_date  | date                        |           |          |                                            | plain    |             |              | 
+ end_date    | date                        |           |          |                                            | plain    |             |              | 
+ skill_level | character varying(80)       |           |          |                                            | extended |             |              | 
+ skill_area  | character varying(255)      |           |          |                                            | extended |             |              | 
+ skill_text  | text                        |           |          |                                            | extended |             |              | 
+ time_in     | timestamp without time zone |           |          |                                            | plain    |             |              | 
+ time_update | timestamp without time zone |           |          | now()                                      | plain    |             |              | 
+ ftype       | character varying(24)       |           |          |                                            | extended |             |              | 
+Indexes:
+    "functional_pkey" PRIMARY KEY, btree (rec_id)
+Foreign-key constraints:
+    "functional_fkey" FOREIGN KEY (client_id) REFERENCES mpi(client_id) ON UPDATE CASCADE ON DELETE CASCADE
+Access method: heap
+
+Pager usage is off.
+               Sequence "public.functional_rec_id_seq"
+  Type   | Start | Minimum |  Maximum   | Increment | Cycles? | Cache 
+---------+-------+---------+------------+-----------+---------+-------
+ integer |     1 |       1 | 2147483647 |         1 | no      |     1
+Owned by: public.functional.rec_id
+
+Pager usage is off.
+                                       Table "public.functional_skills"
+   Column    |  Type   | Collation | Nullable | Default | Storage  | Compression | Stats target | Description 
+-------------+---------+-----------+----------+---------+----------+-------------+--------------+-------------
+ rec_id      | integer |           |          |         | plain    |             |              | 
+ medicaid_id | integer |           |          |         | plain    |             |              | 
+ skill_area  | text    |           |          |         | extended |             |              | 
+Access method: heap
+
+Pager usage is off.
+                                                                      Table "public.inpatient"
+     Column     |           Type           | Collation | Nullable |                  Default                  | Storage  | Compression | Stats target | Description 
+----------------+--------------------------+-----------+----------+-------------------------------------------+----------+-------------+--------------+-------------
+ rec_id         | integer                  |           | not null | nextval('inpatient_rec_id_seq'::regclass) | plain    |             |              | 
+ client_id      | integer                  |           | not null |                                           | plain    |             |              | 
+ client         | character varying(255)   |           |          |                                           | extended |             |              | 
+ unit_id        | integer                  |           |          |                                           | plain    |             |              | 
+ unit_lname     | character varying(255)   |           |          |                                           | extended |             |              | 
+ track_id       | integer                  |           |          | 1                                         | plain    |             |              | 
+ staff_id       | integer                  |           |          |                                           | plain    |             |              | 
+ staff_name     | character varying(255)   |           |          |                                           | extended |             |              | 
+ start_date     | date                     |           |          |                                           | plain    |             |              | 
+ end_date       | date                     |           |          |                                           | plain    |             |              | 
+ visit_date     | date                     |           |          |                                           | plain    |             |              | 
+ hospital       | character varying(255)   |           |          |                                           | extended |             |              | 
+ address        | character varying(255)   |           |          |                                           | extended |             |              | 
+ hospital_type  | character varying(80)    |           |          |                                           | extended |             |              | 
+ staff_member   | character varying(255)   |           |          |                                           | extended |             |              | 
+ staff_shift    | character varying(255)   |           |          |                                           | extended |             |              | 
+ staff_time     | character varying(255)   |           |          |                                           | extended |             |              | 
+ voluntary      | character varying(80)    |           |          |                                           | extended |             |              | 
+ eob            | character varying(3)     |           |          |                                           | extended |             |              | 
+ state_hospital | character varying(3)     |           |          |                                           | extended |             |              | 
+ outcome        | character varying(255)   |           |          |                                           | extended |             |              | 
+ comment_text   | text                     |           |          |                                           | extended |             |              | 
+ visit_reason   | character varying(255)   |           |          |                                           | extended |             |              | 
+ admit_date     | date                     |           |          |                                           | plain    |             |              | 
+ age            | character varying(255)   |           |          |                                           | extended |             |              | 
+ sex            | character varying(255)   |           |          |                                           | extended |             |              | 
+ diagnosis      | character varying(255)   |           |          |                                           | extended |             |              | 
+ escort_type    | character varying(255)   |           |          |                                           | extended |             |              | 
+ transport_type | character varying(255)   |           |          |                                           | extended |             |              | 
+ complaint      | character varying(80)    |           |          |                                           | extended |             |              | 
+ time_insert    | timestamp with time zone |           |          | now()                                     | plain    |             |              | 
+ time_update    | timestamp with time zone |           |          |                                           | plain    |             |              | 
+ update_by      | character varying(255)   |           |          |                                           | extended |             |              | 
+ audit_trail    | text                     |           |          |                                           | extended |             |              | 
+Foreign-key constraints:
+    "inpatient_fkey" FOREIGN KEY (client_id) REFERENCES mpi(client_id) ON UPDATE CASCADE ON DELETE CASCADE
+Access method: heap
+
+Pager usage is off.
+                Sequence "public.inpatient_rec_id_seq"
+  Type   | Start | Minimum |  Maximum   | Increment | Cycles? | Cache 
+---------+-------+---------+------------+-----------+---------+-------
+ integer |     1 |       1 | 2147483647 |         1 | no      |     1
+Owned by: public.inpatient.rec_id
+
+Pager usage is off.
+                                                                 Table "public.keyword"
+  Column  |         Type          | Collation | Nullable |                 Default                 | Storage  | Compression | Stats target | Description 
+----------+-----------------------+-----------+----------+-----------------------------------------+----------+-------------+--------------+-------------
+ rec_id   | integer               |           | not null | nextval('keyword_rec_id_seq'::regclass) | plain    |             |              | 
+ keyword  | character varying(80) |           |          |                                         | extended |             |              | 
+ severity | character varying(80) |           |          |                                         | extended |             |              | 
+Access method: heap
+
+Pager usage is off.
+                 Sequence "public.keyword_rec_id_seq"
+  Type   | Start | Minimum |  Maximum   | Increment | Cycles? | Cache 
+---------+-------+---------+------------+-----------+---------+-------
+ integer |     1 |       1 | 2147483647 |         1 | no      |     1
+Owned by: public.keyword.rec_id
+
+Pager usage is off.
+                                                                   Table "public.login"
+  Column  |           Type           | Collation | Nullable |                Default                 | Storage  | Compression | Stats target | Description 
+----------+--------------------------+-----------+----------+----------------------------------------+----------+-------------+--------------+-------------
+ rec_id   | integer                  |           | not null | nextval('login_user_id_seq'::regclass) | plain    |             |              | 
+ user_id  | integer                  |           |          |                                        | plain    |             |              | 
+ username | character varying(250)   |           |          |                                        | extended |             |              | 
+ logtime  | timestamp with time zone |           |          | now()                                  | plain    |             |              | 
+ ip       | character varying(250)   |           |          |                                        | extended |             |              | 
+Indexes:
+    "login_pkey" PRIMARY KEY, btree (rec_id)
+Access method: heap
+
+Pager usage is off.
+                 Sequence "public.login_user_id_seq"
+  Type   | Start | Minimum |  Maximum   | Increment | Cycles? | Cache 
+---------+-------+---------+------------+-----------+---------+-------
+ integer |     1 |       1 | 2147483647 |         1 | no      |     1
+Owned by: public.login.rec_id
+
+Pager usage is off.
+                                                                      Table "public.maintenance_request"
+      Column       |          Type          | Collation | Nullable |                       Default                       | Storage  | Compression | Stats target | Description 
+-------------------+------------------------+-----------+----------+-----------------------------------------------------+----------+-------------+--------------+-------------
+ rec_id            | integer                |           | not null | nextval('maintenance_request_rec_id_seq'::regclass) | plain    |             |              | 
+ unit_id           | integer                |           |          |                                                     | plain    |             |              | 
+ unit_lname        | character varying(80)  |           |          |                                                     | extended |             |              | 
+ staff_name        | character varying(80)  |           |          |                                                     | extended |             |              | 
+ staff_email       | character varying(80)  |           |          |                                                     | extended |             |              | 
+ staff_phone       | character varying(80)  |           |          |                                                     | extended |             |              | 
+ request_date      | date                   |           |          |                                                     | plain    |             |              | 
+ requested_by      | character varying(80)  |           |          |                                                     | extended |             |              | 
+ request_type      | character varying(80)  |           |          |                                                     | extended |             |              | 
+ address           | character varying(255) |           |          |                                                     | extended |             |              | 
+ client_name       | character varying(80)  |           |          |                                                     | extended |             |              | 
+ client_phone      | character varying(80)  |           |          |                                                     | extended |             |              | 
+ client_permission | character varying(80)  |           |          |                                                     | extended |             |              | 
+ client_available  | character varying(80)  |           |          |                                                     | extended |             |              | 
+ request_text      | text                   |           |          |                                                     | extended |             |              | 
+ high_risk         | character varying(80)  |           |          |                                                     | extended |             |              | 
+ safety_issue      | character varying(80)  |           |          |                                                     | extended |             |              | 
+ director_approved | character varying(255) |           |          |                                                     | extended |             |              | 
+ cost_center       | character varying(255) |           |          |                                                     | extended |             |              | 
+ assigned_to       | character varying(80)  |           |          |                                                     | extended |             |              | 
+ request_status    | character varying(80)  |           |          |                                                     | extended |             |              | 
+ request_comment   | text                   |           |          |                                                     | extended |             |              | 
+Access method: heap
+
+Pager usage is off.
+           Sequence "public.maintenance_request_rec_id_seq"
+  Type   | Start | Minimum |  Maximum   | Increment | Cycles? | Cache 
+---------+-------+---------+------------+-----------+---------+-------
+ integer |     1 |       1 | 2147483647 |         1 | no      |     1
+Owned by: public.maintenance_request.rec_id
+
+Pager usage is off.
+                                                                      Table "public.message"
+   Column    |            Type             | Collation | Nullable |                 Default                 | Storage  | Compression | Stats target | Description 
+-------------+-----------------------------+-----------+----------+-----------------------------------------+----------+-------------+--------------+-------------
+ rec_id      | integer                     |           | not null | nextval('message_rec_id_seq'::regclass) | plain    |             |              | 
+ sender      | character varying(255)      |           |          |                                         | extended |             |              | 
+ sender_id   | integer                     |           |          |                                         | plain    |             |              | 
+ receiver    | character varying(255)      |           |          |                                         | extended |             |              | 
+ receiver_id | integer                     |           |          |                                         | plain    |             |              | 
+ subject     | character varying(255)      |           |          |                                         | extended |             |              | 
+ body        | text                        |           |          |                                         | extended |             |              | 
+ timestamp   | timestamp without time zone |           |          | now()                                   | plain    |             |              | 
+ read        | boolean                     |           |          | false                                   | plain    |             |              | 
+Access method: heap
+
+Pager usage is off.
+                 Sequence "public.message_rec_id_seq"
+  Type   | Start | Minimum |  Maximum   | Increment | Cycles? | Cache 
+---------+-------+---------+------------+-----------+---------+-------
+ integer |     1 |       1 | 2147483647 |         1 | no      |     1
+Owned by: public.message.rec_id
+
+Pager usage is off.
+                                                                      Table "public.mpi"
+     Column     |         Type          | Collation | Nullable |                Default                 | Storage  | Compression | Stats target | Description 
+----------------+-----------------------+-----------+----------+----------------------------------------+----------+-------------+--------------+-------------
+ client_id      | integer               |           | not null | nextval('mpi_client_id_seq'::regclass) | plain    |             |              | 
+ fname          | character varying(30) |           |          |                                        | extended |             |              | 
+ lname          | character varying(30) |           |          |                                        | extended |             |              | 
+ dob            | date                  |           |          |                                        | plain    |             |              | 
+ ssn            | character varying(25) |           |          |                                        | extended |             |              | 
+ medical_record | character varying(16) |           |          |                                        | extended |             |              | 
+ mname          | character varying(30) |           |          |                                        | extended |             |              | 
+ fname_code     | character varying(24) |           |          |                                        | extended |             |              | 
+ lname_code     | character varying(24) |           |          |                                        | extended |             |              | 
+ suffix         | character varying(24) |           |          |                                        | extended |             |              | 
+ ssn_code       | character varying(24) |           |          |                                        | extended |             |              | 
+ dob_code       | character varying(24) |           |          |                                        | extended |             |              | 
+ dod            | date                  |           |          |                                        | plain    |             |              | 
+ medicaid       | character varying(8)  |           |          |                                        | extended |             |              | 
+Indexes:
+    "mpi_pkey" PRIMARY KEY, btree (client_id)
+Check constraints:
+    "valid_ssn" CHECK (ssn::text ~ '^\d{3}-\d{2}-\d{4}$'::text)
+Referenced by:
+    TABLE "accounts" CONSTRAINT "accounts_fkey" FOREIGN KEY (client_id) REFERENCES mpi(client_id) ON UPDATE CASCADE ON DELETE CASCADE
+    TABLE "demographics" CONSTRAINT "demographics_client_id_fkey" FOREIGN KEY (client_id) REFERENCES mpi(client_id) ON UPDATE CASCADE ON DELETE CASCADE
+    TABLE "diagnosis" CONSTRAINT "diagnosis_client_id_fkey" FOREIGN KEY (client_id) REFERENCES mpi(client_id) ON UPDATE CASCADE ON DELETE CASCADE
+    TABLE "entitlements" CONSTRAINT "entitlements_client_id_fkey" FOREIGN KEY (client_id) REFERENCES mpi(client_id) ON UPDATE CASCADE ON DELETE CASCADE
+    TABLE "functional" CONSTRAINT "functional_fkey" FOREIGN KEY (client_id) REFERENCES mpi(client_id) ON UPDATE CASCADE ON DELETE CASCADE
+    TABLE "inpatient" CONSTRAINT "inpatient_fkey" FOREIGN KEY (client_id) REFERENCES mpi(client_id) ON UPDATE CASCADE ON DELETE CASCADE
+    TABLE "placement" CONSTRAINT "placement_fkey" FOREIGN KEY (client_id) REFERENCES mpi(client_id) ON UPDATE CASCADE ON DELETE CASCADE
+    TABLE "progress_note" CONSTRAINT "progress_fkey" FOREIGN KEY (client_id) REFERENCES mpi(client_id) ON UPDATE CASCADE ON DELETE CASCADE
+    TABLE "support_plan" CONSTRAINT "support_fkey" FOREIGN KEY (client_id) REFERENCES mpi(client_id) ON UPDATE CASCADE ON DELETE CASCADE
+Access method: heap
+
+Pager usage is off.
+                 Sequence "public.mpi_client_id_seq"
+  Type   | Start | Minimum |  Maximum   | Increment | Cycles? | Cache 
+---------+-------+---------+------------+-----------+---------+-------
+ integer |     1 |       1 | 2147483647 |         1 | no      |     1
+Owned by: public.mpi.client_id
+
+Pager usage is off.
+                                                                      Table "public.placement"
+   Column    |            Type             | Collation | Nullable |                  Default                  | Storage  | Compression | Stats target | Description 
+-------------+-----------------------------+-----------+----------+-------------------------------------------+----------+-------------+--------------+-------------
+ rec_id      | integer                     |           | not null | nextval('placement_rec_id_seq'::regclass) | plain    |             |              | 
+ client_id   | integer                     |           |          |                                           | plain    |             |              | 
+ staff_id    | integer                     |           |          |                                           | plain    |             |              | 
+ staff_name  | character varying(255)      |           |          |                                           | extended |             |              | 
+ unit_id     | integer                     |           |          |                                           | plain    |             |              | 
+ unit_lname  | character varying(255)      |           |          |                                           | extended |             |              | 
+ track_id    | integer                     |           |          |                                           | plain    |             |              | 
+ address     | character varying(255)      |           |          |                                           | extended |             |              | 
+ start_date  | date                        |           |          |                                           | plain    |             |              | 
+ end_date    | date                        |           |          |                                           | plain    |             |              | 
+ airs        | character varying(255)      |           |          |                                           | extended |             |              | 
+ bip         | character varying(24)       |           |          |                                           | extended |             |              | 
+ hud         | character varying(16)       |           |          |                                           | extended |             |              | 
+ input       | timestamp without time zone |           |          |                                           | plain    |             |              | 
+ update      | timestamp without time zone |           |          | now()                                     | plain    |             |              | 
+ update_by   | character varying(255)      |           |          |                                           | extended |             |              | 
+ destination | character varying(255)      |           |          |                                           | extended |             |              | 
+Indexes:
+    "placement_pkey" PRIMARY KEY, btree (rec_id)
+    "unique_unit_placement" UNIQUE, btree (client_id, unit_id) WHERE end_date IS NULL
+Foreign-key constraints:
+    "placement_fkey" FOREIGN KEY (client_id) REFERENCES mpi(client_id) ON UPDATE CASCADE ON DELETE CASCADE
+Access method: heap
+
+Pager usage is off.
+                Sequence "public.placement_rec_id_seq"
+  Type   | Start | Minimum |  Maximum   | Increment | Cycles? | Cache 
+---------+-------+---------+------------+-----------+---------+-------
+ integer |     1 |       1 | 2147483647 |         1 | no      |     1
+Owned by: public.placement.rec_id
+
+Pager usage is off.
+                                                                         Table "public.progress_note"
+      Column       |            Type             | Collation | Nullable |                    Default                    | Storage  | Compression | Stats target | Description 
+-------------------+-----------------------------+-----------+----------+-----------------------------------------------+----------+-------------+--------------+-------------
+ rec_id            | integer                     |           | not null | nextval('progress_note_rec_id_seq'::regclass) | plain    |             |              | 
+ client_id         | integer                     |           |          |                                               | plain    |             |              | 
+ chart             | character varying(80)       |           |          |                                               | extended |             |              | 
+ unit_id           | integer                     |           |          |                                               | plain    |             |              | 
+ unit_lname        | character varying(255)      |           |          |                                               | extended |             |              | 
+ track_id          | integer                     |           |          |                                               | plain    |             |              | 
+ staff_id          | integer                     |           |          |                                               | plain    |             |              | 
+ staff_name        | character varying(255)      |           |          |                                               | extended |             |              | 
+ plan_id           | integer                     |           |          |                                               | plain    |             |              | 
+ goal              | character varying(255)      |           |          |                                               | extended |             |              | 
+ notedate          | date                        |           |          |                                               | plain    |             |              | 
+ notebody          | text                        |           |          |                                               | extended |             |              | 
+ time_in           | timestamp without time zone |           |          | now()                                         | plain    |             |              | 
+ medicaid          | integer                     |           |          |                                               | plain    |             |              | 
+ acronym           | character varying(24)       |           |          |                                               | extended |             |              | 
+ duration          | character varying(80)       |           |          | '20 Minutes'::character varying               | extended |             |              | 
+ mood_affect       | character varying(255)      |           |          |                                               | extended |             |              | 
+ thought_process   | character varying(255)      |           |          |                                               | extended |             |              | 
+ motor_activity    | character varying(255)      |           |          |                                               | extended |             |              | 
+ behavior          | character varying(255)      |           |          |                                               | extended |             |              | 
+ medical_condition | character varying(255)      |           |          |                                               | extended |             |              | 
+ substance_use     | character varying(255)      |           |          |                                               | extended |             |              | 
+ esof_name         | character varying(255)      |           |          |                                               | extended |             |              | 
+ esof_date         | timestamp with time zone    |           |          |                                               | plain    |             |              | 
+ esof_super_name   | character varying(255)      |           |          |                                               | extended |             |              | 
+ esof_super_date   | timestamp with time zone    |           |          |                                               | plain    |             |              | 
+Indexes:
+    "progress_note_pkey" PRIMARY KEY, btree (rec_id)
+Foreign-key constraints:
+    "progress_fkey" FOREIGN KEY (client_id) REFERENCES mpi(client_id) ON UPDATE CASCADE ON DELETE CASCADE
+Access method: heap
+
+Pager usage is off.
+              Sequence "public.progress_note_rec_id_seq"
+  Type   | Start | Minimum |  Maximum   | Increment | Cycles? | Cache 
+---------+-------+---------+------------+-----------+---------+-------
+ integer |     1 |       1 | 2147483647 |         1 | no      |     1
+Owned by: public.progress_note.rec_id
+
+Pager usage is off.
+                                   View "public.progress_note_view"
+      Column       |          Type          | Collation | Nullable | Default | Storage  | Description 
+-------------------+------------------------+-----------+----------+---------+----------+-------------
+ client            | text                   |           |          |         | extended | 
+ medicaid_id       | character varying(8)   |           |          |         | extended | 
+ rec_id            | integer                |           |          |         | plain    | 
+ chart             | character varying(80)  |           |          |         | extended | 
+ unit_lname        | character varying(255) |           |          |         | extended | 
+ staff_name        | character varying(255) |           |          |         | extended | 
+ plan_id           | integer                |           |          |         | plain    | 
+ goal              | character varying(255) |           |          |         | extended | 
+ notedate          | date                   |           |          |         | plain    | 
+ medicaid          | integer                |           |          |         | plain    | 
+ acronym           | character varying(24)  |           |          |         | extended | 
+ account_id        | character varying(64)  |           |          |         | extended | 
+ icd_10            | character varying(255) |           |          |         | extended | 
+ physician_name    | character varying(255) |           |          |         | extended | 
+ physician_licence | character varying(80)  |           |          |         | extended | 
+ physician_npi     | character varying(80)  |           |          |         | extended | 
+ admission         | date                   |           |          |         | plain    | 
+ discharge         | date                   |           |          |         | plain    | 
+ inpt_in           | date                   |           |          |         | plain    | 
+ inpt_out          | date                   |           |          |         | plain    | 
+View definition:
+ SELECT (x.fname::text || ' '::text) || x.lname::text AS client,
+    x.medicaid AS medicaid_id,
+    y.rec_id,
+    y.chart,
+    y.unit_lname,
+    y.staff_name,
+    y.plan_id,
+    y.goal,
+    y.notedate,
+    y.medicaid,
+    y.acronym,
+    z.account_id,
+    z.icd_10,
+    z.physician_name,
+    z.physician_licence,
+    z.physician_npi,
+    a.start_date AS admission,
+    a.end_date AS discharge,
+    i.start_date AS inpt_in,
+    i.end_date AS inpt_out
+   FROM progress_note y
+     JOIN mpi x ON x.client_id = y.client_id
+     LEFT JOIN accounts z ON z.client_id = y.client_id AND z.rec_id = (( SELECT max(a_1.rec_id) AS max
+           FROM accounts a_1
+          WHERE a_1.client_id = z.client_id))
+     LEFT JOIN placement a ON a.client_id = y.client_id AND y.notedate >= a.start_date AND y.notedate <= COALESCE(a.end_date, CURRENT_DATE)
+     LEFT JOIN inpatient i ON i.client_id = y.client_id AND y.notedate >= i.start_date AND y.notedate <= COALESCE(i.end_date, CURRENT_DATE);
+
+Pager usage is off.
+                                                                        Table "public.support_plan"
+       Column        |           Type           | Collation | Nullable |                   Default                    | Storage  | Compression | Stats target | Description 
+---------------------+--------------------------+-----------+----------+----------------------------------------------+----------+-------------+--------------+-------------
+ rec_id              | integer                  |           | not null | nextval('support_plan_rec_id_seq'::regclass) | plain    |             |              | 
+ client_id           | integer                  |           |          |                                              | plain    |             |              | 
+ chart_id            | character varying(16)    |           |          |                                              | extended |             |              | 
+ unit_id             | integer                  |           |          |                                              | plain    |             |              | 
+ unit_lname          | character varying(255)   |           |          |                                              | extended |             |              | 
+ track_id            | integer                  |           |          |                                              | plain    |             |              | 
+ staff_id            | integer                  |           |          |                                              | plain    |             |              | 
+ staff_name          | character varying(255)   |           |          |                                              | extended |             |              | 
+ start_date          | date                     |           | not null |                                              | plain    |             |              | 
+ end_date            | date                     |           | not null |                                              | plain    |             |              | 
+ caseworker          | character varying(80)    |           |          |                                              | extended |             |              | 
+ backup              | character varying(80)    |           |          |                                              | extended |             |              | 
+ supervisor          | character varying(80)    |           |          |                                              | extended |             |              | 
+ diagnosis           | character varying(80)    |           |          |                                              | extended |             |              | 
+ needs_selfcare      | character varying(80)    |           |          |                                              | extended |             |              | 
+ needs_skills        | character varying(80)    |           |          |                                              | extended |             |              | 
+ needs_support       | character varying(80)    |           |          |                                              | extended |             |              | 
+ needs_adl           | character varying(80)    |           |          |                                              | extended |             |              | 
+ needs_focus         | character varying(80)    |           |          |                                              | extended |             |              | 
+ rights_grievances   | character varying(80)    |           |          |                                              | extended |             |              | 
+ rights_date         | date                     |           |          |                                              | plain    |             |              | 
+ goal_one            | integer                  |           |          | 1                                            | plain    |             |              | 
+ goal_one_id         | character varying(80)    |           |          |                                              | extended |             |              | 
+ goal_one_header     | character varying(255)   |           |          |                                              | extended |             |              | 
+ goal_one_medicaid   | integer                  |           |          |                                              | plain    |             |              | 
+ goal_one_acronym    | character varying(8)     |           |          |                                              | extended |             |              | 
+ goal_one_level      | character varying(64)    |           |          |                                              | extended |             |              | 
+ goal_one_code       | integer                  |           |          |                                              | plain    |             |              | 
+ goal_one_status     | character varying(24)    |           |          |                                              | extended |             |              | 
+ goal_one_object     | text                     |           |          |                                              | extended |             |              | 
+ goal_one_service    | text                     |           |          |                                              | extended |             |              | 
+ goal_one_eval       | text                     |           |          |                                              | extended |             |              | 
+ goal_one_date       | date                     |           |          |                                              | plain    |             |              | 
+ goal_two            | integer                  |           |          | 2                                            | plain    |             |              | 
+ goal_two_id         | character varying(80)    |           |          |                                              | extended |             |              | 
+ goal_two_header     | character varying(255)   |           |          |                                              | extended |             |              | 
+ goal_two_medicaid   | integer                  |           |          |                                              | plain    |             |              | 
+ goal_two_acronym    | character varying(8)     |           |          |                                              | extended |             |              | 
+ goal_two_level      | character varying(64)    |           |          |                                              | extended |             |              | 
+ goal_two_code       | integer                  |           |          |                                              | plain    |             |              | 
+ goal_two_status     | character varying(24)    |           |          |                                              | extended |             |              | 
+ goal_two_object     | text                     |           |          |                                              | extended |             |              | 
+ goal_two_service    | text                     |           |          |                                              | extended |             |              | 
+ goal_two_eval       | text                     |           |          |                                              | extended |             |              | 
+ goal_two_date       | date                     |           |          |                                              | plain    |             |              | 
+ goal_three          | integer                  |           |          | 3                                            | plain    |             |              | 
+ goal_three_id       | character varying(80)    |           |          |                                              | extended |             |              | 
+ goal_three_header   | character varying(255)   |           |          |                                              | extended |             |              | 
+ goal_three_medicaid | integer                  |           |          |                                              | plain    |             |              | 
+ goal_three_acronym  | character varying(8)     |           |          |                                              | extended |             |              | 
+ goal_three_level    | character varying(64)    |           |          |                                              | extended |             |              | 
+ goal_three_code     | integer                  |           |          |                                              | plain    |             |              | 
+ goal_three_status   | character varying(24)    |           |          |                                              | extended |             |              | 
+ goal_three_object   | text                     |           |          |                                              | extended |             |              | 
+ goal_three_service  | text                     |           |          |                                              | extended |             |              | 
+ goal_three_eval     | text                     |           |          |                                              | extended |             |              | 
+ goal_three_date     | date                     |           |          |                                              | plain    |             |              | 
+ goal_four           | integer                  |           |          | 4                                            | plain    |             |              | 
+ goal_four_id        | character varying(80)    |           |          |                                              | extended |             |              | 
+ goal_four_header    | character varying(255)   |           |          |                                              | extended |             |              | 
+ goal_four_medicaid  | integer                  |           |          |                                              | plain    |             |              | 
+ goal_four_acronym   | character varying(8)     |           |          |                                              | extended |             |              | 
+ goal_four_level     | character varying(64)    |           |          |                                              | extended |             |              | 
+ goal_four_code      | integer                  |           |          |                                              | plain    |             |              | 
+ goal_four_status    | character varying(24)    |           |          |                                              | extended |             |              | 
+ goal_four_object    | text                     |           |          |                                              | extended |             |              | 
+ goal_four_service   | text                     |           |          |                                              | extended |             |              | 
+ goal_four_eval      | text                     |           |          |                                              | extended |             |              | 
+ goal_four_date      | date                     |           |          |                                              | plain    |             |              | 
+ esof_id             | integer                  |           |          |                                              | plain    |             |              | 
+ esof_date           | date                     |           |          |                                              | plain    |             |              | 
+ esof_name           | character varying(255)   |           |          |                                              | extended |             |              | 
+ esof_note           | character varying(255)   |           |          |                                              | extended |             |              | 
+ audit_trail         | text                     |           |          |                                              | extended |             |              | 
+ time_insert         | timestamp with time zone |           |          |                                              | plain    |             |              | 
+ time_update         | timestamp with time zone |           |          | now()                                        | plain    |             |              | 
+ up_date             | date                     |           |          |                                              | plain    |             |              | 
+ up_date_by          | character varying(255)   |           |          |                                              | extended |             |              | 
+ client_name         | character varying(255)   |           |          |                                              | extended |             |              | 
+Indexes:
+    "support_plan_check" UNIQUE CONSTRAINT, btree (client_id, start_date, end_date)
+Foreign-key constraints:
+    "support_fkey" FOREIGN KEY (client_id) REFERENCES mpi(client_id) ON UPDATE CASCADE ON DELETE CASCADE
+Access method: heap
+
+Pager usage is off.
+              Sequence "public.support_plan_rec_id_seq"
+  Type   | Start | Minimum |  Maximum   | Increment | Cycles? | Cache 
+---------+-------+---------+------------+-----------+---------+-------
+ integer |     1 |       1 | 2147483647 |         1 | no      |     1
+Owned by: public.support_plan.rec_id
+
+Pager usage is off.
+                                                                     Table "public.tech_support"
+     Column      |         Type          | Collation | Nullable |                   Default                    | Storage  | Compression | Stats target | Description 
+-----------------+-----------------------+-----------+----------+----------------------------------------------+----------+-------------+--------------+-------------
+ rec_id          | integer               |           | not null | nextval('tech_support_rec_id_seq'::regclass) | plain    |             |              | 
+ unit_id         | integer               |           |          |                                              | plain    |             |              | 
+ unit_lname      | character varying(80) |           |          |                                              | extended |             |              | 
+ staff_name      | character varying(80) |           |          |                                              | extended |             |              | 
+ staff_email     | character varying(80) |           |          |                                              | extended |             |              | 
+ staff_phone     | character varying(80) |           |          |                                              | extended |             |              | 
+ request_date    | date                  |           |          |                                              | plain    |             |              | 
+ request_type    | character varying(80) |           |          |                                              | extended |             |              | 
+ request_text    | text                  |           |          |                                              | extended |             |              | 
+ client_name     | character varying(80) |           |          |                                              | extended |             |              | 
+ assigned_to     | character varying(80) |           |          |                                              | extended |             |              | 
+ request_status  | character varying(24) |           |          |                                              | extended |             |              | 
+ request_comment | text                  |           |          |                                              | extended |             |              | 
+Access method: heap
+
+Pager usage is off.
+              Sequence "public.tech_support_rec_id_seq"
+  Type   | Start | Minimum |  Maximum   | Increment | Cycles? | Cache 
+---------+-------+---------+------------+-----------+---------+-------
+ integer |     1 |       1 | 2147483647 |         1 | no      |     1
+Owned by: public.tech_support.rec_id
+
+Pager usage is off.
+                                                                   Table "public.track"
+   Column   |         Type          | Collation | Nullable |                 Default                 | Storage  | Compression | Stats target | Description 
+------------+-----------------------+-----------+----------+-----------------------------------------+----------+-------------+--------------+-------------
+ track_id   | integer               |           | not null | nextval('track_track_id_seq'::regclass) | plain    |             |              | 
+ track_name | character varying(80) |           |          |                                         | extended |             |              | 
+Access method: heap
+
+Pager usage is off.
+                 Sequence "public.track_track_id_seq"
+  Type   | Start | Minimum |  Maximum   | Increment | Cycles? | Cache 
+---------+-------+---------+------------+-----------+---------+-------
+ integer |     1 |       1 | 2147483647 |         1 | no      |     1
+Owned by: public.track.track_id
+
+Pager usage is off.
+                                                                   Table "public.unit"
+   Column   |          Type          | Collation | Nullable |                Default                | Storage  | Compression | Stats target | Description 
+------------+------------------------+-----------+----------+---------------------------------------+----------+-------------+--------------+-------------
+ unit_id    | integer                |           | not null | nextval('unit_unit_id_seq'::regclass) | plain    |             |              | 
+ unit_lname | character varying(255) |           |          |                                       | extended |             |              | 
+ track_id   | integer                |           |          |                                       | plain    |             |              | 
+ supervisor | character varying(255) |           |          |                                       | extended |             |              | 
+ address    | character varying(255) |           |          |                                       | extended |             |              | 
+ city       | character varying(80)  |           |          |                                       | extended |             |              | 
+ state      | character varying(80)  |           |          |                                       | extended |             |              | 
+ postcode   | character varying(80)  |           |          |                                       | extended |             |              | 
+ phone      | character varying(80)  |           |          |                                       | extended |             |              | 
+Access method: heap
+
+Pager usage is off.
+                  Sequence "public.unit_unit_id_seq"
+  Type   | Start | Minimum |  Maximum   | Increment | Cycles? | Cache 
+---------+-------+---------+------------+-----------+---------+-------
+ integer |     1 |       1 | 2147483647 |         1 | no      |     1
+Owned by: public.unit.unit_id
+
+Pager usage is off.
+                                                                     Table "public.unitlog"
+   Column   |            Type             | Collation | Nullable |                 Default                 | Storage  | Compression | Stats target | Description 
+------------+-----------------------------+-----------+----------+-----------------------------------------+----------+-------------+--------------+-------------
+ rec_id     | integer                     |           | not null | nextval('unitlog_rec_id_seq'::regclass) | plain    |             |              | 
+ unit_id    | integer                     |           |          |                                         | plain    |             |              | 
+ unit_lname | character varying(255)      |           |          |                                         | extended |             |              | 
+ track_id   | integer                     |           |          |                                         | plain    |             |              | 
+ staff_name | character varying(255)      |           |          |                                         | extended |             |              | 
+ logdate    | date                        |           |          |                                         | plain    |             |              | 
+ subject    | character varying(255)      |           |          |                                         | extended |             |              | 
+ lognote    | text                        |           |          |                                         | extended |             |              | 
+ alert      | character varying(24)       |           |          |                                         | extended |             |              | 
+ timer      | timestamp without time zone |           |          | now()                                   | plain    |             |              | 
+Access method: heap
+
+Pager usage is off.
+                 Sequence "public.unitlog_rec_id_seq"
+  Type   | Start | Minimum |  Maximum   | Increment | Cycles? | Cache 
+---------+-------+---------+------------+-----------+---------+-------
+ integer |     1 |       1 | 2147483647 |         1 | no      |     1
+Owned by: public.unitlog.rec_id
+
+Pager usage is off.
+                                                                  Table "public.users"
+  Column  |          Type          | Collation | Nullable |                Default                 | Storage  | Compression | Stats target | Description 
+----------+------------------------+-----------+----------+----------------------------------------+----------+-------------+--------------+-------------
+ user_id  | integer                |           | not null | nextval('users_user_id_seq'::regclass) | plain    |             |              | 
+ username | character varying(80)  |           |          |                                        | extended |             |              | 
+ fullname | character varying(255) |           |          |                                        | extended |             |              | 
+ password | character varying(255) |           |          |                                        | extended |             |              | 
+ email    | character varying(255) |           |          |                                        | extended |             |              | 
+ track    | character varying(25)  |           |          |                                        | extended |             |              | 
+ trust    | character(1)           |           |          |                                        | extended |             |              | 
+ update   | character varying(3)   |           |          |                                        | extended |             |              | 
+ remove   | character varying(3)   |           |          |                                        | extended |             |              | 
+ phrase   | character varying(40)  |           |          |                                        | extended |             |              | 
+Indexes:
+    "users_pkey" PRIMARY KEY, btree (user_id)
+Access method: heap
+
+Pager usage is off.
+                 Sequence "public.users_user_id_seq"
+  Type   | Start | Minimum |  Maximum   | Increment | Cycles? | Cache 
+---------+-------+---------+------------+-----------+---------+-------
+ integer |     1 |       1 | 2147483647 |         1 | no      |     1
+Owned by: public.users.user_id
+
+Pager usage is off.
+                        View "public.volatile_view"
+  Column   | Type | Collation | Nullable | Default | Storage | Description 
+-----------+------+-----------+----------+---------+---------+-------------
+ tablename | name |           |          |         | plain   | 
+View definition:
+ SELECT pg_tables.tablename
+   FROM pg_tables
+  WHERE pg_tables.schemaname = 'public'::name AND (pg_tables.tablename <> ALL (ARRAY['diagnosis_icd10'::name, 'diagnosis_dsm5'::name]));
+

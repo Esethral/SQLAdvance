@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bare.css') }}" />
+    <meta charset="UTF-8" />
+    <title>SQL Advance - User Accounts</title>
+  </head>
+  <body>
+
+      <p align="center">
+      <img src="{{url_for('static',filename='sqlx.jpg')}}">
+      </p>
+		
+      <p align="center"><b>SQL Advance - User Account</b></p>
+      <hr align="center" width="20%">
+         
+      <form action="#" method="post">
+      <table align="center">
+      <thead><tr><th align="center" colspan="2">Update User Data:</th></tr></thead>
+      <tr><td><br /></td></tr>
+
+      <tr>
+      <td><label for="username">Username:</label></td>
+      <td><input type="text" name="username" value="{{ user.username }}" /></td>
+      </tr>
+
+      <tr>
+      <td><label for="fullname">Full Name:</label></td>
+      <td><input type="text" name="fullname" value="{{ user.fullname }}" /></td>
+      </tr>
+
+      <tr>
+      <td><label for="email">Email:</label></td>
+      <td><input type="email" name="email" value="{{ user.email }}" /></td>
+      </tr>
+
+      <tr>
+      <td><label for="track">Select Track:</label></td>
+      <td><select name="track" id="track">
+      <option value="{{ user.track }}"> {{ user.track }} </option>
+      <option value="clinical">Clinical</option>
+      <option value="admin">Admin</option>
+      <option value="restrict">Restrict</option>
+      </select></td> 
+      </tr>
+
+      <tr>
+      <td><label for="track">Trusted User:</label></td>
+      <td><select name="trust" id="trust">
+      <option value="{{ user.trust }}"> {{ user.trust }} </option>
+      <option value="f">False</option>
+      <option value="t">True</option>
+      </select></td> 
+      </tr>
+
+      <tr>
+      <td><label for="remove">Remove Privilege:</label></td>
+      <td><select name="remove" id="remove">
+      <option value="{{ user.remove }}"> {{ user.remove }} </option>
+      <option value="No">No</option>
+      <option value="Yes">Yes</option>
+      </select></td> 
+      </tr>
+
+      <tr>
+      <td><label for="remove">Update Privilege:</label></td>
+      <td><select name="update" id="update">
+      <option value="{{ user.update }}"> {{ user.update }} </option>
+      <option value="No">No</option>
+      <option value="Yes">Yes</option>
+      </select></td> 
+      </tr>
+
+      <tr><td><br /></td></tr>
+      <tr><td align="center" colspan="2"><button type="submit" name="action" value="update">Submit</button></td></tr>
+      <tr><td><input type="hidden" name="user_id" value="{{ user.user_id }}" /></td></tr>
+      </table>
+
+      </form>
+
+      {% include '_footer.html' %}
+
+  </body>
+</html>
+

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bare.css') }}" />
+<style>table {font-size: 14px; align: center; background-color: #ffffff; }
+th { font-size:14px; background-color: #ffffff; }
+td { font-size:14px; background-color: #ffffff; }
+</style>
+<meta charset="UTF-8" />
+<title>SQL Advance - Progress Notes</title>
+</head>
+<body>
+<p align="center"><b>SQL Advance - Progress Notes</b></p>
+<hr style="border-top: 1px solid grey; text-align: center; width: 80px;">
+
+<form action="#" method="post">
+  <table align="center" width=600px">
+    <thead>
+    <tr><th colspan="2" align="center">Update Progress Note:</th></tr>
+    </thead>
+    <tr><td colspan="2"><br /></td></tr>
+    <tr><td colspan="2"><hr style="border-top: 1px solid grey;"></td></tr>
+
+    <tr>
+    <td><b>Client:</b></td>
+    <td>{{ client.fname }} {{ client.lname }}</td>
+    </tr>
+
+    <tr>
+    <td><b>Select Unit: </b></td>
+    <td>
+    <select name="unit_lname">
+    <option value="{{ place_str }}" {% if place_str == (place_str) %}selected{% endif %}>
+    {{ place_str }}
+    </option>
+      {% for unit in units %}
+      {% if unit.unit_lname == note.unit_lname %}
+          <option value="{{unit.unit_id}} -- {{ unit.unit_lname }}" selected>{{unit.unit_id}} -- {{ unit.unit_lname }}</option>
+      {% else %}
+          <option value="{{unit.unit_id}} -- {{ unit.unit_lname }}">{{unit.unit_id}} -- {{ unit.unit_lname }}</option>
+      {% endif %}
+      {% endfor %}
+    </select>
+    </td>
+    </tr>
+
+    <tr>
+    <td><b>Chart Number:</b></td>
+    <td><input type="text" name="chart" value="{{ note.chart }}" size="12" maxlength="6"/></td>
+    </tr>
+
+    <tr>
+    <td><label for="notedate"><b>Service Date:</b></label></td>
+    <td><input type="date" name="notedate" value="{{ note.notedate }}"  required /></td>
+    </tr>
+
+    <tr>
+    <td><label for="duration"><b>Duration of Contact:</b></label></td>
+    <td><input type="text" name="duration" value="{{ note.duration }}" size="22" maxlength="30" required /></td>
+    </tr>
+
+    <tr><td colspan="2"><b>Select Note Type / Support Plan Goal:</b></td></tr>
+    <tr>
+    <td colspan="2">
+    <select name="goal_header">
+    {% for goal in goals %}
+    {% if goal.goal_header == note.goal_header %}
+        <option value="{{goal.rec_id}} -- {{ goal.goal_header }}" selected>{{goal.rec_id}} -- {{ goal.goal_header }}</option>
+    {% else %}
+        <option value="{{goal.rec_id}} -- {{ goal.goal_header }}">{{goal.rec_id }} -- {{ goal.goal_header }}</option>
+    {% endif %}
+    {% endfor %}
+    </select>
+    </td>
+    </tr>
+
+    <tr><td colspan="2"><hr style="border-top: 1px solid grey;"></td></tr>
+
+    <tr><td colspan="2"><b>Complete This Section For Core Notes, Otherwise Leave Blank:</b></td></tr>
+    <tr>
+    <td>Mood/Affect:</td>
+    <td>
+    <select name="mood_affect">
+      <option value="" {{ "selected" if note.mood_affect == "" else "" }}></option>
+      <option value="No Significant Changes" {{ "selected" if note.mood_affect == "No Significant Changes" else "" }}>No Significant Changes</option>
+      <option value="Notable" {{ "selected" if note.mood_affect == "Notable" else "" }}>Notable</option>
+      <option value="Not Applicable" {{ "selected" if note.mood_affect == "Not Applicable" else "" }}>Not Applicable</option>
+    </select>
+    </td>
+    </tr>
+    <tr>
+    <td>Thought Process/Orientation:</td>
+    <td>
+    <select name="thought_process">
+      <option value="" {{ "selected" if note.thought_process == "" else "" }}></option>
+      <option value="No Significant Changes" {{ "selected" if note.thought_process == "No Significant Changes" else "" }}>No Significant Changes</option>
+      <option value="Notable" {{ "selected" if note.thought_process == "Notable" else "" }}>Notable</option>
+      <option value="Not Applicable" {{ "selected" if note.thought_process == "Not Applicable" else "" }}>Not Applicable</option>
+    </select>
+    </td>
+    </tr>
+    <tr>
+    <td>Motor Activity and Speech:</td>
+    <td>
+    <select name="motor_activity">
+      <option value="" {{ "selected" if note.motor_activity == "" else "" }}></option>
+      <option value="No Significant Changes" {{ "selected" if note.motor_activity == "No Significant Changes" else "" }}>No Significant Changes</option>
+      <option value="Notable" {{ "selected" if note.motor_activity == "Notable" else "" }}>Notable</option>
+      <option value="Not Applicable" {{ "selected" if note.motor_activity == "Not Applicable" else "" }}>Not Applicable</option>
+    </select>
+    </td>
+    </tr>
+    <tr>
+    <td>Behaviour/Functioning:</td>
+    <td>
+    <select name="behavior">
+      <option value="" {{ "selected" if note.behavior == "" else "" }}></option>
+      <option value="No Significant Changes" {{ "selected" if note.behavior == "No Significant Changes" else "" }}>No Significant Changes</option>
+      <option value="Notable" {{ "selected" if note.behavior == "Notable" else "" }}>Notable</option>
+      <option value="Not Applicable" {{ "selected" if note.behavior == "Not Applicable" else "" }}>Not Applicable</option>
+    </select>
+    </td>
+    </tr>
+    <tr>
+    <td>Medical Condition:</td>
+    <td>
+    <select name="medical_condition">
+      <option value="" {{ "selected" if note.medical_condition == "" else "" }}></option>
+      <option value="No Significant Changes" {{ "selected" if note.medical_condition == "No Significant Changes" else "" }}>No Significant Changes</option>
+      <option value="Notable" {{ "selected" if note.medical_condition == "Notable" else "" }}>Notable</option>
+      <option value="Not Applicable" {{ "selected" if note.medical_condition == "Not Applicable" else "" }}>Not Applicable</option>
+    </select>
+    </td>
+    </tr>
+    <tr>
+    <td>Substance Use/Addictive Behavior:</td>
+    <td>
+    <select name="substance_use">
+      <option value="" {{ "selected" if note.substance_use == "" else "" }}></option>
+      <option value="No Significant Changes" {{ "selected" if note.substance_use == "No Significant Changes" else "" }}>No Significant Changes</option>
+      <option value="Notable" {{ "selected" if note.substance_use == "Notable" else "" }}>Notable</option>
+      <option value="Not Applicable" {{ "selected" if note.substance_use == "Not Applicable" else "" }}>Not Applicable</option>
+    </select>
+    </td>
+    </tr>
+
+    <tr><td colspan="2"><hr style="border-top: 1px solid grey;"></td></tr>
+
+    {% if note.esof_name %}
+    <tr>
+    <td colspan="1"><label for="notebody"><b>Note:</b></label></td>
+    <td><b>Note Signed By: </b> {{ note.esof_name }}
+    </td>
+    </tr>
+    <input type="hidden" name="esof_name" value="{{ note.esof_name }}">
+    {% else %}
+    <tr>
+    <td colspan="1"><label for="notebody"><b>Note:</b></label></td>
+    <td><b>Sign Note: </b>
+    <select name="esof_name">
+        <option value="">No</option>
+        <option value="{{ fullname }}">Yes</option>
+    </select>
+    </td>
+    </tr>
+    {% endif %}
+
+    <tr>
+    <td colspan="2">Describe client's presentation, including attitude and motivation regarding current objective.
+        Describe staff's impression of overall progress.
+    </td>
+    </tr>
+
+    <tr>
+    <tr><td colspan="2"><textarea name="notebody" rows="15" cols="85" />{{ note.notebody }}</textarea></td>
+    </tr>
+
+    <tr><td colspan="2"><hr style="border-top: 1px solid grey;"></td></tr>
+    </table>
+
+    <table align="center">
+    <tr><td><input type="hidden" name="staff_name" value="{{ fullname }}" /></td></tr>
+    <tr><td><input type="hidden" name="rec_id" value="{{ rec_id }}" /></td></tr>
+    <tr><td align="center" colspan="2"><button type="submit" name="action" value="update">Submit</button></td></tr>
+    </table>
+    </form>
+      
+    <form action="#" method="post">
+    <table align="center">
+    <tr><td><input type="hidden" name="staff_name" value="{{ fullname }}" /></td></tr>
+    <tr><td><input type="hidden" name="rec_id" value="{{ rec_id }}" /></td></tr>
+    <tr><td align="center" colspan="2"><br /><br /><font color=red>To DELETE this record click here: </font><input type="hidden" name="action" value="delete"><button type="submit">Delete</button></td></tr>
+    </table>
+    </form>
+
+    </td></tr>
+    </table>
+
+    {% include '_footer.html' %}
+
+</body>
+</html>
+

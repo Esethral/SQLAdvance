@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bare.css') }}" />
+    <style>table {font-size: 14px; align: center; } 
+           th { font-size:14px; } 
+           td { font-size:14px; background-color: #ffffff; }
+           a { font-size: 14px; color: #000000; text-decoration: none; }
+           a:visited { color: #000000;  }
+           a:active { color: #000000; }
+           a:hover { color: #000000; text-decoration: none; }
+    </style>
+    <meta charset="UTF-8" />
+    <title>SQL Advance</title>
+  </head>
+  <body>
+      <p align="center">
+      <img src="{{url_for('static',filename='sqlx.jpg')}}">
+      </p>
+      <p align="center">SQL Advance - Reports Menu</p>
+
+      {% if error %}
+          <p align="center"><font color="red"><b> {{ error }} </b></font></p>
+      {% endif %}
+
+    <p align="center">
+    <div id="menu">
+    <table style="border: 0px solid black; border-collapse: collapse; width:484px; margin-left: auto; margin-right: auto;">
+    <tr><td>
+    <center>
+            <table>
+            <tr><td bgcolor="#ffffff"><b><a href="/reports/mpi">Master Patient Index (MPI)</a></b></td></tr>
+            <tr><td bgcolor="#ffffff"><b><a href="/reports/medicaid_charge_report">Medicaid Charge Report</a></b></td></tr>
+            <tr><td bgcolor="#ffffff"><b><a href="/reports/note_report">Progress Note Report</a></b></td></tr>
+            <tr><td bgcolor="#ffffff"><b><a href="/reports/occupancy_report">Occupancy Report</a></b></td></tr>
+            <tr><td bgcolor="#ffffff"><b><a href="/reports/unit_roster">Unit Roster</a></b></td></tr>
+            </table>
+    </center>
+    </td></tr>
+    </table>
+    </p>
+    </div>
+
+    {% include '_footer.html' %}
+
+  </body>
+</html>

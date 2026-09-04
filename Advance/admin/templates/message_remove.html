@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bare.css') }}" />
+<style>table {font-size: 14px; align: center; background-color: #ffffff; } 
+th { font-size:14px; background-color: #ffffff; } 
+td { font-size:14px; background-color: #ffffff; }
+</style>
+<title>SQL Advance - My Messages</title>
+</head>
+
+  <body>
+
+      <div id="message">
+      <br /><br />
+      <table style="border: 1px solid gray; border-collapse: collapse; width:660px; margin-left: auto; margin-right: auto;">
+      <tbody>
+      <tr><td colspan="2" style="padding: 10px;">&nbsp;</td></tr>
+      <tr><td style="padding-left: 25px; text-align: left;"><b>&nbsp;&nbsp;To:</b></td><td style="text-align: left;">{{ note.receiver }}   </td><td width="330px">&nbsp;</td></tr>
+      <tr><td style="padding-left: 25px; text-align: left;"><b>&nbsp;&nbsp;From:</b></td><td style="text-align: left;">{{ note.sender }}   </td></tr>
+      <tr><td style="padding-left: 25px; text-align: left;"><b>&nbsp;&nbsp;Date:</b></td><td style="text-align: left;">{{ note.timestamp.strftime("%Y-%m-%d %H:%M") }}</td></tr>
+      <tr><td style="padding-left: 25px; text-align: left;"><b>&nbsp;&nbsp;Subject:</b></td><td style="text-align: left;">{{ note.subject}}</td></tr>
+      <tr><td colspan="3" style="padding-top: 10px; padding-bottom: 20px; padding-left: 30px; padding-right: 40px; text-align: left;"><pre>{{ note.body }}</pre></td></tr>
+      <tr><td colspan="3" style="padding: 20px;">&nbsp;</td></tr>
+      </tbody>
+      </table>
+      </div>
+      
+      <form action="#" method="post">
+      <table align="center">
+      <tr><td><input type="hidden" name="message_id" value="{{ note.rec_id }}" /></td></tr>
+      <tr><td align="center" colspan="2"><br /><br /><font color=red>To DELETE this record (ID: {{ note.rec_id }}) click here: </font>
+          <input type="hidden" name="delete" value="true">
+          <button type="submit">Delete</button></td></tr>
+      </table>
+      </form>
+
+      <p align="center" class="no-print"><a href="{{ url_for('admin.message') }}">Return to My Messages</a><br /><br /></p>
+
+      {% include '_footer.html' %}
+
+  </body>
+</html>
+

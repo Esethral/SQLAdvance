@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bare.css') }}" />
+<style>table {font-size: 14px; align: center; background-color: #ffffff; } 
+th { font-size:14px; background-color: #ffffff; } 
+td { font-size:14px; background-color: #ffffff; }
+</style>
+<meta charset="UTF-8" />
+<title>SQL Advance - Support Plan</title>
+</head>
+  <body>
+
+      <p align="center"><img src="{{url_for('static',filename='sqlx.jpg')}}"></p>
+      <p align="center"><b>Support Plan</b></p>
+
+      <table align="center"><tr><td>
+
+      <form action="#" method="post">
+      <table align="center">
+      <tr>
+      <td>Client Name:</td>
+      <td>
+      <select name="client_id">
+      <option value="{{ client.client_id }}">[ {{ client.client_id }} ] {{ client.fname}} {{ client.lname}}</option>
+      </select>
+      </td>
+      <td width="55%">&nbsp;</td>
+      </tr>
+
+      <tr>
+      <td><label for="start_date">Start Date:</label></td>
+      <td><input type="date" name="start_date" value="{{ startdate }}"  required /></td>
+      </tr>
+
+      <tr>
+      <td><label for="end_date">End Date:</label></td>
+      <td><input type="date" name="end_date" value="{{ end_date }}"  required /></td>
+      </tr>
+
+      <tr>
+      <td>Select&nbsp;Unit:</td>
+      <td>
+      <select name="unit_lname">
+      <option value="{{ place_str }}" {% if place_str == (place_str) %}selected{% endif %}>{{ place_str }}</option>
+      {% for unit in units %}
+          <option value="{{unit.unit_id}} -- {{ unit.unit_lname }}">{{unit.unit_id}} -- {{ unit.unit_lname }}</option>
+      {% endfor %}
+      </select>
+      </td>
+      <td width="50%">&nbsp;</td>
+      </tr>
+
+      <tr><td colspan="2"><br /><b>Treatment Team:<br /></b></td></tr>
+      <tr><td>Case&nbsp;Manager:</td><td><input type="text" name="caseworker" value="" /></td></tr>
+      <tr><td>Backup:  </td><td><input type="text" name="backup" value="" /></td></tr>
+      <tr><td>Supervisor:  </td><td><input type="text" name="supervisor" value="" /></td></tr>
+      <tr><td>Chart Number:</td><td><input type="text" name="chart_id"      value="" /></td></tr>
+      </table>
+
+      <table align="center">
+
+      <tr><td colspan="2"><br /><b>Admission Criteria:<br /></b></td></tr>
+
+      <tr><td><label for"diagnosis">Client is 18 years or older, has DSM5 diagnosis: </label></td>
+          <td><select name="diagnosis" id="diagnosis"><option value="Yes">Yes</option><option value="No">No</option></select></td></tr>
+      <tr><td><label for"needs_selfcare">Client demonstrates marked difficulties in self care: </label></td>
+          <td><select name="needs_selfcare" id=needs_"selfcare"><option value="Yes">Yes</option><option value="No">No</option></select></td></tr>
+      <tr><td><label for"needs_skills">Client shows marked difficulties in maintaining social functioning: </label></td>
+          <td><select name="needs_skills" id="needs_skills"><option value="Yes">Yes</option><option value="No">No</option></select></td></tr>
+      <tr><td><label for"needs_support">Client exhibits reliance on psychiatric treatment and support: </label></td>
+          <td><select name="needs_support" id="needs_support"><option value="Yes">Yes</option><option value="No">No</option></select></td></tr>
+      <tr><td><label for"needs_adl">Client exhibits marked restriction of ADL: </label></td>
+          <td><select name="needs_adl" id="needs_adl"><option value="Yes">Yes</option><option value="No">No</option></select></td></tr>
+      <tr><td><label for"needs_focus">Client exibits deficiencies of concentration and task completion: </label></td>
+          <td><select name="needs_focus" id="needs_focus"><option value="Yes">Yes</option><option value="No">No</option></select></td></tr>
+
+      <tr><td colspan="2"><br /><b>Additional Information:<br /></b></td></tr>
+
+      <tr><td><label for"rights_grievances">Rights and Grievance Procedures Reviewed With Client: </label></td>
+          <td><select name="rights_grievances" id="rights_grievances"><option value="Yes">Yes</option><option value="No">No</option></select></td></tr>
+      <tr>
+      <td><label for="rights_date">Date:</label>
+          <input type="date" name="rights_date" value=""  required /></td>
+      </tr>
+
+      <tr><td colspan="2"><br /><b>Functional Assessment: <br /></b></td></tr>
+      {% for funct in funct %}
+      <tr><td colspan="2">Skill Area: {{funct.skill_area}}<br />Assessment: {{ funct.skill_level }}</td></tr>
+      <tr><td colspan="2"><hr style="width:50%;height:1px;text-align:center;color:grey;margin-left:0"></td></tr>
+      {% endfor %}
+
+      <tr><td colspan="2"><br /><b>Treatment Goals: <br /></b></td></tr>
+
+      <tr><td colspan="2">Goal 1 - Functional Assessment Skill Area: </td></tr>
+      <tr>
+      <td>
+      <select name="goal_one_header" style="width:494px; text-overflow:ellipsis;">
+      <option value=""></option>
+      {% for skill in skill %}
+          <option value="{{ skill.skill_area }}" title="{{ skill.skill_area }}">
+            {{ skill.skill_area[:60] }}{% if skill.skillarea|length > 60 %}...{% endif %}
+        </option>
+      {% endfor %}
+      </select>
+      </td>
+      </tr>
+      <tr>
+      <td>Status: 
+      <select name="goal_one_status">
+          <option value="2 - Active">2 - Active</option>
+          <option value="1 - Attained">1 - Attained</option>
+          <option value="3 - Discontinued">3 - Discontinued</option>
+      </select>
+      &nbsp; Level:
+      <select name="goal_one_level">
+          <option value="Needs Attention">Needs Attention</option>
+          <option value="Needs Immediate Attention">Needs Immediate Attention</option>
+          <option value="Adequate">Adequate</option>
+          <option value="Excellent">Excellent</option>
+      </select>
+      </td>
+      </tr>
+      <tr><td colspan="2"><label for="goal_one_object">Goal 1 - Client will:</label></td></tr>
+      <tr><td colspan="2"><textarea name="goal_one_object" rows="6" cols="67" /></textarea></td>
+      </tr>
+      </td></tr>
+      <tr><td colspan="2"><label for="goal_one_service">Goal 1 - Staff will:</label></td></tr>
+      <tr><td colspan="2"><textarea name="goal_one_service" rows="6" cols="67" /></textarea></td>
+      </tr>
+      </td></tr>
+      <tr><td colspan="2"><label for="goal_one_eval">Goal 1 - Evaluation:</label></td></tr>
+      <tr><td colspan="2"><textarea name="goal_one_eval" rows="6" cols="67" />This is a new goal.</textarea></td>
+      </tr>
+      </td></tr>
+      <tr><td colspan="2">Goal 2 - Functional Assessment Skill Area: </td></tr>
+      <tr>
+      <td>
+      <select name="goal_two_header" style="width:494px; text-overflow:ellipsis;">
+      <option value=""></option>
+      {% for skill in skill %}
+          <option value="{{ skill.skill_area }}">{{ skill.skill_area }}</option>
+      {% endfor %}
+      </select>
+      </td>
+      </tr>  
+      <tr>
+      <td>Status: 
+      <select name="goal_two_status">
+          <option value=""></option>
+          <option value="2 - Active">2 - Active</option>
+          <option value="1 - Attained">1 - Attained</option>
+          <option value="3 - Discontinued">3 - Discontinued</option>
+      </select>
+      &nbsp; Level:
+      <select name="goal_two_level">
+          <option value=""></option>
+          <option value="Needs Attention">Needs Attention</option>
+          <option value="Needs Immediate Attention">Needs Immediate Attention</option>
+          <option value="Adequate">Adequate</option>
+          <option value="Excellent">Excellent</option>
+      </select>
+      </td>
+      </tr>
+      <tr><td colspan="2"><label for="goal_two_object">Goal 2 - Client will:</label></td></tr>
+      <tr><td colspan="2"><textarea name="goal_two_object" rows="6" cols="67" /></textarea></td>
+      </tr>
+      </td></tr>
+      <tr><td colspan="2"><label for="goal_two_service">Goal 2 - Staff will:</label></td></tr>
+      <tr><td colspan="2"><textarea name="goal_two_service" rows="6" cols="67" /></textarea></td>
+      </tr>
+      </td></tr>
+      <tr><td colspan="2"><label for="goal_two_eval">Goal 2 - Evaluation:</label></td></tr>
+      <tr><td colspan="2"><textarea name="goal_two_eval" rows="6" cols="67" /></textarea></td>
+      </tr>
+      </td></tr>
+      <tr><td colspan="2">Goal 3 - Functional Assessment Skill Area: </td></tr>
+      <tr>
+      <td>
+      <select name="goal_three_header" style="width:494px; text-overflow:ellipsis;">
+      <option value=""></option>
+      {% for skill in skill %}
+          <option value="{{ skill.skill_area }}">{{ skill.skill_area }}</option>
+      {% endfor %}
+      </select>
+      </td>
+      </tr>
+      <tr>
+      <td>Status: 
+      <select name="goal_three_status">
+          <option value=""></option>
+          <option value="2 - Active">2 - Active</option>
+          <option value="1 - Attained">1 - Attained</option>
+          <option value="3 - Discontinued">3 - Discontinued</option>
+      </select>
+      &nbsp; Level:
+      <select name="goal_three_level">
+          <option value=""></option>
+          <option value="Needs Attention">Needs Attention</option>
+          <option value="Needs Immediate Attention">Needs Immediate Attention</option>
+          <option value="Adequate">Adequate</option>
+          <option value="Excellent">Excellent</option>
+      </select>
+      </td>
+      </tr>
+      <tr><td colspan="2"><label for="goal_three_object">Goal 3 - Client will:</label></td></tr>
+      <tr><td colspan="2"><textarea name="goal_three_object" rows="6" cols="67" /></textarea></td>
+      </tr>
+      </td></tr>
+      <tr><td colspan="2"><label for="goal_three_service">Goal 3 - Staff will:</label></td></tr>
+      <tr><td colspan="2"><textarea name="goal_three_service" rows="6" cols="67" /></textarea></td>
+      </tr>
+      </td></tr>
+      <tr><td colspan="2"><label for="goal_three_eval">Goal 3 - Evaluation:</label></td></tr>
+      <tr><td colspan="2"><textarea name="goal_three_eval" rows="6" cols="67" /></textarea></td>
+      </tr>
+      </td></tr>
+      <tr><td colspan="2">Goal 4 - Functional Assessment Skill Area: </td></tr>
+      <tr>
+      <td>
+      <select name="goal_four_header" style="width:494px; text-overflow:ellipsis;">
+      <option value=""></option>
+      {% for skill in skill %}
+          <option value="{{ skill.skill_area }}">{{ skill.skill_area }}</option>
+      {% endfor %}
+      </select>
+      </td>
+      </tr>
+      <tr>
+      <td>Status: 
+      <select name="goal_four_status">
+          <option value=""></option>
+          <option value="2 - Active">2 - Active</option>
+          <option value="1 - Attained">1 - Attained</option>
+          <option value="3 - Discontinued">3 - Discontinued</option>
+      </select>
+      &nbsp; Level:
+      <select name="goal_four_level">
+          <option value=""></option>
+          <option value="Needs Attention">Needs Attention</option>
+          <option value="Needs Immediate Attention">Needs Immediate Attention</option>
+          <option value="Adequate">Adequate</option>
+          <option value="Excellent">Excellent</option>
+      </select>
+      </td>
+      </tr>
+      <tr><td colspan="2"><label for="goal_four_object">Goal 4 - Client will:</label></td></tr>
+      <tr><td colspan="2"><textarea name="goal_four_object" rows="6" cols="67" /></textarea></td>
+      </tr>
+      </td></tr>
+      <tr><td colspan="2"><label for="goal_four_service">Goal 4 - Staff will:</label></td></tr>
+      <tr><td colspan="2"><textarea name="goal_four_service" rows="6" cols="67" /></textarea></td>
+      </tr>
+      </td></tr>
+      <tr><td colspan="2"><label for="goal_four_eval">Goal 4 - Evaluation:</label></td></tr>
+      <tr><td colspan="2"><textarea name="goal_four_eval" rows="6" cols="67" /></textarea></td>
+      </tr>
+      </td></tr>
+      </table>
+
+      <table align="center">
+      <tr><td><input type="hidden" name="staff_name" value="{{ fullname }}" /></td></tr>
+      <tr><td><input type="hidden" name="client_id" value="{{ client.client_id }}" /></td></tr>
+      <tr><td><input type="hidden" name="client_name" value="{{ client.fname }} {{ client.lname }}" /></td></tr>
+      <tr><td align="center" colspan="2"><button type="submit" name="action" value="insert">Submit</button></td></tr>
+      </table>
+
+      </td></tr>
+      </table>
+
+      {% include '_footer.html' %}
+
+      </form>
+  </body>
+</html>
+

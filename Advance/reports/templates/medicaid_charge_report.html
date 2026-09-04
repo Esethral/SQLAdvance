@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang = "en">
+   <head>
+   <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+   </head>
+   <body>
+      
+   {% import "_macros.html" as m %}
+      <div> 
+
+      <!-- h4>SQLAdvance</h4 -->
+      {% include '_header.html' %}
+      <h4>Medicaid Charge Report</h4>
+		
+      <table align="center" class="report">
+
+      <tr>
+      <th style="border: none; border-collapse: collapse;">Client Name</th>
+      <th style="border: none; border-collapse: collapse;">Account</th>
+      <th style="border: none; border-collapse: collapse;">Medicaid</th>
+      <th style="border: none; border-collapse: collapse;">Physician</th>
+      <th style="border: none; border-collapse: collapse;">License</th>
+      <th style="border: none; border-collapse: collapse;">NPI</th>
+      <th style="border: none; border-collapse: collapse;">Notes</th>
+      <th style="border: none; border-collapse: collapse;">LOS</th>
+      <th style="border: none; border-collapse: collapse;">Inpatient Days / Episodes</th>
+      <th style="border: none; border-collapse: collapse;">Code</th>
+      </tr>
+
+      {% for count in counts %}
+            <tr>
+            <td align="left" style="vertical-align: top;">{{ count.client }}</td>
+            <td align="left" style="vertical-align: top;">{{ m.highlight_none(count.account_id) }}</td>
+            <td align="left" style="vertical-align: top;">{{ m.highlight_none(count.medicaid_id) }}</td>
+            <td align="left" style="vertical-align: top;">{{ m.highlight_none(count.physician_name) }}</td>
+            <td align="left" style="vertical-align: top;">{{ m.highlight_none(count.physician_licence) }}
+            <td align="left" style="vertical-align: top;">{{ m.highlight_none(count.physician_npi) }}</td>
+            <td style="vertical-align: top;">
+              {% set notes = note_map[count.client] %}
+                {% for n in notes %}
+                  {{ n.counter }}. {{ n.unit_lname }} - {{ n.notedate.strftime('%Y-%m-%d') }} ({{ n.acronym }})
+                {% endfor %}
+            </td>
+            <td align="left" style="vertical-align: top;">{{ count.medicaid_los }}</td>
+            <td align="left" style="vertical-align: top;">{{ count.inpt_days }} Day(s) - {{ count.inpt_count }} Episode(s)<br />
+             {% for item in counts %}
+               {% for r in count.inpt_ranges %}
+               {{ r[0] }} - {{ r[1] }}<br>
+               {% endfor %}
+             {% endfor %}
+            </td>
+            <td align="left" style="vertical-align: top;">{{ count.bill_code }}</td>
+            </tr>
+      {% endfor %}
+
+      </table>
+      </div>
+
+      <div>
+      <br />
+      <table align="center" width="800px">
+      <tr><td colspan="6" style="border: none; border-collapse: collapse"><b>Details</b></td></tr>
+      <tr>
+      <th>Client Name</th>
+      <th>Note Date</th>
+      <th>Core Service</th>
+      <th>Unit Name</th>
+      <th>Entered By</th>
+      </tr>
+      
+      {% for core in cores %}
+            <tr>
+            <td align="left">{{ core.client }}</td>
+            <td align="left">{{ core.notedate }}</td>
+            <td align="left">{{ core.goal }}</td>
+            <td align="left">{{ core.unit_lname }}</td>
+            <td align="left">{{ core.staff_name }}</td>
+            </tr>
+            <!-- tr><td align="left" colspan="8"><hr style="height: 1px; margin: 1px;"></td></tr -->
+      {% endfor %}
+
+      </table>
+
+      {% include '_footer.html' %}
+
+      </div> 
+      
+   </body>
+</html>

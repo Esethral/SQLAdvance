@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bare.css') }}" />
+<style>table {font-size: 14px; align: center; background-color: #ffffff; } 
+th { font-size:14px; background-color: #ffffff; } 
+td { font-size:14px; background-color: #ffffff; }
+</style>
+<meta charset="UTF-8" />
+<title>SQL Advance - Master Patient Index</title>
+</head>
+  <body>
+
+      <p align="center"><b>SQL Advance - Master Patient Index</b></p>
+      <hr align="center" width="20%">
+
+      <table align="center">
+
+      <tr><td colspan="4">
+      <center>
+      <img src="{{ url_for('chart.client_photo', filename=client.client_id ~ '.jpg') }}"
+          width="300"
+           onerror="this.style.display='none'">
+      </center>
+      </td></tr>
+
+      <tr><td>Upload New Photo for: {{ client.fname }} {{ client.lname }}</td></tr>
+
+      <tr>
+      <td>
+      <form action="{{ url_for('chart.client_photo_upload', client_id=client_id) }}"
+            method="POST"
+            enctype="multipart/form-data">
+          <input type="file" name="file" accept="image/jpeg">
+          <button type="submit">Upload</button>
+      </form>
+      </td>
+      </tr>
+      </table>
+
+      {% include '_footer.html' %}
+
+      </form>
+  </body>
+</html>
+

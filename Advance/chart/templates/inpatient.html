@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='clean.css') }}" />
+<meta charset="UTF-8" />
+<title>SQL Advance - Inpatient Records</title>
+</head>
+  <body>
+
+      <!-- p align="center"><img src="{{url_for('static',filename='sqlx.jpg')}}"></p -->
+      <p align="center"><b>Enter An Inpatient Record for {{ client.fname }} {{ client.lname }} </b></p>
+
+      <form action="#" method="post">
+      <table align="center">
+      <tr>
+          <td>Select&nbsp;Client:</td>
+          <td>
+          <select name="client_id">
+          <option value="{{ client.client_id }}">{{ client.client_id }} {{ client.lname}}, {{ client.fname}}</option>
+          </select>
+          </td>
+      </tr>
+
+      <tr>
+          <td>Reporting&nbsp;Unit:</td>
+          <td>
+          <select name="unit_lname">
+          <option value="{{ place_str }}" {% if place_str == (place_str) %}selected{% endif %}>{{ place_str }}</option>
+          {% for unit in units %}
+              <option value="{{unit.unit_id}} -- {{ unit.unit_lname }}">{{unit.unit_id}} -- {{ unit.unit_lname }}</option>
+          {% endfor %}
+          </select>
+          </td>
+      </tr>
+
+      <tr>
+          <td><label for="start_date">Inpatient Admission:</label></td>
+          <td><input type="date" name="start_date" value="{{ startdate }}" required /></td>
+      </tr>
+
+      <tr>
+          <td><label for="end_date">Discharge (If Applicable):</label></td>
+          <td><input type="date" name="end_date" value="" /></td>
+      </tr>
+
+      <tr>
+          <td><label for="hospital">Hospital Name: </label></td>
+          <td><input type="text" name="hospital" value="" size="40" maxlength="255" /></td>
+      </tr>
+
+      <tr>
+          <td><label for="address">Hospital Address:</label></td>
+          <td><input type="text" name="address" value="" size="40" maxlength="255" /></td>
+      </tr>
+
+      <tr>
+          <td>State Hospital: </td> 
+          <td><label><input type="radio" name="state_hospital" value="No" checked="checked">No</label> 
+              <label><input type="radio" name="state_hospital" value="Yes">Yes</label>
+          </td>
+      </tr> 
+
+      <tr>
+          <td>Hospital Type: </td> 
+          <td><select name="hospital_type">
+              <option value="Psychiatric">Psychiatric</option>
+              <option value="Medical">Medical</option>
+              <option value="Other">Other</option>
+              </select>
+          </td>
+      </tr>
+
+      <tr>
+          <td>Staff Name: </td> <td><input type="text" name="staff_member" size="40" maxlength="255">
+          </td>
+      </tr> 
+
+      <tr>
+          <td>Staff Shift: </td> 
+          <td><input type="text" name="staff_shift" size="20" maxlength="255"></td>
+      </tr> 
+         
+      <tr> 
+          <td>Time Of Day: </td> 
+          <td><input type="text" name="staff_time" size="10" maxlength="8"></td>
+      </tr>
+
+      <tr><td valign="top">Specific&nbsp;Complaint:</td>
+      <td>
+      <select name="complaint" size="8">
+          <option value="Abdominal Pain">Abdominal Pain</option>
+          <option value="Agitation">Agitation</option>
+          <option value="Alcohol Intoxication">Alcohol Intoxication</option>
+          <option value="Allergic Reaction">Allergic Reaction</option>
+          <option value="Anxiety">Anxiety</option>
+          <option value="Asthma">Asthma</option>
+          <option value="Back Pain">Back Pain</option>
+          <option value="Bizarre Behavior">Bizarre Behavior</option>
+          <option value="Breathing Issue">Breathing Issue</option>
+          <option value="Cellulitis">Cellulitis</option>
+          <option value="Chronic Obstructive Pulmonary Disease (COPD)">Chronic Obstructive Pulmonary Disease (COPD)</option>
+          <option value="Chest Pain">Chest Pain</option>
+          <option value="Coronary Artery Disease (CAD)">Coronary Artery Disease (CAD)</option>
+          <option value="Congestive Heart Failure (CHF)">Congestive Heart Failure (CHF)</option>
+          <option value="Congestion ">Congestion </option>
+          <option value="Cough">Cough</option>
+          <option value="Depression">Depression</option>
+          <option value="Diabetic ulcer ">Diabetic ulcer </option>
+          <option value="Dizziness">Dizziness</option>
+          <option value="Ear Infection">Ear Infection</option>
+          <option value="Emphysema">Emphysema</option>
+          <option value="Evaluation">Evaluation</option>
+          <option value="Fainting">Fainting</option>
+          <option value="Fall">Fall</option>
+          <option value="Fever">Fever</option>
+          <option value="Flu">Flu</option>
+          <option value="Fracture ">Fracture </option>
+          <option value="Gastrointestinal Illness">Gastrointestinal Illness</option>
+          <option value="Glucose Levels ">Glucose Levels </option>
+          <option value="Gout ">Gout </option>
+          <option value="Hallucination">Hallucination</option>
+          <option value="Headache">Headache</option>
+          <option value="Homicidal Ideation">Homicidal Ideation</option>
+          <option value="Infection">Infection</option>
+          <option value="Irritable Bowel Syndrome (IBS)">Irritable Bowel Syndrome (IBS)</option>
+          <option value="K2">K2</option>
+          <option value="Medication Error">Medication Error</option>
+          <option value="Nausea">Nausea</option>
+          <option value="Pneumonia ">Pneumonia </option>
+          <option value="Rash">Rash</option>
+          <option value="Rectal Bleeding">Rectal Bleeding</option>
+          <option value="Respiratory Failure">Respiratory Failure</option>
+          <option value="Seizure">Seizure</option>
+          <option value="Sickle Cell ">Sickle Cell </option>
+          <option value="Sore Throat">Sore Throat</option>
+          <option value="Stomach Pain">Stomach Pain</option>
+          <option value="Substance Abuse Relapse">Substance Abuse Relapse</option>
+          <option value="Suicidal Ideation">Suicidal Ideation</option>
+          <option value="Unconscious">Unconscious</option>
+          <option value="Upper Respiratory Infection">Upper Respiratory Infection</option>
+          <option value="Urinary Tract Infection (UTI)">Urinary Tract Infection (UTI)</option>
+          <option value="Vomiting">Vomiting</option>
+          <option value="Weakness">Weakness</option>
+          <option value="Wound">Wound</option>
+          <option value="Other">Other - Specify In Reason For Visit</option>
+      </select>
+      </td>
+      </tr>
+
+      <tr>
+         <td>Reason For Visit (Detail): </td> 
+         <td><input type="text" name="visit_reason" size="40" maxlength="255"></td>
+      </tr> 
+
+      <tr>
+          <td>EOB Visit:</td>
+          <td>
+          <select name="eob">
+              <option value=""></option>
+              <option value="No">No</option>
+              <option value="Yes">Yes</option>
+          </select>
+          </td>
+      </tr>
+
+      <tr>
+          <td>Admission / Visit Type:</td>
+          <td>
+          <select name="voluntary">
+              <option value=""></option>
+              <option value="Voluntary">Voluntary</option>
+              <option value="Non-Voluntary">Non-Voluntary</option>
+          </select>
+          </td>
+      </tr>
+
+      <tr>
+          <td>Escort Type:  </td> 
+          <td>
+              <select name="escort_type">
+              <option value="EMT">EMT</option>
+              <option value="Police">Police</option>
+              <option value="Self">Self</option>
+              <option value="Staff">Staff</option>
+              </select>
+          </td>
+      </tr> 
+
+      <tr>
+          <td>Transportation Type:  </td> 
+          <td><select name="transport_type">
+              <option value="Agency Vehicle">Agency Vehicle</option>
+              <option value="Ambulance">Ambulance</option>
+              <option value="Ambulette">Ambulette</option>
+              <option value="Police Vehicle">Police Vehicle</option>
+              <option value="Public Transportion">Public Transportion</option>
+              <option value="Staff/Agency Vehicle">Staff/Agency Vehicle</option>
+              </select>
+          </td>
+      </tr> 
+       
+      <tr>
+          <td>Client Age At Time Of Visit: </td> 
+          <td><input type="text" name="age" size="10" maxlength="24"></td>
+      </tr> 
+
+      <tr>
+          <td>Client Sex: </td> 
+          <td><input type="text" name="sex" size="10" maxlength="24"></td>
+      </tr> 
+
+      <tr>
+          <td>Diagnosis: </td> 
+          <td><input type="text" name="diagnosis" size="67" maxlength="255"></td>
+      </tr> 
+
+      <tr>
+          <td>Outcome (If Applicable): </td> 
+          <td><input type="text" name="outcome" size="50" maxlength="255"></td>
+      </tr> 
+
+      <tr>
+          <td>Comments: </td> 
+          <td><textarea name="comment_text" rows="15" cols="50"></textarea></td>
+      </tr>
+
+      <table align="center">
+      <tr><td><input type="hidden" name="staff_name" value="{{ fullname }}" /></td></tr>
+      <tr><td align="center" colspan="2"><button type="submit" name="action" value="insert">Submit</button></td></tr>
+      </table>
+
+      </table>
+      </form>
+
+      {% include '_footer.html' %}
+
+  </body>
+</html>
+

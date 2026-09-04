@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bare.css') }}" />
+<style>table {font-size: 14px; align: center; background-color: #ffffff; } 
+th { font-size:14px; background-color: #ffffff; } 
+td { font-size:14px; background-color: #ffffff; }
+</style>
+<meta charset="UTF-8" />
+<title>SQL Advance</title>
+</head>
+
+  <body>
+
+      <p align="center"><b>Technical Support Request</b></p>
+      <table align=center>
+      <tr>
+      <td>
+
+      <form action="#" method="post">
+      <table align="center">
+      <tr><td><br /></td></tr>
+
+      <tr>
+      <td>Select Unit:</td>
+      <td>
+      <select name="unit_lname">
+          {% for unit in units %}
+              <option value="{{ unit.unit_lname }}">{{ unit.unit_lname }}</option>
+          {% endfor %}
+      </select>
+      </td>
+      <td width="72%">&nbsp;</td>
+      </tr>
+
+      <tr>
+      <td><label for="request_type">Request Type: </label></td>
+      <td><select name="request_type" id="request_type">
+      <option value="Access Request">Access Request</option>
+      <option value="Bug Report">Bug Report</option>
+      <option value="Data Error">Data Entry Error</option>
+      <option value="Feature Request">Feature Request</option>
+      <option value="Other">Other</option>
+      </select></td>
+      </tr>
+
+      <tr>
+      <td><label for="staff_name">Submitted By:</label></td>
+      <td><input type="text" name="staff_name" value="{{ fullname }}" /></td>
+      </tr>
+
+      <tr>
+      <td><label for="staff_email">Contact Email Addresss:</label></td>
+      <td><input type="text" name="staff_email" /></td>
+      </tr>
+
+      <tr>
+      <td><label for="staff_phone">Contact Phone Number:</label></td>
+      <td><input type="text" name="staff_phone" /></td>
+      </tr>
+
+      <tr>
+      <td><label for="client_name">Client Name (If Appl):</label></td>
+      <td><input type="text" name="client_name" /></td>
+      </tr>
+
+      <tr><td colspan="2"><label for="request_text">Request:</label></td></tr>
+      <tr><td colspan="2"><textarea name="request_text" rows="15" cols="60" /></textarea></td>
+      </tr>
+
+      <tr><td><br /></td></tr>
+      <tr>
+      <td align="center" colspan="2"><button type="submit" name="action" value="insert">Submit</button></td>
+      </tr>
+      </table>
+      </form>
+
+      </td></tr>
+      </table>
+
+      {% include '_footer.html' %}
+
+  </body>
+</html>
+

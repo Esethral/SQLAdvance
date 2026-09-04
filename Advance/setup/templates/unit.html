@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bare.css') }}" />
+<style>table {font-size: 14px; align: center; background-color: #ffffff; } 
+th { font-size:14px; background-color: #ffffff; } 
+td { font-size:14px; background-color: #ffffff; }
+</style>
+<meta charset="UTF-8" />
+<title>SQL Advance</title>
+</head>
+
+  <body>
+
+      {% if units %}
+
+      <p align="center"><i>Active Units</i></p>
+
+      <div id="logview">
+      <table style="border: 0px solid black; border-collapse: collapse; width:865px; margin-left: auto; margin-right: auto;">
+      <tbody>
+      {% for unit in units %}
+      <tr>
+          <td align="left">&nbsp;<b>Unit ID:</b>    {{ unit.unit_id }}     </td>
+          <td align="left">&nbsp;<b>Unit Name:</b>  {{ unit.unit_lname }}  </td>
+          <td align="left">&nbsp;<b>Track: </b>     {{ unit.track_name }}    </td>
+          <td align="left">&nbsp;<b>Manager:</b>    {{ unit.supervisor }}  </td>
+      </tr>
+      <tr>
+          <td align="left">&nbsp;<b>Address:</b>     {{ unit.address }}    </td>
+          <td align="left">&nbsp;<b>City/State:</b>  {{ unit.city }} {{ unit.state }} </td>
+          <td align="left">&nbsp;<b>Postal Code:</b> {{ unit.postcode }}   </td>
+          <td align="left">&nbsp;<b>Phone:</b>       {{ unit.phone }}      </td>
+      </tr>
+      <tr><td align="center" colspan="3"><hr style="width: 650px;" /></td></tr>
+      {% endfor %}
+      </tbody>
+      </table>
+      </div>
+
+      {% else %}
+
+      <p align="center"><i>No units found.</i></p>
+
+      {% endif %}
+
+      <p align="center"><b>Add A Unit</b></p>
+
+      <form action="#" method="post">
+      <table align="center">
+      <tr><td><br /></td></tr>
+
+      <tr>
+      <td><label for="unit_lname">Unit Name:</label></td>
+      <td><input type="text" name="unit_lname" /></td>
+      <td width="72%">&nbsp;</td>
+      </tr>
+
+      <tr>
+      <td>Select Track:</td>
+      <td>
+      <select name="track_id" required>
+          {% for t in tracks %}
+              <option value="{{ t.track_id }}">
+                  {{ t.track_name }}
+              </option>
+          {% endfor %}
+      </select>
+
+      <tr>
+      <td><label for="supervisor">Manager:</label></td>
+      <td><input type="text" name="supervisor" /></td>
+      </tr>
+
+      <tr>
+      <td><label for="address">Address:</label></td>
+      <td><input type="text" name="address" /></td>
+      </tr>
+
+      <tr>
+      <td><label for="city">City:</label></td>
+      <td><input type="text" name="city" /></td>
+      </tr>
+
+      <td><b>State: </b></td>
+      <td>
+      <select name="state">
+        {% for value in states %}
+          <option value="{{ value }}" title="{{ value }}">
+            {{ value }}
+          </option>
+        {% endfor %}
+      </select>
+      </td>
+      </tr>
+
+      <tr>
+      <td><label for="postcode">Postal Code:</label></td>
+      <td><input type="text" name="postcode" /></td>
+      </tr>
+
+      <tr>
+      <td><label for="phone">Phone:</label></td>
+      <td><input type="text" name="phone" /></td>
+      </tr>
+
+      <tr><td align="center" colspan="2"><button type="submit" name="action" value="insert">Submit</button></td></tr>
+
+      </table>
+      </form>
+
+      {% include '_footer.html' %}
+
+  </body>
+</html>
+

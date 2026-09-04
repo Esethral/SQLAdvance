@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bare.css') }}" />
+    <style>table {font-size: 14px; align: center; } 
+           th { font-size:14px; } 
+           td { font-size:14px; background-color: #ffffff; }
+           a { font-size: 14px; color: #000000; text-decoration: none; }
+           a:visited { color: #000000;  }
+           a:active { color: #000000; }
+           a:hover { color: #000000; text-decoration: none; }
+    </style>
+    <meta charset="UTF-8" />
+    <title>SQL Advance</title>
+  </head>
+  <body>
+      <p align="center">
+      <img src="{{url_for('static',filename='sqlx.jpg')}}">
+      </p>
+      <p align="center">SQL Advance - Clinical Charting Menu</p>
+
+      {% if error %}
+          <p align="center"><font color="red"><b> {{ error }} </b></font></p>
+      {% endif %}
+
+    <p align="center">
+    <div id="menu">
+    <table style="border: 0px solid black; border-collapse: collapse; width:484px; margin-left: auto; margin-right: auto;">
+    <tr><td>
+    <center>
+            <table>
+            <tr><th><b><u>Master Patient Index (MPI)</b></th></tr>
+            <tr><td bgcolor="#ffffff"><b><a href="/chart/client_add">MPI - Add Client</a></b></td></tr>
+            <tr><td bgcolor="#ffffff"><b><a href="/chart/client_update">MPI - Update Client</a></b></td></tr>
+            <tr><td bgcolor="#ffffff"><b><a href="/chart/clients">MPI - View List</a></b></td></tr>
+            <tr><td bgcolor="#ffffff"><b><a href="/chart/client_update_photo">Update Client Photo</a></b></td></tr>
+            <tr><td bgcolor="#ffffff"><b><a href="/chart/face_sheet">View Client Face Sheet</a></b></td></tr>
+            <tr><td bgcolor="#ffffff">&nbsp;</td></tr>
+            <tr><th><b><u>Client Placement</b></th></tr>
+            <tr><td bgcolor="#ffffff"><b><a href="/chart/placement">Admit Client</a></b></td></tr>
+            <tr><td bgcolor="#ffffff" title="Use &quot;Update Client Placement&quot; to Discharge a Client"><b><a href="/chart/placement_update">Update Client Placement</a></b></td></tr>
+            <tr><td bgcolor="#ffffff"><b><a href="/chart/placement_view">View Client Placement</a></b></td></tr>
+            <tr><td bgcolor="#ffffff"><b><a href="/reports/occupancy_report">Occupancy Report</a></b></td></tr>
+            <tr><td bgcolor="#ffffff"><b><a href="/reports/unit_roster">Unit Roster</a></b></td></tr>
+            <tr><td bgcolor="#ffffff">&nbsp;</td></tr>
+            <tr><th><b><u>Client Demographics</b></th></tr>
+            <tr><td bgcolor="#ffffff"><b><a href="/chart/demographics">Enter Demographics</a></b></td></tr>
+            <tr><td bgcolor="#ffffff"><b><a href="/chart/demographics_view">View Demographics (History)</a></b></td></tr>
+            <tr><td bgcolor="#ffffff"><b><a href="/chart/demographics_update">Update Demographics</a></b></td></tr>
+            <tr><td bgcolor="#ffffff">&nbsp;</td></tr>
+            <tr><th><b><u>Client Entitlements</b></th></tr>
+            <tr><td bgcolor="#ffffff"><b><a href="/chart/entitlements">Enter Entitlements</a></b></td></tr>
+            <tr><td bgcolor="#ffffff"><b><a href="/chart/entitlements_view">View Entitlements (History)</a></b></td></tr>
+            <tr><td bgcolor="#ffffff"><b><a href="/chart/entitlements_update">Update Entitlements</a></b></td></tr>
+            <tr><td bgcolor="#ffffff">&nbsp;</td></tr>
+            <tr><th><b><u>Client Diagnosess</b></th></tr>
+            <tr><td bgcolor="#ffffff"><b><a href="/chart/diagnosis">Enter Diagnosis</a></b></td></tr>
+            <tr><td bgcolor="#ffffff"><b><a href="/chart/diagnosis_update">Update Diagnosis</a></b></td></tr>
+            <tr><td bgcolor="#ffffff"><b><a href="/chart/diagnosis_view">View Diagnostic History</a></b></td></tr>
+            <tr><td bgcolor="#ffffff">&nbsp;</td></tr>
+            <tr><th><b><u>Functional Assessments</b></th></tr>
+            <tr><td bgcolor="#ffffff"><b><a href="/chart/functional">Enter Assessment</a></b></td></tr>
+            <tr><td bgcolor="#ffffff"><b><a href="/chart/functional_update">Update Assessment</a></b></td></tr>
+            <tr><td bgcolor="#ffffff"><b><a href="/chart/functional_view">View Assessment</a></b></td></tr>
+            <tr><td bgcolor="#ffffff">&nbsp;</td></tr>
+            <tr><th><b><u>Support Plans</b></th></tr>
+            <tr><td bgcolor="#ffffff"><b><a href="/chart/support_plan">Enter Support Plan</a></b></td></tr>
+            <tr><td bgcolor="#ffffff"><b><a href="/chart/support_update">Update Support Plan</a></b></td></tr>
+            <tr><td bgcolor="#ffffff"><b><a href="/chart/support_view">View Support Plan</a></b></td></tr>
+            <tr><td bgcolor="#ffffff">&nbsp;</td></tr>
+            <tr><th><b><u>Progress Notes</b></th></tr>
+            <tr><td bgcolor="#ffffff"><b><a href="/chart/progress_note">Enter Progress Note</a></b></td></tr>
+            <tr><td bgcolor="#ffffff"><b><a href="/chart/progress_update">Update Progress Note</a></b></td></tr>
+            <tr><td bgcolor="#ffffff"><b><a href="/chart/progress_view?mode=view">View Progress Note</a></b></td></tr>
+            <tr><td bgcolor="#ffffff"><b><a href="/chart/progress_view?mode=print">Print Progress Note</a></b></td></tr>
+            <tr><td bgcolor="#ffffff">&nbsp;</td></tr>
+            <tr><th><b><u>Inpatient Admissions</b></th></tr>
+            <tr><td bgcolor="#ffffff"><b><a href="/chart/inpatient">Enter Inpatient Record</a></b></td></tr>
+            <tr><td bgcolor="#ffffff"><b><a href="/chart/inpatient_update">Update Inpatient Record</a></b></td></tr>
+            <tr><td bgcolor="#ffffff"><b><a href="/chart/inpatient_view">View Inpatient Record</a></b></td></tr>
+            </table>
+    </center>
+    </td></tr>
+    </table>
+    </p>
+    </div>
+
+    <p align="center"><b><a href = "{{ url_for('auth.index') }}">Main Menu</a></b></p>
+  </body>
+</html>
