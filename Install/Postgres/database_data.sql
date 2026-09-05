@@ -2,10 +2,10 @@
 -- PostgreSQL database dump
 --
 
-\restrict D9V1VS9h2cBRTeZs7aFMlsp8TNLhTDvX3HUxIkSRVi8XtsAnqSf97jXWRfVAqgs
+\restrict VZMFm5368LaTIWc9hKic2Af5jBP7U7MuAcaKJSM61Q29qAArTg0paxDGEXta6VU
 
--- Dumped from database version 14.23 (Ubuntu 14.23-0ubuntu0.22.04.1)
--- Dumped by pg_dump version 14.23 (Ubuntu 14.23-0ubuntu0.22.04.1)
+-- Dumped from database version 14.24 (Ubuntu 14.24-0ubuntu0.22.04.1)
+-- Dumped by pg_dump version 14.24 (Ubuntu 14.24-0ubuntu0.22.04.1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -13346,5 +13346,5 @@ SELECT pg_catalog.setval('public.users_user_id_seq', 2, false);
 -- PostgreSQL database dump complete
 --
 
-\unrestrict D9V1VS9h2cBRTeZs7aFMlsp8TNLhTDvX3HUxIkSRVi8XtsAnqSf97jXWRfVAqgs
+\unrestrict VZMFm5368LaTIWc9hKic2Af5jBP7U7MuAcaKJSM61Q29qAArTg0paxDGEXta6VU
 
