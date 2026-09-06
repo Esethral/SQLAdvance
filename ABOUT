@@ -1,0 +1,12 @@
+SQL Advance - ABOUT
+--------------------
+
+SQL Advance is a web application running on the LAPP protocol stack: Linux (but suitable for MacOS as well), Apache, PostgreSQL and Python Flask.
+
+Python Flask is a lightweight, micro web framework written in Python designed to build web applications efficiently. It is built on top of the Werkzeug WSGI toolkit and the Jinja2 template engine, handling server requests and rendering pages without requiring a rigid architecture.
+
+SQL Advance is written for agencies providing services to the mentally ill and homeless populations but is also intended to be a teaching tool for developers interested in using Flask. One caveat: the principal authors have a Perl CGI background and control flow in SQL Advance utilizes a similar approach.
+
+It is hoped this package will be useful to a broad range of developers.
+
+Have an appropriate amount of fun.

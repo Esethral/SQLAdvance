@@ -227,23 +227,6 @@ Restart Apache after making changes:
 
     $ sudo systemctl restart apache2
 
-htaccess/htpasswd: htaccess will not work by default, if it is not of interest simply leave it as is or delete it. 
-To use it, rename it .htaccess and check that the permissions are set to 644 for both files and they are owned by 
-www-data, the default Ubuntu Apache user.
-
-AuthName "SQL Advance"
-AuthType Basic
-AuthUserFile /opt/flask-app/.htpasswd
-Require valid-user
-
-The default htpasswd is set to Your_Flask_Password_Here for the advance user. 
-To modify it run this command from the document root: htpasswd -c ./.htpasswd advance 
-(changing advance to whatever username you prefer)
-It is not necessary to restart Apache if this is the only change being made.
-
-For stricter security move the .htpasswd file out of the document root and update the 
-.htaccess to reflect the new location.
-
 ::::::::::::::
 PostgreSQL Setup
 ::::::::::::::
@@ -303,7 +286,14 @@ In psql you can run \dt to list the tables and verify ownership.
 
 If you have enabled htaccess in /etc/apache2/sites-available/flask.conf: 
 
-It is simple to set up. There is an .htaccess file in the SQL Advance project root. Remove it if it won't be used.
+htaccess/htpasswd: htaccess will not work by default, if it is not of interest simply leave it as is or delete it. 
+To use it, rename it .htaccess and check that the permissions are set to 644 for both files and they are owned by 
+www-data, the default Ubuntu Apache user.
+
+For stricter security move the .htpasswd file out of the document root and update the 
+.htaccess to reflect the new location.
+
+htaccess:
 
 AuthName "SQL Advance"
 AuthType Basic
