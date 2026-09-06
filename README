@@ -33,7 +33,7 @@ Application Source Tree
 │   ├── Apache           - Setup and Conf instructions / examples for Apache
 │   ├── Diagnostic_Data  - Validation Data (DSM5 and ICD10)
 │   ├── Postgres         - Scripts to Build The SQLAdvance Database
-│   └── Virtual_Environments - Requirements files for supported Python versions
+│   └── Virtual_Environs - Requirements files for supported Python versions
 ├── log                  - Flat File Logs (User Access)
 ├── photos               - Client / Patient Photos for Face Sheet
 ├── README               - Project Documentation (A Work In Progress) 
@@ -286,7 +286,14 @@ In psql you can run \dt to list the tables and verify ownership.
 
 If you have enabled htaccess in /etc/apache2/sites-available/flask.conf: 
 
-It is simple to set up. There is an .htaccess file in the SQL Advance project root. Remove it if it won't be used.
+htaccess/htpasswd: htaccess will not work by default, if it is not of interest simply leave it as is or delete it. 
+To use it, rename it .htaccess and check that the permissions are set to 644 for both files and they are owned by 
+www-data, the default Ubuntu Apache user.
+
+For stricter security move the .htpasswd file out of the document root and update the 
+.htaccess to reflect the new location.
+
+htaccess:
 
 AuthName "SQL Advance"
 AuthType Basic

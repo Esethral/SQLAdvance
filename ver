@@ -7,5 +7,5 @@ pg_lsclusters
 echo "--"
 python3 --version
 echo "--"
-echo "SQLAdvance-1.0.1-beta"
+echo "SQLAdvance-1.0.2-beta"
 echo "--"
