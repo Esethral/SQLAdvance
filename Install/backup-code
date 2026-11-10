@@ -1,0 +1,2 @@
+#!/bin/bash
+sudo tar cvpfzX $HOME/SQLAdvance-1.0.0-rc.tar.gz /opt/flask-app/Install/backup_exclude /opt/flask-app >/dev/null
