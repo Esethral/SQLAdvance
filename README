@@ -281,46 +281,39 @@ psql -U www-data flask -W
 In psql you can run \dt to list the tables and verify ownership.
 
 ::::::::::::::
-.htaccess and .htpasswd (Apache User Authentication)
+htaccess (Apache User Authentication)
 ::::::::::::::
 
 If you have enabled htaccess in /etc/apache2/sites-available/flask.conf: 
-
-htaccess/htpasswd: htaccess will not work by default, if it is not of interest simply leave it as is or delete it. 
-To use it, rename it .htaccess and check that the permissions are set to 644 for both files and they are owned by 
-www-data, the default Ubuntu Apache user.
-
-For stricter security move the .htpasswd file out of the document root and update the 
-.htaccess to reflect the new location.
-
-htaccess:
 
 AuthName "SQL Advance"
 AuthType Basic
 AuthUserFile /opt/flask-app/.htpasswd
 Require valid-user
 
-This file tells Flask to look for the /opt/flask-app/.htpasswd file. Here is a sample file's contents:
-advance:$apr1$b7fSDb3T$zFCLiN7RS2VooCIlh7vRH/
-The user name is followed by a colon and an encrypted password.
+Apache is setup properly but to enable htaccess an .htpasswd file must be created. /opt/flask is the 
+default location but for stricter security move the .htpasswd file out of the document root and update 
+the htaccess location in the flask.conf file.
 
-The default SQLAdvance user name is advance and the password is the same as the www-data default database login 
-AND the default htaccess password.
+To create the htpasswd file:
 
-Change the htaccess password:
-
-sudo htpasswd -c .htpasswd advance
+sudo htpasswd -c .htpasswd username
 New password:
 Re-type new password:
-Adding password for user flask
 
-You can add additional site passwords:
+Apache will respond:
+Adding password for user username
 
-sudo  htpasswd .htpasswd other
+You can name the site password account whatever you like. And there can be as many htpasswd accounts 
+as necessary:
+
+sudo htpasswd .htpasswd otheruser
 New password:
 Re-type new password:
-Adding password for user other
- 
+
+Apache:
+Adding password for user otheruser
+
 This file (.htpasswd) will get the users access to the site ONLY. The individual user accounts are
 created in the web interface of the Flask app. 
 
